@@ -1,0 +1,60 @@
+{
+    "name": "Sabre",
+    "description": "Sabre is a global technology company. Our innovative technology is used by more than a billion people around the world to plan, book and get to their destination at a time and price that???s right for them.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/9543-sabre-travel-network.jpg",
+    "tags": [
+        "have api",
+        "marketplaces"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/sabre\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Sabre",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/9543-sabre-travel-network.jpg",
+            "humanURL": "https:\/\/developer.sabre.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/sabre-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.sabretravelnetwork.com\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/feeds.feedburner.com\/sabretravelnetwork\/ZpsO\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/sabre-holdings"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/sabretn"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/Sabre_Corp"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/developer.sabre.com\/"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/developer.sabre.com"
+        }
+    ]
+}
