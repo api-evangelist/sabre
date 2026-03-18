@@ -1,0 +1,19 @@
+aid: sabre
+url: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/apis.yml
+apis:
+- aid: sabre:sabre-api
+  name: Sabre / Amadeus GDS API
+  tags:
+  - Travel
+  - Airlines
+  - GDS
+  - Booking
+  - SOAP
+  image: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/image.png
+  humanURL: https://developer.sabre.com/
+  baseURL: https://api.sabre.com
+  properties:
+  - url: https://developer.sabre.com/
+    type: Documentation
+  description: >-
+    Sabre and Amadeus provide Global Distribution System (GDS) APIs for airline, hotel, and car rental reservations. REST and SOAP APIs enable flight search, availability, booking, ticketing, and passenger name record (PNR) management for travel agencies and OTAs.
