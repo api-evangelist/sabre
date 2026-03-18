@@ -1,14 +1,14 @@
 aid: sabre
 url: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/apis.yml
 apis:
-- aid: sabre:sabre-api
-  name: Sabre / Amadeus GDS API
+- aid: sabre:sabre-bargain-finder-max-api
+  name: Sabre Bargain Finder Max API
   tags:
   - Travel
   - Airlines
   - GDS
-  - Booking
-  - SOAP
+  - Air Shopping
+  - REST
   image: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/image.png
   humanURL: https://developer.sabre.com/
   baseURL: https://api.sabre.com
@@ -16,4 +16,100 @@ apis:
   - url: https://developer.sabre.com/
     type: Documentation
   description: >-
-    Sabre and Amadeus provide Global Distribution System (GDS) APIs for airline, hotel, and car rental reservations. REST and SOAP APIs enable flight search, availability, booking, ticketing, and passenger name record (PNR) management for travel agencies and OTAs.
+    Sabre Bargain Finder Max API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory.
+
+- aid: sabre:sabre-air-booking-api
+  name: Sabre Air Booking API
+  tags:
+  - Travel
+  - Airlines
+  - GDS
+  - Booking
+  - PNR
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/image.png
+  humanURL: https://developer.sabre.com/
+  baseURL: https://api.sabre.com
+  properties:
+  - url: https://developer.sabre.com/
+    type: Documentation
+  - url: https://github.com/SabreDevStudio/postman-collections
+    type: SDKs
+  description: >-
+    Sabre Air Booking API enables flight booking, passenger name record (PNR) creation and management, seat selection, ticketing, and booking modification for travel agencies and online travel applications.
+
+- aid: sabre:sabre-hotels-api
+  name: Sabre Hotels API
+  tags:
+  - Travel
+  - Hotels
+  - GDS
+  - Booking
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/image.png
+  humanURL: https://developer.sabre.com/
+  baseURL: https://api.sabre.com
+  properties:
+  - url: https://developer.sabre.com/
+    type: Documentation
+  - url: https://github.com/SabreDevStudio/get-hotel-avail-v2-sample-nodejs
+    type: SDKs
+  description: >-
+    Sabre Hotels API provides hotel search, availability, rate shopping, content retrieval, and booking APIs for travel agencies and OTAs, accessing Sabre's global lodging content and SynXis hotel distribution.
+
+- aid: sabre:sabre-cars-api
+  name: Sabre Cars API
+  tags:
+  - Travel
+  - Car Rental
+  - GDS
+  - Booking
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/image.png
+  humanURL: https://developer.sabre.com/
+  baseURL: https://api.sabre.com
+  properties:
+  - url: https://developer.sabre.com/
+    type: Documentation
+  description: >-
+    Sabre Cars API provides car rental search, availability, rate shopping, reservation, and management APIs for travel agencies and OTAs, connecting to global car rental suppliers through Sabre's GDS.
+
+- aid: sabre:sabre-destination-content-api
+  name: Sabre Destination Content API
+  tags:
+  - Travel
+  - Destination
+  - Content
+  - REST
+  image: https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/image.png
+  humanURL: https://developer.sabre.com/
+  baseURL: https://api.sabre.com
+  properties:
+  - url: https://developer.sabre.com/
+    type: Documentation
+  description: >-
+    Sabre Destination Content API provides destination guides, points of interest, geo data, and travel inspiration content for travel applications and itinerary planning tools.
+
+common:
+- url: https://developer.sabre.com/
+  type: Portal
+- url: https://developer.sabre.com/
+  type: Documentation
+- url: https://developer.sabre.com/
+  type: GettingStarted
+- url: https://developer.sabre.com/
+  type: Authentication
+- url: https://www.sabre.com/
+  type: Website
+- url: https://developer.sabre.com/support
+  type: Support
+- url: https://developer.sabre.com/blog
+  type: Blog
+- url: https://github.com/SabreDevStudio
+  type: GitHubOrganization
+- url: https://github.com/SabreDevStudio
+  type: SDKs
+maintainers:
+- name: Kin Lane
+  email: kin@apievangelist.com
+modified: '2026-03-18'
