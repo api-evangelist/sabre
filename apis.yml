@@ -15,6 +15,8 @@ apis:
   properties:
   - url: https://developer.sabre.com/
     type: Documentation
+  - url: openapi/sabre-bargain-finder-max-openapi.yml
+    type: OpenAPI
   description: >-
     Sabre Bargain Finder Max API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory.
 
@@ -54,6 +56,8 @@ apis:
     type: Documentation
   - url: https://github.com/SabreDevStudio/get-hotel-avail-v2-sample-nodejs
     type: SDKs
+  - url: openapi/sabre-hotels-openapi.yml
+    type: OpenAPI
   description: >-
     Sabre Hotels API provides hotel search, availability, rate shopping, content retrieval, and booking APIs for travel agencies and OTAs, accessing Sabre's global lodging content and SynXis hotel distribution.
 
@@ -109,6 +113,12 @@ common:
   type: GitHubOrganization
 - url: https://github.com/SabreDevStudio
   type: SDKs
+- url: json-schema/sabre-itinerary-schema.json
+  type: JSONSchema
+- url: json-schema/sabre-hotel-schema.json
+  type: JSONSchema
+- url: json-ld/sabre-context.jsonld
+  type: JSONLDContext
 maintainers:
 - name: Kin Lane
   email: kin@apievangelist.com

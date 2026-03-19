@@ -1,0 +1,92 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "sabre": "https://developer.sabre.com/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "FlightOffer": "schema:Flight",
+    "HotelOffer": "schema:LodgingBusiness",
+    "HotelReservation": "schema:LodgingReservation",
+    "FlightReservation": "schema:FlightReservation",
+    "Passenger": "schema:Person",
+    "Airport": "schema:Airport",
+    "Airline": "schema:Airline",
+
+    "departureAirport": {
+      "@id": "schema:departureAirport",
+      "@type": "@id"
+    },
+    "arrivalAirport": {
+      "@id": "schema:arrivalAirport",
+      "@type": "@id"
+    },
+    "departureTime": {
+      "@id": "schema:departureTime",
+      "@type": "xsd:dateTime"
+    },
+    "arrivalTime": {
+      "@id": "schema:arrivalTime",
+      "@type": "xsd:dateTime"
+    },
+    "flightNumber": "schema:flightNumber",
+    "airline": {
+      "@id": "schema:provider",
+      "@type": "@id"
+    },
+    "operatingAirline": {
+      "@id": "sabre:operatingCarrier",
+      "@type": "@id"
+    },
+    "bookingClass": "sabre:bookingClass",
+    "cabinClass": "sabre:cabinClass",
+    "fareBasis": "sabre:fareBasisCode",
+
+    "hotelCode": "sabre:propertyCode",
+    "chainCode": "sabre:chainCode",
+    "name": "schema:name",
+    "description": "schema:description",
+    "starRating": {
+      "@id": "schema:starRating",
+      "@type": "schema:Rating"
+    },
+    "address": {
+      "@id": "schema:address",
+      "@type": "schema:PostalAddress"
+    },
+    "checkIn": {
+      "@id": "schema:checkinTime",
+      "@type": "xsd:date"
+    },
+    "checkOut": {
+      "@id": "schema:checkoutTime",
+      "@type": "xsd:date"
+    },
+    "amenities": "schema:amenityFeature",
+    "images": "schema:image",
+
+    "baseFare": "sabre:baseFare",
+    "totalFare": "sabre:totalFare",
+    "totalTaxes": "sabre:totalTaxes",
+    "currencyCode": "schema:currency",
+    "amount": "schema:price",
+
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "email": "schema:email",
+    "phone": "schema:telephone",
+
+    "iataCode": "schema:iataCode",
+    "locationCode": "schema:iataCode",
+    "countryCode": "schema:addressCountry",
+    "city": "schema:addressLocality",
+    "stateProvince": "schema:addressRegion",
+    "postalCode": "schema:postalCode",
+    "street": "schema:streetAddress",
+
+    "confirmationNumber": "schema:reservationId",
+    "reservationStatus": "schema:reservationStatus",
+    "sequenceNumber": "sabre:sequenceNumber",
+    "validatingCarrier": "sabre:validatingCarrier"
+  }
+}
