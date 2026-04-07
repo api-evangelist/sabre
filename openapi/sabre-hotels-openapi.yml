@@ -17,11 +17,11 @@ security:
   - BearerAuth: []
 
 tags:
-  - name: Hotel Search
-    description: Search and availability operations
   - name: Hotel Booking
     description: Reservation management
 
+  - name: Hotel Search
+    description: Search and availability operations
 paths:
   /v2.0.0/offers/hotels:
     post:
