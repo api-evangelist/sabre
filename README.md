@@ -88,6 +88,8 @@ Rail ticket search and booking connecting to 30+ rail operators worldwide.
 - [SpectralRules](rules/sabre-rules.yml)
 - [JSONSchema](json-schema/sabre-itinerary-schema.json)
 - [JSONSchema](json-schema/sabre-hotel-schema.json)
+- [JSONStructure](json-structure/sabre-air-itinerary-structure.json)
+- [JSONStructure](json-structure/sabre-hotel-structure.json)
 - [JSONLDContext](json-ld/sabre-context.jsonld)
 - [Vocabulary](vocabulary/sabre-vocabulary.yml)
 - [Capabilities](capabilities/travel-booking.yaml)
@@ -111,6 +113,7 @@ Rail ticket search and booking connecting to 30+ rail operators worldwide.
 | JSON Schema | [json-schema/sabre-itinerary-schema.json](json-schema/sabre-itinerary-schema.json) |
 | JSON Schema | [json-schema/sabre-hotel-schema.json](json-schema/sabre-hotel-schema.json) |
 | JSON Structure | [json-structure/sabre-air-itinerary-structure.json](json-structure/sabre-air-itinerary-structure.json) |
+| JSON Structure | [json-structure/sabre-hotel-structure.json](json-structure/sabre-hotel-structure.json) |
 | JSON-LD Context | [json-ld/sabre-context.jsonld](json-ld/sabre-context.jsonld) |
 | Vocabulary | [vocabulary/sabre-vocabulary.yml](vocabulary/sabre-vocabulary.yml) |
 | Examples | [examples/](examples/) |

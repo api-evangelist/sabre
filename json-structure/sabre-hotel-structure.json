@@ -1,0 +1,60 @@
+{
+  "title": "Sabre Hotel Structure",
+  "description": "JSON structure documentation for a Sabre GDS hotel property with availability and rate information",
+  "type": "object",
+  "structure": {
+    "hotelCode": {"type": "string", "description": "Sabre GDS property code (e.g., HIAT12345)"},
+    "chainCode": {"type": "string", "description": "Hotel chain code (e.g., HH for Hilton, MC for Marriott, HY for Hyatt)"},
+    "name": {"type": "string", "description": "Hotel property name"},
+    "starRating": {
+      "type": "integer",
+      "description": "Star rating 1-5",
+      "range": "1-5"
+    },
+    "location": {
+      "type": "object",
+      "description": "Geographic location of the hotel",
+      "properties": {
+        "latitude": {"type": "number", "description": "Decimal latitude coordinate"},
+        "longitude": {"type": "number", "description": "Decimal longitude coordinate"},
+        "address": {
+          "type": "object",
+          "description": "Physical address",
+          "properties": {
+            "street": {"type": "string", "description": "Street address"},
+            "city": {"type": "string", "description": "City name"},
+            "stateProvince": {"type": "string", "description": "State or province code"},
+            "postalCode": {"type": "string", "description": "Postal or ZIP code"},
+            "countryCode": {"type": "string", "description": "ISO 3166-1 alpha-2 country code"}
+          }
+        },
+        "distanceFromRequest": {
+          "type": "object",
+          "description": "Distance from the requested search location",
+          "properties": {
+            "value": {"type": "number", "description": "Distance value"},
+            "unit": {"type": "string", "description": "Distance unit: km or mi"}
+          }
+        }
+      }
+    },
+    "amenities": {
+      "type": "array",
+      "description": "List of hotel amenity codes (e.g., WIFI, POOL, FITNESS_CENTER, PARKING)",
+      "items": {"type": "string"}
+    },
+    "lowestRate": {
+      "type": "object",
+      "description": "Lowest available rate for the requested dates",
+      "properties": {
+        "amount": {"type": "number", "description": "Rate amount"},
+        "currency": {"type": "string", "description": "ISO 4217 currency code"},
+        "ratePlanCode": {"type": "string", "description": "Rate plan identifier"},
+        "roomTypeCode": {"type": "string", "description": "Room type identifier"}
+      }
+    },
+    "checkIn": {"type": "string", "format": "date", "description": "Check-in date YYYY-MM-DD"},
+    "checkOut": {"type": "string", "format": "date", "description": "Check-out date YYYY-MM-DD"}
+  },
+  "required": ["hotelCode", "name", "location"]
+}

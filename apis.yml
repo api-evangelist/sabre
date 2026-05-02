@@ -179,6 +179,10 @@ common:
     url: json-schema/sabre-itinerary-schema.json
   - type: JSONSchema
     url: json-schema/sabre-hotel-schema.json
+  - type: JSONStructure
+    url: json-structure/sabre-air-itinerary-structure.json
+  - type: JSONStructure
+    url: json-structure/sabre-hotel-structure.json
   - type: JSONLDContext
     url: json-ld/sabre-context.jsonld
   - type: Vocabulary
