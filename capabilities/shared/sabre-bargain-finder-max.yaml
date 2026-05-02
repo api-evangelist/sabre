@@ -1,0 +1,92 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Sabre Bargain Finder Max API"
+  description: "Low-fare air shopping API for searching optimal flight itineraries with pricing across Sabre's global airline content inventory."
+  tags:
+    - Travel
+    - Airlines
+    - GDS
+    - Air Shopping
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SABRE_ACCESS_TOKEN: SABRE_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: sabre-bfm
+      baseUri: https://api.sabre.com
+      description: "Sabre Bargain Finder Max air shopping API"
+      authentication:
+        type: bearer
+        token: "{{SABRE_ACCESS_TOKEN}}"
+      resources:
+        - name: air-shopping
+          path: /v4.0.0/offers/air-fares/bargain-finder-max
+          description: "Low-fare air shopping search"
+          operations:
+            - name: bargain-finder-max-search
+              method: POST
+              description: "Search for lowest air fares across Sabre GDS content"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  OTA_AirLowFareSearchRQ: "{{tools.search_request}}"
+
+        - name: air-reshop
+          path: /v4.0.0/offers/air-fares/bargain-finder-max/re-shop
+          description: "Re-shop itinerary for updated pricing"
+          operations:
+            - name: bargain-finder-max-re-shop
+              method: POST
+              description: "Re-shop a previously selected itinerary for current pricing"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  OTA_AirLowFareSearchRQ: "{{tools.reshop_request}}"
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: sabre-bfm-rest
+      resources:
+        - path: /v1/air-fares/search
+          name: air-fare-search
+          operations:
+            - method: POST
+              name: bargain-finder-max-search
+              description: "Search lowest air fares"
+              call: "sabre-bfm.bargain-finder-max-search"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: sabre-bfm-mcp
+      transport: http
+      tools:
+        - name: search-air-fares
+          description: "Search for lowest air fares via Sabre Bargain Finder Max"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sabre-bfm.bargain-finder-max-search"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,217 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Sabre Travel Booking"
+  description: "Unified workflow for end-to-end travel booking combining air fare search, hotel availability, and reservation management. Used by travel agencies and OTAs to search and book multi-segment travel itineraries."
+  tags:
+    - Travel
+    - Airlines
+    - Hotels
+    - GDS
+    - Booking
+    - Air Shopping
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SABRE_ACCESS_TOKEN: SABRE_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - import: sabre-bfm
+      location: ./shared/sabre-bargain-finder-max.yaml
+    - import: sabre-hotels
+      location: ./shared/sabre-hotels.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: travel-booking-api
+      description: "Unified REST API for Sabre travel booking covering air and hotel."
+      resources:
+        - path: /v1/air-fares/search
+          name: air-fare-search
+          description: "Air fare search"
+          operations:
+            - method: POST
+              name: search-air-fares
+              description: "Search for lowest air fares across Sabre GDS"
+              call: "sabre-bfm.bargain-finder-max-search"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/air-fares/reshop
+          name: air-fare-reshop
+          description: "Re-shop air fare pricing"
+          operations:
+            - method: POST
+              name: reshop-air-fares
+              description: "Re-shop itinerary for current pricing before booking"
+              call: "sabre-bfm.bargain-finder-max-re-shop"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/hotels/search
+          name: hotel-search
+          description: "Hotel availability search"
+          operations:
+            - method: POST
+              name: search-hotels
+              description: "Search available hotels with rates and availability"
+              call: "sabre-hotels.search-hotel-availability"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/hotels/{hotel-code}/rates
+          name: hotel-rates
+          description: "Hotel room rates"
+          operations:
+            - method: GET
+              name: get-hotel-rates
+              description: "Get room rates for a specific hotel property"
+              call: "sabre-hotels.get-hotel-rates"
+              with:
+                hotelCode: "rest.hotel-code"
+                checkIn: "rest.checkIn"
+                checkOut: "rest.checkOut"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/hotels/reservations
+          name: hotel-reservations
+          description: "Hotel reservation management"
+          operations:
+            - method: POST
+              name: create-hotel-reservation
+              description: "Create a hotel reservation"
+              call: "sabre-hotels.create-hotel-reservation"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/hotels/reservations/{id}
+          name: hotel-reservation-detail
+          description: "Hotel reservation details"
+          operations:
+            - method: GET
+              name: get-hotel-reservation
+              description: "Get hotel reservation details"
+              call: "sabre-hotels.get-hotel-reservation"
+              with:
+                confirmationId: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: cancel-hotel-reservation
+              description: "Cancel a hotel reservation"
+              call: "sabre-hotels.cancel-hotel-reservation"
+              with:
+                confirmationId: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: travel-booking-mcp
+      transport: http
+      description: "MCP server for AI-assisted travel booking combining air and hotel search."
+      tools:
+        - name: search-air-fares
+          description: "Search for lowest air fares with Sabre Bargain Finder Max for any origin-destination-date combination"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sabre-bfm.bargain-finder-max-search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: reshop-air-fares
+          description: "Re-shop a previously selected air itinerary to confirm current pricing before booking"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sabre-bfm.bargain-finder-max-re-shop"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-hotels
+          description: "Search available hotels near an airport, city, or coordinates with real-time rates"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sabre-hotels.search-hotel-availability"
+          with:
+            CheckIn: "tools.check_in"
+            CheckOut: "tools.check_out"
+            GeoSearch: "tools.geo_search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-hotel-rates
+          description: "Get detailed room types and rate plans for a specific hotel property"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sabre-hotels.get-hotel-rates"
+          with:
+            hotelCode: "tools.hotel_code"
+            checkIn: "tools.check_in"
+            checkOut: "tools.check_out"
+            adults: "tools.adults"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-hotel-reservation
+          description: "Book a hotel room and create a reservation in Sabre GDS"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sabre-hotels.create-hotel-reservation"
+          with:
+            HotelCode: "tools.hotel_code"
+            RoomTypeCode: "tools.room_type_code"
+            RatePlanCode: "tools.rate_plan_code"
+            CheckIn: "tools.check_in"
+            CheckOut: "tools.check_out"
+            GuestInfo: "tools.guest_info"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-hotel-reservation
+          description: "Retrieve details of an existing hotel reservation by confirmation number"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sabre-hotels.get-hotel-reservation"
+          with:
+            confirmationId: "tools.confirmation_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: cancel-hotel-reservation
+          description: "Cancel a hotel reservation subject to the property's cancellation policy"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "sabre-hotels.cancel-hotel-reservation"
+          with:
+            confirmationId: "tools.confirmation_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

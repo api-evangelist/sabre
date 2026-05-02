@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.sabre.com/v2.0.0/offers/hotels",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "CheckIn": "2026-07-15",
+      "CheckOut": "2026-07-18",
+      "GeoSearch": {
+        "AirportCode": "LHR",
+        "RadiusMiles": 10
+      },
+      "Guests": [
+        {
+          "Adults": 2
+        }
+      ],
+      "MaxResults": 20,
+      "SortBy": "PRICE_LOWEST"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "Hotels": [
+        {
+          "HotelCode": "HTL001",
+          "Name": "Heathrow Premier Hotel",
+          "ChainCode": "HI",
+          "StarRating": 4,
+          "Address": {
+            "Street": "Terminal 5, Heathrow",
+            "City": "London",
+            "PostalCode": "TW6 2GD",
+            "CountryCode": "GB"
+          },
+          "LowestRate": {
+            "Amount": 145.00,
+            "CurrencyCode": "USD"
+          },
+          "Amenities": ["WiFi", "Parking", "Restaurant", "Pool"],
+          "Images": [
+            {
+              "Url": "https://images.example.com/hotel-001.jpg",
+              "Category": "Exterior"
+            }
+          ]
+        }
+      ],
+      "TotalResults": 47,
+      "SearchId": "srch-abc123"
+    }
+  }
+}

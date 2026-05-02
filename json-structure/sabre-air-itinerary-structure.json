@@ -1,0 +1,71 @@
+{
+  "title": "Sabre Air Itinerary Structure",
+  "description": "JSON structure documentation for Sabre air itinerary data model",
+  "type": "object",
+  "structure": {
+    "OTA_AirLowFareSearchRS": {
+      "description": "Root response envelope for Bargain Finder Max",
+      "type": "object",
+      "children": {
+        "PricedItineraries": {
+          "description": "Collection of ranked, priced itinerary options",
+          "type": "object",
+          "children": {
+            "PricedItinerary": {
+              "description": "Individual priced flight itinerary",
+              "type": "array",
+              "children": {
+                "SequenceNumber": {"type": "integer", "description": "Ranking position in results"},
+                "AirItinerary": {
+                  "description": "Flight segment information",
+                  "type": "object",
+                  "children": {
+                    "DirectionInd": {"type": "string", "description": "OneWay, Return, OpenJaw, or Circle"},
+                    "OriginDestinationOptions": {
+                      "type": "object",
+                      "children": {
+                        "OriginDestinationOption": {
+                          "type": "array",
+                          "children": {
+                            "FlightSegment": {
+                              "type": "array",
+                              "description": "Individual flight legs",
+                              "children": {
+                                "DepartureAirport": {"type": "object", "description": "IATA airport code"},
+                                "ArrivalAirport": {"type": "object", "description": "IATA airport code"},
+                                "OperatingAirline": {"type": "object", "description": "Airline code and flight number"},
+                                "DepartureDateTime": {"type": "string", "format": "date-time"},
+                                "ArrivalDateTime": {"type": "string", "format": "date-time"},
+                                "ElapsedTime": {"type": "integer", "description": "Duration in minutes"},
+                                "StopQuantity": {"type": "integer"},
+                                "CabinClassCode": {"type": "string", "description": "Y=Economy, C=Business, F=First"}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "AirItineraryPricingInfo": {
+                  "description": "Fare pricing breakdown",
+                  "type": "object",
+                  "children": {
+                    "ItinTotalFare": {
+                      "type": "object",
+                      "children": {
+                        "BaseFare": {"type": "object", "description": "Base fare amount and currency"},
+                        "Taxes": {"type": "object", "description": "Tax breakdown by code"},
+                        "TotalFare": {"type": "object", "description": "Total including all taxes"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

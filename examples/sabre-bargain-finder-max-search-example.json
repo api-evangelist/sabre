@@ -1,0 +1,110 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.sabre.com/v4.0.0/offers/air-fares/bargain-finder-max",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "OTA_AirLowFareSearchRQ": {
+        "Version": "4.0.0",
+        "OriginDestinationInformation": [
+          {
+            "RPH": "1",
+            "DepartureDateTime": "2026-07-15T00:00:00",
+            "OriginLocation": {
+              "LocationCode": "DFW"
+            },
+            "DestinationLocation": {
+              "LocationCode": "LHR"
+            }
+          },
+          {
+            "RPH": "2",
+            "DepartureDateTime": "2026-07-22T00:00:00",
+            "OriginLocation": {
+              "LocationCode": "LHR"
+            },
+            "DestinationLocation": {
+              "LocationCode": "DFW"
+            }
+          }
+        ],
+        "TravelPreferences": {
+          "MaxStopsQuantity": 1,
+          "CabinPref": [
+            {
+              "Cabin": "Economy",
+              "PreferLevel": "Preferred"
+            }
+          ]
+        },
+        "TravelerInfoSummary": {
+          "AirTravelerAvail": [
+            {
+              "PassengerTypeQuantity": [
+                {
+                  "Code": "ADT",
+                  "Quantity": 2
+                }
+              ]
+            }
+          ],
+          "PriceRequestInformation": {
+            "CurrencyCode": "USD"
+          }
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "OTA_AirLowFareSearchRS": {
+        "Success": {},
+        "PricedItineraries": {
+          "PricedItinerary": [
+            {
+              "SequenceNumber": 1,
+              "AirItinerary": {
+                "DirectionInd": "Return",
+                "OriginDestinationOptions": {
+                  "OriginDestinationOption": [
+                    {
+                      "FlightSegment": [
+                        {
+                          "DepartureAirport": {"LocationCode": "DFW"},
+                          "ArrivalAirport": {"LocationCode": "LHR"},
+                          "OperatingAirline": {"Code": "AA", "FlightNumber": "50"},
+                          "MarketingAirline": {"Code": "AA"},
+                          "DepartureDateTime": "2026-07-15T17:00:00",
+                          "ArrivalDateTime": "2026-07-16T08:30:00",
+                          "StopQuantity": 0,
+                          "ElapsedTime": 570,
+                          "CabinClassCode": "Y"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "AirItineraryPricingInfo": {
+                "ItinTotalFare": {
+                  "BaseFare": {"Amount": 680.00, "CurrencyCode": "USD"},
+                  "Taxes": {
+                    "Tax": [
+                      {"TaxCode": "YQ", "Amount": 240.00},
+                      {"TaxCode": "GB", "Amount": 85.00}
+                    ]
+                  },
+                  "TotalFare": {"Amount": 1005.00, "CurrencyCode": "USD"}
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

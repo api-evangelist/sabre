@@ -1,0 +1,119 @@
+vocabulary:
+  name: Sabre Travel API Vocabulary
+  description: Domain vocabulary for Sabre GDS travel APIs covering air shopping, hotel booking, car rental, and travel distribution terms.
+  version: "1.0.0"
+  created: "2026-05-02"
+  url: https://developer.sabre.com/
+
+terms:
+  - term: GDS
+    label: Global Distribution System
+    definition: >-
+      A computerized network system used in the travel industry to process and
+      retrieve information about flights, hotels, car rentals, and other travel
+      services. Sabre is one of the world's largest GDS providers.
+    tags:
+      - Travel
+      - Distribution
+
+  - term: BargainFinderMax
+    label: Bargain Finder Max
+    definition: >-
+      Sabre's flagship low-fare air shopping API that returns ranked and priced
+      itinerary options across ATPCO, LCC, and NDC airline content using
+      intelligent fare combination algorithms.
+    tags:
+      - Air Shopping
+      - Fare Search
+
+  - term: PNR
+    label: Passenger Name Record
+    definition: >-
+      A record in a computerized reservation system that contains the itinerary
+      and personal information for a passenger or group of passengers traveling
+      together. PNRs are created when booking air, hotel, or car segments.
+    tags:
+      - Booking
+      - Airlines
+
+  - term: NDC
+    label: New Distribution Capability
+    definition: >-
+      An IATA standard (NDC) for airline distribution that enables airlines to
+      distribute rich content and personalized offers directly through travel
+      agencies and third-party platforms via XML.
+    tags:
+      - Airlines
+      - Standards
+      - Distribution
+
+  - term: ATPCO
+    label: Airline Tariff Publishing Company
+    definition: >-
+      The industry standard for publishing airline fare rules and pricing. ATPCO
+      fares are the primary source for traditional published airfares in the GDS.
+    tags:
+      - Airlines
+      - Fares
+
+  - term: LCC
+    label: Low-Cost Carrier
+    definition: >-
+      Airlines that operate with low fares and fewer amenities, typically using
+      point-to-point routes. Sabre BFM includes LCC content in fare search results.
+    tags:
+      - Airlines
+
+  - term: RPH
+    label: Reference Place Holder
+    definition: >-
+      A reference identifier used in Sabre OTA (Open Travel Alliance) message
+      structures to link related data elements across different parts of a request
+      or response.
+    tags:
+      - Technical
+
+  - term: SynXis
+    label: SynXis Hotel Distribution
+    definition: >-
+      Sabre's hotel distribution platform used by hotels and chains to distribute
+      room inventory, rates, and availability. SynXis hotel content is accessible
+      through Sabre Hotels API.
+    tags:
+      - Hotels
+      - Distribution
+
+  - term: OTA
+    label: Open Travel Alliance
+    definition: >-
+      An industry standards organization that defines XML message standards for
+      travel data exchange. Sabre BFM uses OTA-based request/response structures
+      (OTA_AirLowFareSearchRQ/RS).
+    tags:
+      - Standards
+      - Travel
+
+  - term: ConfirmationId
+    label: Booking Confirmation ID
+    definition: >-
+      A unique identifier assigned to a completed reservation in Sabre GDS used
+      to retrieve, modify, or cancel the booking.
+    tags:
+      - Booking
+
+  - term: HotelCode
+    label: Hotel Property Code
+    definition: >-
+      Sabre's unique property identifier for a specific hotel. Used to retrieve
+      rates, availability, and booking details for that property.
+    tags:
+      - Hotels
+
+  - term: CabinClass
+    label: Cabin Class
+    definition: >-
+      The class of travel on an aircraft: Economy (Y), Premium Economy (W),
+      Business (C/J), or First (F). Used in fare search preferences and booking.
+    tags:
+      - Airlines
+      - Fares

@@ -1,0 +1,83 @@
+extends: spectral:oas
+rules:
+  sabre-operation-summary-title-case:
+    description: All operation summaries must use Title Case
+    message: "Operation summary '{{value}}' must use Title Case"
+    given: "$.paths[*][*].summary"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-z]*)( [A-Z][a-z0-9]*)*$"
+
+  sabre-bearer-auth-required:
+    description: All endpoints except authentication must require BearerAuth
+    message: "Endpoint must declare BearerAuth security"
+    given: "$.paths[*][*]"
+    severity: warn
+    then:
+      field: security
+      function: defined
+
+  sabre-operation-ids-camel-case:
+    description: Operation IDs must use camelCase
+    message: "Operation ID '{{value}}' must use camelCase"
+    given: "$.paths[*][*].operationId"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  sabre-ota-schema-names:
+    description: OTA request/response schemas should use OTA naming convention
+    message: "Sabre OTA schemas should follow OTA_* naming pattern"
+    given: "$.components.schemas"
+    severity: info
+    then:
+      function: defined
+
+  sabre-tags-required:
+    description: All operations must have at least one tag
+    message: "Operation must have at least one tag"
+    given: "$.paths[*][*]"
+    severity: warn
+    then:
+      field: tags
+      function: truthy
+
+  sabre-versioned-paths:
+    description: Sabre API paths should include version prefix
+    message: "Sabre API paths should include version (e.g., /v4.0.0/)"
+    given: "$.paths"
+    severity: info
+    then:
+      function: pattern
+      functionOptions:
+        match: "^\\/v[0-9]"
+
+  sabre-rate-limit-response:
+    description: Operations should define 429 rate limit response
+    message: "Operations should define 429 rate limit exceeded response"
+    given: "$.paths[*][get,post].responses"
+    severity: info
+    then:
+      field: "429"
+      function: defined
+
+  sabre-error-response-structure:
+    description: Error responses should use standard Sabre error format
+    message: "Error responses should use standard Sabre ErrorResponse schema"
+    given: "$.paths[*][*].responses[4*,5*].content[*].schema"
+    severity: info
+    then:
+      function: defined
+
+  sabre-post-request-body-required:
+    description: POST operations must define a request body
+    message: "POST operations must include a requestBody"
+    given: "$.paths[*][post]"
+    severity: error
+    then:
+      field: requestBody
+      function: defined
