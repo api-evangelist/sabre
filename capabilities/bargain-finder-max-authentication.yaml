@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sabre Bargain Finder Max API — Authentication
+  description: 'Sabre Bargain Finder Max API — Authentication. 1 operations. Lead operation: Get OAuth2 access token. Self-contained
+    Naftiko capability covering one Sabre business surface.'
+  tags:
+  - Sabre
+  - Authentication
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SABRE_API_KEY: SABRE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bargain-finder-max-authentication
+    baseUri: https://api.sabre.com
+    description: Sabre Bargain Finder Max API — Authentication business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-auth-token
+      path: /v2/auth/token
+      operations:
+      - name: getauthtoken
+        method: POST
+        description: Get OAuth2 access token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SABRE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: bargain-finder-max-authentication-rest
+    port: 8080
+    description: REST adapter for Sabre Bargain Finder Max API — Authentication. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/auth/token
+      name: v2-auth-token
+      description: REST surface for v2-auth-token.
+      operations:
+      - method: POST
+        name: getauthtoken
+        description: Get OAuth2 access token
+        call: bargain-finder-max-authentication.getauthtoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bargain-finder-max-authentication-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sabre Bargain Finder Max API — Authentication. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-oauth2-access-token
+      description: Get OAuth2 access token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: bargain-finder-max-authentication.getauthtoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

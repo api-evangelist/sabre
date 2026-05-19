@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sabre Hotels API — Hotel Search
+  description: 'Sabre Hotels API — Hotel Search. 2 operations. Lead operation: Search hotel availability and rates. Self-contained
+    Naftiko capability covering one Sabre business surface.'
+  tags:
+  - Sabre
+  - Hotel Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SABRE_API_KEY: SABRE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hotels-hotel-search
+    baseUri: https://api.sabre.com
+    description: Sabre Hotels API — Hotel Search business capability. Self-contained, no shared references.
+    resources:
+    - name: v2.0.0-offers-hotels
+      path: /v2.0.0/offers/hotels
+      operations:
+      - name: searchhotelavailability
+        method: POST
+        description: Search hotel availability and rates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2.0.0-offers-hotels-hotelCode-rates
+      path: /v2.0.0/offers/hotels/{hotelCode}/rates
+      operations:
+      - name: gethotelrates
+        method: GET
+        description: Get room rates for a specific hotel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: hotelCode
+          in: path
+          type: string
+          description: Sabre hotel property code (GDS property identifier)
+          required: true
+        - name: checkIn
+          in: query
+          type: string
+          required: true
+        - name: checkOut
+          in: query
+          type: string
+          required: true
+        - name: adults
+          in: query
+          type: integer
+        - name: currency
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.SABRE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: hotels-hotel-search-rest
+    port: 8080
+    description: REST adapter for Sabre Hotels API — Hotel Search. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2-0-0/offers/hotels
+      name: v2-0-0-offers-hotels
+      description: REST surface for v2.0.0-offers-hotels.
+      operations:
+      - method: POST
+        name: searchhotelavailability
+        description: Search hotel availability and rates
+        call: hotels-hotel-search.searchhotelavailability
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2-0-0/offers/hotels/{hotelcode}/rates
+      name: v2-0-0-offers-hotels-hotelcode-rates
+      description: REST surface for v2.0.0-offers-hotels-hotelCode-rates.
+      operations:
+      - method: GET
+        name: gethotelrates
+        description: Get room rates for a specific hotel
+        call: hotels-hotel-search.gethotelrates
+        with:
+          hotelCode: rest.hotelCode
+          checkIn: rest.checkIn
+          checkOut: rest.checkOut
+          adults: rest.adults
+          currency: rest.currency
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hotels-hotel-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sabre Hotels API — Hotel Search. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: search-hotel-availability-and-rates
+      description: Search hotel availability and rates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: hotels-hotel-search.searchhotelavailability
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-room-rates-specific-hotel
+      description: Get room rates for a specific hotel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotels-hotel-search.gethotelrates
+      with:
+        hotelCode: tools.hotelCode
+        checkIn: tools.checkIn
+        checkOut: tools.checkOut
+        adults: tools.adults
+        currency: tools.currency
+      outputParameters:
+      - type: object
+        mapping: $.
