@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RoomType",
+  "title": "RoomType",
+  "type": "object",
+  "properties": {
+    "RoomTypeCode": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "MaxOccupancy": {
+      "type": "integer"
+    },
+    "BedConfiguration": {
+      "type": "string"
+    },
+    "Rates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RatePlan"
+      }
+    }
+  }
+}

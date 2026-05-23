@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HotelSummary",
+  "title": "HotelSummary",
+  "type": "object",
+  "properties": {
+    "HotelCode": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "ChainCode": {
+      "type": "string"
+    },
+    "StarRating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "Address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "LowestRate": {
+      "$ref": "#/components/schemas/Rate"
+    },
+    "Amenities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Url": {
+            "type": "string"
+          },
+          "Category": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HotelRatesResponse",
+  "title": "HotelRatesResponse",
+  "type": "object",
+  "properties": {
+    "HotelCode": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Rooms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RoomType"
+      }
+    }
+  }
+}

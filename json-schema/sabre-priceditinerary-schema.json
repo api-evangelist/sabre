@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PricedItinerary",
+  "title": "PricedItinerary",
+  "type": "object",
+  "properties": {
+    "SequenceNumber": {
+      "type": "integer"
+    },
+    "AirItinerary": {
+      "type": "object",
+      "properties": {
+        "DirectionInd": {
+          "type": "string",
+          "enum": [
+            "OneWay",
+            "Return",
+            "OpenJaw",
+            "Circle"
+          ]
+        },
+        "OriginDestinationOptions": {
+          "type": "object",
+          "properties": {
+            "OriginDestinationOption": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OriginDestinationOption"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AirItineraryPricingInfo": {
+      "type": "object",
+      "properties": {
+        "ItinTotalFare": {
+          "type": "object",
+          "properties": {
+            "BaseFare": {
+              "type": "object",
+              "properties": {
+                "Amount": {
+                  "type": "number"
+                },
+                "CurrencyCode": {
+                  "type": "string"
+                }
+              }
+            },
+            "Taxes": {
+              "type": "object",
+              "properties": {
+                "Tax": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "TaxCode": {
+                        "type": "string"
+                      },
+                      "Amount": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "TotalFare": {
+              "type": "object",
+              "properties": {
+                "Amount": {
+                  "type": "number"
+                },
+                "CurrencyCode": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

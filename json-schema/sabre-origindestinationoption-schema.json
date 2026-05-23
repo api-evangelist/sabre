@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OriginDestinationOption",
+  "title": "OriginDestinationOption",
+  "type": "object",
+  "properties": {
+    "FlightSegment": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/FlightSegment"
+      }
+    }
+  }
+}

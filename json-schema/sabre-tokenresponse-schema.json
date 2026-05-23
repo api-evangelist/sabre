@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TokenResponse",
+  "title": "TokenResponse",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "token_type": {
+      "type": "string",
+      "example": "Bearer"
+    },
+    "expires_in": {
+      "type": "integer",
+      "description": "Token lifetime in seconds",
+      "example": 604800
+    }
+  }
+}

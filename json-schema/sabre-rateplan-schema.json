@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RatePlan",
+  "title": "RatePlan",
+  "type": "object",
+  "properties": {
+    "RatePlanCode": {
+      "type": "string"
+    },
+    "RatePlanName": {
+      "type": "string"
+    },
+    "DailyRate": {
+      "$ref": "#/components/schemas/Rate"
+    },
+    "TotalRate": {
+      "$ref": "#/components/schemas/Rate"
+    },
+    "Refundable": {
+      "type": "boolean"
+    },
+    "CancellationPolicy": {
+      "type": "string"
+    },
+    "MealsIncluded": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

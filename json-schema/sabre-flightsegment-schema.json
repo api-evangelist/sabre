@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FlightSegment",
+  "title": "FlightSegment",
+  "type": "object",
+  "properties": {
+    "DepartureAirport": {
+      "type": "object",
+      "properties": {
+        "LocationCode": {
+          "type": "string"
+        }
+      }
+    },
+    "ArrivalAirport": {
+      "type": "object",
+      "properties": {
+        "LocationCode": {
+          "type": "string"
+        }
+      }
+    },
+    "OperatingAirline": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "string"
+        },
+        "FlightNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "Equipment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "AirEquipType": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MarketingAirline": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "string"
+        }
+      }
+    },
+    "DepartureDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ArrivalDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "StopQuantity": {
+      "type": "integer"
+    },
+    "ElapsedTime": {
+      "type": "integer",
+      "description": "Flight duration in minutes"
+    },
+    "ResBookDesigCode": {
+      "type": "string",
+      "description": "Booking class (RBD)"
+    },
+    "CabinClassCode": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BFMResponse",
+  "title": "BFMResponse",
+  "type": "object",
+  "properties": {
+    "OTA_AirLowFareSearchRS": {
+      "type": "object",
+      "properties": {
+        "PricedItineraries": {
+          "type": "object",
+          "properties": {
+            "PricedItinerary": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PricedItinerary"
+              }
+            }
+          }
+        },
+        "Success": {
+          "type": "object"
+        },
+        "Errors": {
+          "type": "object",
+          "properties": {
+            "Error": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/APIError"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HotelReservationRequest",
+  "title": "HotelReservationRequest",
+  "type": "object",
+  "required": [
+    "HotelCode",
+    "RoomTypeCode",
+    "RatePlanCode",
+    "CheckIn",
+    "CheckOut",
+    "GuestInfo"
+  ],
+  "properties": {
+    "HotelCode": {
+      "type": "string"
+    },
+    "RoomTypeCode": {
+      "type": "string"
+    },
+    "RatePlanCode": {
+      "type": "string"
+    },
+    "CheckIn": {
+      "type": "string",
+      "format": "date"
+    },
+    "CheckOut": {
+      "type": "string",
+      "format": "date"
+    },
+    "GuestInfo": {
+      "$ref": "#/components/schemas/GuestInfo"
+    },
+    "PaymentInfo": {
+      "$ref": "#/components/schemas/PaymentInfo"
+    },
+    "SpecialRequests": {
+      "type": "string"
+    }
+  }
+}

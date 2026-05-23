@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Address",
+  "title": "Address",
+  "type": "object",
+  "properties": {
+    "Street": {
+      "type": "string"
+    },
+    "City": {
+      "type": "string"
+    },
+    "StateProvince": {
+      "type": "string"
+    },
+    "PostalCode": {
+      "type": "string"
+    },
+    "CountryCode": {
+      "type": "string"
+    }
+  }
+}

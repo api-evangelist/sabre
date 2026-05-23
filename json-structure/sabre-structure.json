@@ -1,0 +1,121 @@
+{
+  "provider": "Sabre",
+  "providerId": "sabre",
+  "kind": "json-structure",
+  "description": "Structural overview of the Sabre API surface; extracted from openapi/.",
+  "schemaCount": 12,
+  "operationCount": 3,
+  "schemas": [
+    {
+      "name": "BFMRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "OTA_AirLowFareSearchRQ"
+      ]
+    },
+    {
+      "name": "OriginDestinationInformation",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "DepartureDateTime",
+        "OriginLocation",
+        "DestinationLocation"
+      ]
+    },
+    {
+      "name": "TravelPreferences",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TravelerInfoSummary",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "AirTravelerAvail"
+      ]
+    },
+    {
+      "name": "BFMResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "PricedItinerary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "OriginDestinationOption",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "FlightSegment",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "ReShopRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "OTA_AirLowFareSearchRQ"
+      ]
+    },
+    {
+      "name": "TokenResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "APIError",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/v4.0.0/offers/air-fares/bargain-finder-max",
+      "operationId": "bargainFinderMaxSearch",
+      "summary": "Search for lowest air fares",
+      "tags": [
+        "Air Shopping"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v4.0.0/offers/air-fares/bargain-finder-max/re-shop",
+      "operationId": "bargainFinderMaxReShop",
+      "summary": "Re-shop a specific itinerary for updated pricing",
+      "tags": [
+        "Air Shopping"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/auth/token",
+      "operationId": "getAuthToken",
+      "summary": "Get OAuth2 access token",
+      "tags": [
+        "Authentication"
+      ]
+    }
+  ]
+}

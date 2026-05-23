@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HotelSearchResponse",
+  "title": "HotelSearchResponse",
+  "type": "object",
+  "properties": {
+    "Hotels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/HotelSummary"
+      }
+    },
+    "TotalResults": {
+      "type": "integer"
+    },
+    "SearchId": {
+      "type": "string",
+      "description": "Session search identifier for subsequent requests"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CitySearch",
+  "title": "CitySearch",
+  "type": "object",
+  "required": [
+    "CityCode"
+  ],
+  "properties": {
+    "CityCode": {
+      "type": "string",
+      "example": "NYC"
+    },
+    "RadiusMiles": {
+      "type": "integer",
+      "default": 5
+    }
+  }
+}

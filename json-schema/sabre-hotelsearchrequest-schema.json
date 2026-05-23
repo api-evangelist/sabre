@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HotelSearchRequest",
+  "title": "HotelSearchRequest",
+  "type": "object",
+  "required": [
+    "CheckIn",
+    "CheckOut",
+    "GeoSearch"
+  ],
+  "properties": {
+    "CheckIn": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-06-15"
+    },
+    "CheckOut": {
+      "type": "string",
+      "format": "date",
+      "example": "2026-06-18"
+    },
+    "GeoSearch": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/AirportSearch"
+        },
+        {
+          "$ref": "#/components/schemas/CitySearch"
+        },
+        {
+          "$ref": "#/components/schemas/GeoCodeSearch"
+        }
+      ]
+    },
+    "Guests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Adults": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1
+          }
+        }
+      }
+    },
+    "MaxResults": {
+      "type": "integer",
+      "default": 20,
+      "maximum": 100
+    },
+    "SortBy": {
+      "type": "string",
+      "enum": [
+        "PRICE_LOWEST",
+        "PRICE_HIGHEST",
+        "STAR_RATING",
+        "DISTANCE"
+      ]
+    }
+  }
+}

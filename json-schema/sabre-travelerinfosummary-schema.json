@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TravelerInfoSummary",
+  "title": "TravelerInfoSummary",
+  "type": "object",
+  "required": [
+    "AirTravelerAvail"
+  ],
+  "properties": {
+    "AirTravelerAvail": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "PassengerTypeQuantity": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Code": {
+                  "type": "string",
+                  "enum": [
+                    "ADT",
+                    "CHD",
+                    "INF",
+                    "INS"
+                  ],
+                  "description": "Passenger type code"
+                },
+                "Quantity": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "PriceRequestInformation": {
+      "type": "object",
+      "properties": {
+        "CurrencyCode": {
+          "type": "string",
+          "example": "USD"
+        }
+      }
+    }
+  }
+}

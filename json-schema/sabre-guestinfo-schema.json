@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GuestInfo",
+  "title": "GuestInfo",
+  "type": "object",
+  "required": [
+    "FirstName",
+    "LastName",
+    "Email"
+  ],
+  "properties": {
+    "Title": {
+      "type": "string"
+    },
+    "FirstName": {
+      "type": "string"
+    },
+    "LastName": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "string",
+      "format": "email"
+    },
+    "Phone": {
+      "type": "string"
+    },
+    "LoyaltyProgramNumber": {
+      "type": "string"
+    }
+  }
+}

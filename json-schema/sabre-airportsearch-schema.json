@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AirportSearch",
+  "title": "AirportSearch",
+  "type": "object",
+  "required": [
+    "AirportCode"
+  ],
+  "properties": {
+    "AirportCode": {
+      "type": "string",
+      "example": "DFW"
+    },
+    "RadiusMiles": {
+      "type": "integer",
+      "default": 5
+    }
+  }
+}

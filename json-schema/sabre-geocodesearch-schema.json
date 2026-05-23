@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GeoCodeSearch",
+  "title": "GeoCodeSearch",
+  "type": "object",
+  "required": [
+    "Latitude",
+    "Longitude"
+  ],
+  "properties": {
+    "Latitude": {
+      "type": "number",
+      "format": "double",
+      "example": 32.8998
+    },
+    "Longitude": {
+      "type": "number",
+      "format": "double",
+      "example": -97.0403
+    },
+    "RadiusMiles": {
+      "type": "integer",
+      "default": 5
+    }
+  }
+}

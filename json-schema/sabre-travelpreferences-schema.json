@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TravelPreferences",
+  "title": "TravelPreferences",
+  "type": "object",
+  "properties": {
+    "CabinPref": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Cabin": {
+            "type": "string",
+            "enum": [
+              "Economy",
+              "PremiumEconomy",
+              "Business",
+              "First"
+            ]
+          },
+          "PreferLevel": {
+            "type": "string",
+            "enum": [
+              "Preferred",
+              "Only"
+            ]
+          }
+        }
+      }
+    },
+    "MaxStopsQuantity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "example": 1
+    },
+    "TPA_Extensions": {
+      "type": "object",
+      "properties": {
+        "LookAheadDays": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "integer",
+              "description": "Number of days to search around departure date",
+              "example": 3
+            }
+          }
+        },
+        "TicketingRestriction": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "string",
+              "enum": [
+                "ALL_TICKETS",
+                "NONREF_ONLY",
+                "REF_ONLY"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

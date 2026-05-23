@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CancellationResponse",
+  "title": "CancellationResponse",
+  "type": "object",
+  "properties": {
+    "CancellationNumber": {
+      "type": "string"
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "CANCELLED"
+      ]
+    },
+    "CancellationFee": {
+      "$ref": "#/components/schemas/Rate"
+    }
+  }
+}

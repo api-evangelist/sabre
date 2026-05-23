@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/APIError",
+  "title": "APIError",
+  "type": "object",
+  "properties": {
+    "Code": {
+      "type": "integer"
+    },
+    "NodeList": {
+      "type": "string"
+    },
+    "ShortText": {
+      "type": "string"
+    },
+    "Type": {
+      "type": "string"
+    }
+  }
+}

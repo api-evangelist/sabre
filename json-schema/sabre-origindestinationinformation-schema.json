@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OriginDestinationInformation",
+  "title": "OriginDestinationInformation",
+  "type": "object",
+  "required": [
+    "DepartureDateTime",
+    "OriginLocation",
+    "DestinationLocation"
+  ],
+  "properties": {
+    "DepartureDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-06-15T00:00:00"
+    },
+    "OriginLocation": {
+      "type": "object",
+      "required": [
+        "LocationCode"
+      ],
+      "properties": {
+        "LocationCode": {
+          "type": "string",
+          "description": "IATA airport or city code",
+          "example": "DFW"
+        }
+      }
+    },
+    "DestinationLocation": {
+      "type": "object",
+      "required": [
+        "LocationCode"
+      ],
+      "properties": {
+        "LocationCode": {
+          "type": "string",
+          "description": "IATA airport or city code",
+          "example": "LHR"
+        }
+      }
+    },
+    "RPH": {
+      "type": "string",
+      "description": "Reference placeholder for itinerary leg",
+      "example": "1"
+    }
+  }
+}
