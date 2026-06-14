@@ -1,0 +1,1205 @@
+"""
+Sabre GDS Travel Platform - Conceptual GraphQL Schema
+Derived from Sabre developer documentation at https://developer.sabre.com/
+Covers air shopping, booking, hotel, car rental, ticketing, and agency workflow domains.
+"""
+
+# ─── Scalars ─────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar Date
+scalar Time
+scalar Currency
+scalar IATA  # 2-letter airline or 3-letter airport code
+
+# ─── Enumerations ────────────────────────────────────────────────────────────
+
+enum PNRStatus {
+  ACTIVE
+  CANCELLED
+  TICKETED
+  VOIDED
+  REFUNDED
+  EXPIRED
+  QUEUED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  ON_HOLD
+  WAITLISTED
+  TICKETED
+  COMPLETED
+}
+
+enum TicketStatus {
+  ISSUED
+  VOIDED
+  REFUNDED
+  EXCHANGED
+  OPEN
+  USED
+  EXPIRED
+  SUSPENDED
+}
+
+enum CabinClass {
+  FIRST
+  BUSINESS
+  PREMIUM_ECONOMY
+  ECONOMY
+}
+
+enum PassengerType {
+  ADT
+  CHD
+  INF
+  INS
+  UNN
+  SRC
+  MIL
+}
+
+enum DocumentType {
+  PASSPORT
+  VISA
+  NATIONAL_ID
+  DRIVERS_LICENSE
+  REDRESS_NUMBER
+  KNOWN_TRAVELER
+}
+
+enum ServiceStatus {
+  AVAILABLE
+  CONFIRMED
+  CANCELLED
+  REQUESTED
+  FLOWN
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  REFUNDED
+  DECLINED
+  VOIDED
+}
+
+enum SeatLocation {
+  WINDOW
+  MIDDLE
+  AISLE
+}
+
+enum SeatFeature {
+  EXTRA_LEGROOM
+  BULKHEAD
+  EXIT_ROW
+  BASSINET
+  RECLINE_RESTRICTED
+  PREFERRED
+}
+
+enum CarCategory {
+  MINI
+  ECONOMY
+  COMPACT
+  MIDSIZE
+  STANDARD
+  FULLSIZE
+  PREMIUM
+  LUXURY
+  SUV
+  VAN
+  TRUCK
+  CONVERTIBLE
+}
+
+enum CarTransmission {
+  AUTOMATIC
+  MANUAL
+}
+
+enum QueueCategory {
+  GENERAL
+  TICKETING
+  SCHEDULE_CHANGE
+  REFUND
+  GROUP
+  WAITLIST
+}
+
+# ─── Session & Authentication ─────────────────────────────────────────────────
+
+"""API credential used to authenticate with Sabre services."""
+type APIKey {
+  keyId: ID!
+  name: String!
+  clientId: String!
+  environment: String!
+  created: DateTime!
+  expires: DateTime
+  scopes: [String!]!
+  active: Boolean!
+}
+
+"""OAuth 2.0 access token for Sabre REST API calls."""
+type Token {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int!
+  issuedAt: DateTime!
+  expiresAt: DateTime!
+  scope: String
+}
+
+"""Sabre stateful session reference (legacy SOAP session compatibility)."""
+type Session {
+  sessionId: ID!
+  token: SessionToken!
+  agentSine: String
+  ipcc: String
+  createdAt: DateTime!
+  expiresAt: DateTime!
+  active: Boolean!
+}
+
+"""Session-scoped authentication token for Sabre GDS sessions."""
+type SessionToken {
+  binarySecurityToken: String!
+  created: DateTime!
+  expires: DateTime!
+  sessionId: ID!
+}
+
+# ─── Airport & Airline Reference ──────────────────────────────────────────────
+
+"""Airport reference with IATA code and basic metadata."""
+type Airport {
+  code: IATA!
+  details: AirportDetails
+}
+
+"""Full airport information including location and facilities."""
+type AirportDetails {
+  code: IATA!
+  name: String!
+  city: String!
+  cityCode: String!
+  country: String!
+  countryCode: String!
+  latitude: Float
+  longitude: Float
+  timezone: String
+  terminals: [String!]
+  international: Boolean!
+}
+
+"""Airline carrier reference with IATA code."""
+type Airline {
+  code: IATA!
+  details: AirlineDetails
+}
+
+"""Full airline information including alliance and contact details."""
+type AirlineDetails {
+  code: IATA!
+  name: String!
+  accountingCode: String
+  allianceName: String
+  country: String
+  website: String
+  baggagePolicy: String
+  freqFlyerProgram: String
+}
+
+# ─── Schedule ────────────────────────────────────────────────────────────────
+
+"""Flight schedule reference."""
+type Schedule {
+  scheduleId: ID!
+  details: ScheduleDetails
+}
+
+"""Complete flight schedule data for a route."""
+type ScheduleDetails {
+  scheduleId: ID!
+  origin: Airport!
+  destination: Airport!
+  airline: Airline!
+  flightNumber: String!
+  departureDays: [String!]!
+  departureTime: Time!
+  arrivalTime: Time!
+  duration: Int!
+  effectiveDate: Date!
+  discontinueDate: Date
+  equipment: String
+  stops: Int!
+}
+
+# ─── Fare ────────────────────────────────────────────────────────────────────
+
+"""Fare basis code definition."""
+type FareBasis {
+  code: String!
+  cabin: CabinClass!
+  airline: IATA!
+  description: String
+  bookingClass: String!
+  fareType: String
+}
+
+"""Conditions and restrictions associated with a fare."""
+type FareRules {
+  fareRuleId: ID!
+  fareBasis: FareBasis!
+  advance_purchase: String
+  minStay: String
+  maxStay: String
+  penalties: [String!]
+  refundable: Boolean!
+  changeable: Boolean!
+  combinability: String
+  blackoutDates: [Date!]
+}
+
+"""Base fare object with amount and currency."""
+type Fare {
+  fareId: ID!
+  baseFare: Float!
+  currency: Currency!
+  taxes: Float!
+  totalFare: Float!
+  fareBasis: FareBasis!
+  details: FareDetails
+}
+
+"""Complete fare breakdown including all surcharges and fees."""
+type FareDetails {
+  fareId: ID!
+  baseFare: Float!
+  currency: Currency!
+  taxes: Float!
+  surcharges: Float!
+  totalFare: Float!
+  fareBreakdown: [FareComponent!]
+  fareBasis: FareBasis!
+  fareRules: FareRules
+  validatingCarrier: IATA!
+  privateFare: Boolean!
+  negotiatedFare: Boolean!
+}
+
+"""Individual component of a fare breakdown."""
+type FareComponent {
+  type: String!
+  amount: Float!
+  currency: Currency!
+  description: String
+}
+
+# ─── Flight & Availability ────────────────────────────────────────────────────
+
+"""Individual flight leg within an itinerary."""
+type FlightSegment {
+  segmentId: ID!
+  airline: Airline!
+  flightNumber: String!
+  origin: Airport!
+  destination: Airport!
+  departureDateTime: DateTime!
+  arrivalDateTime: DateTime!
+  cabin: CabinClass!
+  bookingClass: String!
+  duration: Int!
+  details: SegmentDetails
+}
+
+"""Extended segment information including equipment and stops."""
+type SegmentDetails {
+  segmentId: ID!
+  airline: Airline!
+  operatingCarrier: Airline
+  flightNumber: String!
+  operatingFlightNumber: String
+  origin: Airport!
+  destination: Airport!
+  departureTerminal: String
+  arrivalTerminal: String
+  departureDateTime: DateTime!
+  arrivalDateTime: DateTime!
+  cabin: CabinClass!
+  bookingClass: String!
+  seatsAvailable: Int
+  equipment: String
+  duration: Int!
+  stops: Int!
+  stopDetails: [StopDetail!]
+  codeshare: Boolean!
+  mealService: String
+}
+
+"""Stop detail within a multi-stop flight segment."""
+type StopDetail {
+  airport: Airport!
+  arrivalDateTime: DateTime!
+  departureDateTime: DateTime!
+  duration: Int!
+}
+
+"""Air flight reference object."""
+type Flight {
+  flightId: ID!
+  details: FlightDetails
+}
+
+"""Detailed flight information."""
+type FlightDetails {
+  flightId: ID!
+  segments: [FlightSegment!]!
+  totalDuration: Int!
+  stops: Int!
+  cabin: CabinClass!
+  fare: Fare
+}
+
+"""Priced flight itinerary offer returned from air shopping."""
+type FlightOffer {
+  offerId: ID!
+  segments: [FlightSegment!]!
+  fare: Fare!
+  details: FlightDetails
+  validatingCarrier: IATA!
+  cabinClass: CabinClass!
+  seatsRemaining: Int
+  refundable: Boolean!
+  lastTicketingDate: Date
+  source: String
+}
+
+"""Seat and cabin availability response for a flight."""
+type AirAvailability {
+  availabilityId: ID!
+  flight: FlightSegment!
+  cabinAvailability: [CabinAvailability!]!
+  checkedAt: DateTime!
+}
+
+"""Availability data for a specific cabin class."""
+type CabinAvailability {
+  cabin: CabinClass!
+  bookingClass: String!
+  seatsAvailable: Int!
+  waitlist: Boolean!
+}
+
+"""Cabin seat map layout with individual seat inventory."""
+type SeatMap {
+  seatMapId: ID!
+  flight: FlightSegment!
+  cabinClass: CabinClass!
+  aircraft: String!
+  cabins: [CabinSection!]!
+}
+
+"""Section of the aircraft cabin with seat rows."""
+type CabinSection {
+  cabin: CabinClass!
+  rows: [SeatRow!]!
+}
+
+"""A row of seats within a cabin section."""
+type SeatRow {
+  rowNumber: Int!
+  seats: [SeatDetails!]!
+}
+
+# ─── Seat & Ancillary ─────────────────────────────────────────────────────────
+
+"""Individual seat attributes and availability."""
+type SeatDetails {
+  seatNumber: String!
+  available: Boolean!
+  location: SeatLocation
+  features: [SeatFeature!]
+  chargeable: Boolean!
+  price: Float
+  currency: Currency
+  restricted: Boolean!
+}
+
+"""Add-on ancillary service (seat upgrade, baggage, meal, lounge, etc.)."""
+type AncillaryService {
+  serviceId: ID!
+  serviceCode: String!
+  subCode: String
+  description: String!
+  category: String!
+  quantity: Int!
+  price: Float!
+  currency: Currency!
+  segment: FlightSegment
+  passenger: Passenger
+  status: ServiceStatus!
+  details: ServiceDetails
+}
+
+"""Travel service information including EMD details."""
+type ServiceDetails {
+  serviceId: ID!
+  serviceCode: String!
+  rfic: String
+  rfisc: String
+  description: String!
+  category: String!
+  emdType: String
+  price: Float!
+  currency: Currency!
+  taxIncluded: Boolean!
+  status: ServiceStatus!
+}
+
+"""Baggage allowance and fee information."""
+type BaggageDetails {
+  baggageId: ID!
+  passenger: Passenger!
+  segment: FlightSegment!
+  freePieces: Int!
+  freeWeightKg: Float
+  excessFeePerKg: Float
+  additionalPieceFee: Float
+  currency: Currency
+  specialItems: [String!]
+}
+
+# ─── Traveler & Passenger ─────────────────────────────────────────────────────
+
+"""Travel document reference."""
+type Document {
+  documentId: ID!
+  type: DocumentType!
+  details: DocumentDetails
+}
+
+"""Passport, visa, or identity document details."""
+type DocumentDetails {
+  documentId: ID!
+  type: DocumentType!
+  number: String!
+  issuingCountry: String!
+  nationality: String
+  issueDate: Date
+  expiryDate: Date!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date
+  gender: String
+}
+
+"""Frequent flyer loyalty program membership."""
+type FrequentFlyerDetails {
+  programCode: IATA!
+  memberNumber: String!
+  tier: String
+  tierExpiry: Date
+  milesBalance: Int
+  carrier: Airline!
+}
+
+"""Contact information including phone, email, and address."""
+type ContactInfo {
+  contactId: ID!
+  email: String
+  phone: String
+  alternatePhone: String
+  address: Address
+}
+
+"""Physical address."""
+type Address {
+  street: String
+  city: String!
+  state: String
+  postalCode: String
+  country: String!
+}
+
+"""Traveler identity used across bookings."""
+type Traveler {
+  travelerId: ID!
+  details: TravelerDetails
+}
+
+"""Full traveler profile with documents and loyalty programs."""
+type TravelerDetails {
+  travelerId: ID!
+  firstName: String!
+  middleName: String
+  lastName: String!
+  suffix: String
+  title: String
+  dateOfBirth: Date
+  gender: String
+  nationality: String
+  contact: ContactInfo
+  documents: [Document!]
+  frequentFlyer: [FrequentFlyerDetails!]
+  knownTravelerNumber: String
+  redressNumber: String
+  profileId: String
+}
+
+"""Passenger within a specific booking or PNR."""
+type Passenger {
+  passengerId: ID!
+  type: PassengerType!
+  details: PassengerDetails
+}
+
+"""Passenger-specific booking data including seat and ticket."""
+type PassengerDetails {
+  passengerId: ID!
+  type: PassengerType!
+  traveler: TravelerDetails!
+  seatAssignment: [SeatDetails!]
+  ticket: TicketDetails
+  ancillaryServices: [AncillaryService!]
+  baggage: BaggageDetails
+  specialServiceRequests: [String!]
+  otherServiceInformation: [String!]
+}
+
+# ─── PNR ─────────────────────────────────────────────────────────────────────
+
+"""Passenger Name Record - the central GDS reservation object."""
+type PNR {
+  pnrCode: ID!
+  status: PNRStatus!
+  details: PNRDetails
+}
+
+"""Extended PNR information including all associated records."""
+type PNRDetails {
+  pnrCode: ID!
+  status: PNRStatus!
+  created: DateTime!
+  modified: DateTime!
+  lastTicketingDate: Date
+  passengers: [Passenger!]!
+  segments: [FlightSegment!]!
+  hotels: [Hotel!]
+  cars: [Car!]
+  contactInfo: ContactInfo
+  remarks: [String!]
+  osi: [String!]
+  ssr: [String!]
+  payments: [Payment!]
+  tickets: [TicketDetails!]
+  ancillaryServices: [AncillaryService!]
+  agentId: String
+  ipcc: String
+  queuedTo: Queue
+}
+
+# ─── Booking ─────────────────────────────────────────────────────────────────
+
+"""Travel booking container spanning flights, hotels, and cars."""
+type Booking {
+  bookingId: ID!
+  status: BookingStatus!
+  details: BookingDetails
+}
+
+"""Full booking information with all components."""
+type BookingDetails {
+  bookingId: ID!
+  pnrCode: String
+  status: BookingStatus!
+  created: DateTime!
+  modified: DateTime!
+  traveler: TravelerDetails!
+  passengers: [Passenger!]!
+  flights: [FlightOffer!]
+  hotels: [HotelDetails!]
+  cars: [CarDetails!]
+  cruises: [CruiseDetails!]
+  packages: [PackageDetails!]
+  totalPrice: Float!
+  currency: Currency!
+  payments: [Payment!]!
+  tickets: [TicketDetails!]
+  ancillaryServices: [AncillaryService!]
+  contactInfo: ContactInfo!
+  remarks: [String!]
+}
+
+# ─── Ticket & EMD ────────────────────────────────────────────────────────────
+
+"""Electronic ticket information."""
+type TicketDetails {
+  ticketNumber: String!
+  status: TicketStatus!
+  passenger: Passenger!
+  segments: [FlightSegment!]!
+  fare: FareDetails!
+  issuedAt: DateTime!
+  issuedBy: String
+  validatingCarrier: IATA!
+  couponStatus: [CouponStatus!]!
+  exchangedFrom: String
+  conjunctiveTickets: [String!]
+}
+
+"""Individual flight coupon status within a ticket."""
+type CouponStatus {
+  couponNumber: Int!
+  segment: FlightSegment!
+  status: String!
+  usedDate: DateTime
+}
+
+"""Electronic Miscellaneous Document reference."""
+type EMD {
+  emdNumber: ID!
+  details: EMDDetails
+}
+
+"""EMD coupon and associated service details."""
+type EMDDetails {
+  emdNumber: ID!
+  status: String!
+  passenger: Passenger!
+  issuedAt: DateTime!
+  totalAmount: Float!
+  currency: Currency!
+  coupons: [EMDCoupon!]!
+  associatedTicket: String
+}
+
+"""Individual coupon within an EMD."""
+type EMDCoupon {
+  couponNumber: Int!
+  service: ServiceDetails!
+  status: String!
+  amount: Float!
+  currency: Currency!
+  segment: FlightSegment
+  usedDate: DateTime
+}
+
+# ─── Payment ─────────────────────────────────────────────────────────────────
+
+"""Payment method definition."""
+type PaymentMethod {
+  methodId: ID!
+  type: String!
+  cardNumber: String
+  cardHolder: String
+  expiryDate: String
+  billingAddress: Address
+  formOfPaymentCode: String!
+}
+
+"""Payment transaction reference."""
+type Payment {
+  paymentId: ID!
+  status: PaymentStatus!
+  details: PaymentDetails
+}
+
+"""Full payment record including method and amounts."""
+type PaymentDetails {
+  paymentId: ID!
+  status: PaymentStatus!
+  method: PaymentMethod!
+  amount: Float!
+  currency: Currency!
+  processedAt: DateTime
+  authorizationCode: String
+  transactionId: String
+  refundable: Boolean!
+  refundedAmount: Float
+}
+
+# ─── Hotel ───────────────────────────────────────────────────────────────────
+
+"""Room type within a hotel property."""
+type RoomType {
+  roomTypeCode: String!
+  name: String!
+  description: String
+  maxOccupancy: Int!
+  bedType: String
+  smokingAllowed: Boolean!
+  amenities: [String!]
+}
+
+"""Hotel pricing plan."""
+type RatePlan {
+  ratePlanCode: String!
+  name: String!
+  description: String
+  mealPlan: String
+  cancelPolicy: String
+  refundable: Boolean!
+  prepaid: Boolean!
+  currency: Currency!
+  ratePerNight: Float!
+  totalRate: Float!
+}
+
+"""Hotel property reference."""
+type Hotel {
+  hotelId: ID!
+  chainCode: String
+  propertyCode: String!
+  details: HotelDetails
+}
+
+"""Full hotel property information."""
+type HotelDetails {
+  hotelId: ID!
+  chainCode: String
+  propertyCode: String!
+  name: String!
+  address: Address!
+  phone: String
+  email: String
+  website: String
+  starRating: Float
+  amenities: [String!]
+  latitude: Float
+  longitude: Float
+  checkInTime: Time
+  checkOutTime: Time
+  policies: [String!]
+}
+
+"""Available hotel rates for a search."""
+type HotelRates {
+  ratesId: ID!
+  hotel: Hotel!
+  checkIn: Date!
+  checkOut: Date!
+  nights: Int!
+  availableRooms: [AvailableRoom!]!
+  currency: Currency!
+}
+
+"""Available room with rate plan."""
+type AvailableRoom {
+  roomType: RoomType!
+  ratePlan: RatePlan!
+  available: Boolean!
+  lastAvailable: Boolean!
+}
+
+# ─── Car Rental ───────────────────────────────────────────────────────────────
+
+"""Car rental reference."""
+type Car {
+  carId: ID!
+  details: CarDetails
+}
+
+"""Vehicle details and features."""
+type CarDetails {
+  carId: ID!
+  vendorCode: String!
+  vendorName: String!
+  category: CarCategory!
+  type: String!
+  transmission: CarTransmission!
+  fuelType: String
+  seats: Int
+  doors: Int
+  airConditioning: Boolean!
+  features: [String!]
+  imageUrl: String
+}
+
+"""Car rental rate response."""
+type CarRates {
+  ratesId: ID!
+  car: Car!
+  pickupLocation: String!
+  dropoffLocation: String!
+  pickupDateTime: DateTime!
+  dropoffDateTime: DateTime!
+  rentalRates: [RentalRate!]!
+}
+
+"""Specific rental pricing structure."""
+type RentalRate {
+  rateCode: String!
+  rateName: String!
+  rateType: String!
+  dailyRate: Float
+  weeklyRate: Float
+  weekendRate: Float
+  extraDayRate: Float
+  currency: Currency!
+  mileageAllowance: String
+  fuelPolicy: String
+  insuranceIncluded: Boolean!
+  taxes: Float
+  totalEstimate: Float
+  cancellationPolicy: String
+}
+
+# ─── Cruise ──────────────────────────────────────────────────────────────────
+
+"""Cruise itinerary reference."""
+type Cruise {
+  cruiseId: ID!
+  details: CruiseDetails
+}
+
+"""Cruise voyage details."""
+type CruiseDetails {
+  cruiseId: ID!
+  cruiseLine: String!
+  shipName: String!
+  voyageCode: String!
+  departureDatee: Date!
+  returnDate: Date!
+  embarkationPort: String!
+  disembarkationPort: String!
+  itinerary: [CruisePort!]!
+  cabinCategory: String!
+  deckLevel: String
+  pricePerPerson: Float!
+  currency: Currency!
+  inclusions: [String!]
+}
+
+"""Port call within a cruise itinerary."""
+type CruisePort {
+  portName: String!
+  country: String!
+  arrivalDate: Date
+  departureDate: Date
+  overnight: Boolean!
+}
+
+# ─── Package ─────────────────────────────────────────────────────────────────
+
+"""Travel package reference."""
+type Package {
+  packageId: ID!
+  details: PackageDetails
+}
+
+"""Package components and pricing."""
+type PackageDetails {
+  packageId: ID!
+  name: String!
+  description: String
+  flights: [FlightOffer!]
+  hotel: HotelDetails
+  car: CarDetails
+  excursions: [String!]
+  totalPrice: Float!
+  currency: Currency!
+  savingsAmount: Float
+  validFrom: Date!
+  validTo: Date!
+}
+
+# ─── Queue ───────────────────────────────────────────────────────────────────
+
+"""PNR queue reference for agency workflow."""
+type Queue {
+  queueId: ID!
+  details: QueueDetails
+}
+
+"""Queue contents and management information."""
+type QueueDetails {
+  queueId: ID!
+  number: String!
+  category: QueueCategory!
+  name: String!
+  description: String
+  ipcc: String!
+  pnrCount: Int!
+  pnrs: [PNR!]
+  createdAt: DateTime!
+  lastActivity: DateTime
+}
+
+# ─── Profile ─────────────────────────────────────────────────────────────────
+
+"""Agency or traveler profile reference."""
+type Profile {
+  profileId: ID!
+  details: ProfileDetails
+}
+
+"""Full profile data including preferences and memberships."""
+type ProfileDetails {
+  profileId: ID!
+  profileType: String!
+  firstName: String
+  lastName: String
+  companyName: String
+  contact: ContactInfo!
+  documents: [Document!]
+  frequentFlyer: [FrequentFlyerDetails!]
+  memberDetails: MemberDetails
+  travelPreferences: TravelPreferences
+  created: DateTime!
+  modified: DateTime!
+}
+
+"""Loyalty program member record."""
+type MemberDetails {
+  memberId: ID!
+  programName: String!
+  programCode: String!
+  memberNumber: String!
+  tier: String
+  tierExpiry: Date
+  pointsBalance: Int
+  milesBalance: Int
+  joinDate: Date!
+  carrier: Airline
+}
+
+"""Traveler preferences stored in a profile."""
+type TravelPreferences {
+  seatPreference: SeatLocation
+  mealPreference: String
+  cabinPreference: CabinClass
+  hotelBedType: String
+  carTransmission: CarTransmission
+  specialAssistance: [String!]
+  frequentFlyerPrograms: [FrequentFlyerDetails!]
+}
+
+# ─── Root Operations ──────────────────────────────────────────────────────────
+
+type Query {
+  """Retrieve a PNR by record locator."""
+  pnr(pnrCode: ID!): PNR
+
+  """Search for available flights."""
+  flightOffers(
+    origin: IATA!
+    destination: IATA!
+    departureDate: Date!
+    returnDate: Date
+    passengers: [PassengerInput!]!
+    cabin: CabinClass
+    maxResults: Int
+  ): [FlightOffer!]
+
+  """Get seat map for a specific flight."""
+  seatMap(
+    flightNumber: String!
+    origin: IATA!
+    destination: IATA!
+    departureDate: Date!
+    cabin: CabinClass!
+  ): SeatMap
+
+  """Get air availability for a flight."""
+  airAvailability(
+    origin: IATA!
+    destination: IATA!
+    departureDate: Date!
+    airline: IATA
+  ): [AirAvailability!]
+
+  """Search for hotels."""
+  hotelRates(
+    cityCode: String
+    latitude: Float
+    longitude: Float
+    radiusKm: Float
+    checkIn: Date!
+    checkOut: Date!
+    roomCount: Int!
+    guestCount: Int!
+  ): [HotelRates!]
+
+  """Get hotel details."""
+  hotel(hotelId: ID!): Hotel
+
+  """Search for car rentals."""
+  carRates(
+    pickupLocation: String!
+    dropoffLocation: String!
+    pickupDateTime: DateTime!
+    dropoffDateTime: DateTime!
+    driverAge: Int
+  ): CarRates
+
+  """Retrieve a booking by ID."""
+  booking(bookingId: ID!): Booking
+
+  """Get fare rules for a specific fare."""
+  fareRules(fareBasis: String!, origin: IATA!, destination: IATA!, carrier: IATA!): FareRules
+
+  """Get airport details."""
+  airport(code: IATA!): AirportDetails
+
+  """Get airline details."""
+  airline(code: IATA!): AirlineDetails
+
+  """Get flight schedules between two airports."""
+  schedules(origin: IATA!, destination: IATA!, date: Date!): [Schedule!]
+
+  """Get queue details."""
+  queue(queueId: ID!, ipcc: String!): Queue
+
+  """Get a traveler profile."""
+  profile(profileId: ID!): Profile
+
+  """Get session information."""
+  session(sessionId: ID!): Session
+}
+
+type Mutation {
+  """Create a new booking/PNR."""
+  createBooking(input: CreateBookingInput!): Booking
+
+  """Cancel a booking."""
+  cancelBooking(bookingId: ID!, reason: String): Booking
+
+  """Update a booking."""
+  updateBooking(bookingId: ID!, input: UpdateBookingInput!): Booking
+
+  """Issue tickets for a booking."""
+  issueTickets(bookingId: ID!, paymentMethod: PaymentMethodInput!): [TicketDetails!]
+
+  """Void a ticket."""
+  voidTicket(ticketNumber: String!, reason: String): TicketDetails
+
+  """Add ancillary service to a booking."""
+  addAncillaryService(bookingId: ID!, service: AncillaryServiceInput!): AncillaryService
+
+  """Assign a seat."""
+  assignSeat(bookingId: ID!, passengerId: ID!, segmentId: ID!, seatNumber: String!): SeatDetails
+
+  """Obtain an OAuth token."""
+  authenticate(clientId: String!, clientSecret: String!, grantType: String!): Token
+
+  """Create a Sabre session."""
+  createSession(credentials: SessionCredentialsInput!): Session
+
+  """Close a Sabre session."""
+  closeSession(sessionId: ID!): Boolean
+
+  """Move a PNR to a queue."""
+  queuePNR(pnrCode: ID!, queueId: ID!, category: QueueCategory): Queue
+
+  """Create a traveler profile."""
+  createProfile(input: ProfileInput!): Profile
+
+  """Update a traveler profile."""
+  updateProfile(profileId: ID!, input: ProfileInput!): Profile
+
+  """Create an EMD."""
+  createEMD(bookingId: ID!, serviceId: ID!, paymentMethod: PaymentMethodInput!): EMD
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input PassengerInput {
+  type: PassengerType!
+  count: Int!
+}
+
+input CreateBookingInput {
+  offerId: ID!
+  passengers: [PassengerDataInput!]!
+  contactInfo: ContactInfoInput!
+  paymentMethod: PaymentMethodInput
+  remarks: [String!]
+}
+
+input PassengerDataInput {
+  type: PassengerType!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date
+  gender: String
+  documentNumber: String
+  documentType: DocumentType
+  documentExpiry: Date
+  issuingCountry: String
+  frequentFlyerNumber: String
+  frequentFlyerProgram: IATA
+}
+
+input ContactInfoInput {
+  email: String!
+  phone: String!
+  address: AddressInput
+}
+
+input AddressInput {
+  street: String
+  city: String!
+  state: String
+  postalCode: String
+  country: String!
+}
+
+input PaymentMethodInput {
+  type: String!
+  cardNumber: String
+  cardHolder: String
+  expiryDate: String
+  cvv: String
+  billingAddress: AddressInput
+}
+
+input UpdateBookingInput {
+  contactInfo: ContactInfoInput
+  remarks: [String!]
+  specialRequests: [String!]
+}
+
+input AncillaryServiceInput {
+  serviceCode: String!
+  subCode: String
+  segmentId: ID
+  passengerId: ID!
+  quantity: Int!
+}
+
+input SessionCredentialsInput {
+  username: String!
+  password: String!
+  ipcc: String!
+  domain: String
+}
+
+input ProfileInput {
+  firstName: String
+  lastName: String
+  companyName: String
+  contact: ContactInfoInput!
+  documents: [DocumentInput!]
+  frequentFlyer: [FrequentFlyerInput!]
+}
+
+input DocumentInput {
+  type: DocumentType!
+  number: String!
+  issuingCountry: String!
+  expiryDate: Date!
+  nationality: String
+  issueDate: Date
+}
+
+input FrequentFlyerInput {
+  programCode: IATA!
+  memberNumber: String!
+}
