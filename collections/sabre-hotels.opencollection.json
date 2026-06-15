@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sabre Hotels API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hotel Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search hotel availability and rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sabre.com/v2.0.0/offers/hotels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for available hotels in a destination with real-time rate and availability data from Sabre GDS and SynXis distribution. Supports radius search, amenity filters, chain preferences, and rate type filters."
+        },
+        {
+          "info": {
+            "name": "Get room rates for a specific hotel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sabre.com/v2.0.0/offers/hotels/:hotelCode/rates",
+            "params": [
+              {
+                "name": "hotelCode",
+                "value": "HTL123456",
+                "type": "path",
+                "description": "Sabre hotel property code (GDS property identifier)"
+              },
+              {
+                "name": "checkIn",
+                "value": "2026-06-15",
+                "type": "query"
+              },
+              {
+                "name": "checkOut",
+                "value": "2026-06-18",
+                "type": "query"
+              },
+              {
+                "name": "adults",
+                "value": "2",
+                "type": "query"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed room types, rate plans, and pricing for a specific hotel property. Returns cancellation policies, deposit requirements, and available room inventory."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Hotel Booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a hotel reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sabre.com/v2.0.0/hotels/reservations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Books a hotel room and creates a reservation record in Sabre GDS. Returns a confirmation number and hotel-specific PNR locator."
+        },
+        {
+          "info": {
+            "name": "Retrieve hotel reservation details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sabre.com/v2.0.0/hotels/reservations/:confirmationId",
+            "params": [
+              {
+                "name": "confirmationId",
+                "value": "",
+                "type": "path",
+                "description": "Hotel reservation confirmation number"
+              }
+            ]
+          },
+          "docs": "Returns full details for an existing hotel reservation."
+        },
+        {
+          "info": {
+            "name": "Cancel a hotel reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sabre.com/v2.0.0/hotels/reservations/:confirmationId",
+            "params": [
+              {
+                "name": "confirmationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels an existing hotel reservation subject to property cancellation policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

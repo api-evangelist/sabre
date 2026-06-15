@@ -1,0 +1,806 @@
+{
+  "item": [
+    {
+      "id": "8a0f2562-307a-4204-a251-81302597baf8",
+      "name": "Air Shopping",
+      "description": {
+        "content": "Low-fare search and offer retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "42674e87-f75a-452a-98b3-472e32d6d0e0",
+          "name": "Search for lowest air fares",
+          "request": {
+            "name": "Search for lowest air fares",
+            "description": {
+              "content": "Performs a low-fare air shopping search returning ranked itinerary options across scheduled, charter, and low-cost carriers. Supports one-way, round-trip, open-jaw, and multi-destination itineraries with flexible date ranges, cabin preferences, and fare basis filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4.0.0",
+                "offers",
+                "air-fares",
+                "bargain-finder-max"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"OriginDestinationInformation\": [\n      {\n        \"DepartureDateTime\": \"<dateTime>\",\n        \"OriginLocation\": {\n          \"LocationCode\": \"<string>\"\n        },\n        \"DestinationLocation\": {\n          \"LocationCode\": \"<string>\"\n        },\n        \"RPH\": \"<string>\"\n      }\n    ],\n    \"TravelPreferences\": {\n      \"CabinPref\": [\n        {\n          \"Cabin\": \"<string>\",\n          \"PreferLevel\": \"<string>\"\n        },\n        {\n          \"Cabin\": \"<string>\",\n          \"PreferLevel\": \"<string>\"\n        }\n      ],\n      \"MaxStopsQuantity\": \"<integer>\",\n      \"TPA_Extensions\": {\n        \"LookAheadDays\": {\n          \"Value\": \"<integer>\"\n        },\n        \"TicketingRestriction\": {\n          \"Value\": \"<string>\"\n        }\n      }\n    },\n    \"TravelerInfoSummary\": {\n      \"AirTravelerAvail\": [\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"<string>\",\n              \"Quantity\": \"<integer>\"\n            },\n            {\n              \"Code\": \"<string>\",\n              \"Quantity\": \"<integer>\"\n            }\n          ]\n        },\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"<string>\",\n              \"Quantity\": \"<integer>\"\n            },\n            {\n              \"Code\": \"<string>\",\n              \"Quantity\": \"<integer>\"\n            }\n          ]\n        }\n      ],\n      \"PriceRequestInformation\": {\n        \"CurrencyCode\": \"<string>\"\n      }\n    },\n    \"Version\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09b3a696-2612-45f3-be4a-a7ade6b502f9",
+              "name": "Successful low-fare search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"OriginDestinationInformation\": [\n      {\n        \"DepartureDateTime\": \"2026-06-15T00:00:00\",\n        \"OriginLocation\": {\n          \"LocationCode\": \"DFW\"\n        },\n        \"DestinationLocation\": {\n          \"LocationCode\": \"LHR\"\n        },\n        \"RPH\": \"1\"\n      }\n    ],\n    \"TravelPreferences\": {\n      \"CabinPref\": [\n        {\n          \"Cabin\": \"PremiumEconomy\",\n          \"PreferLevel\": \"Only\"\n        },\n        {\n          \"Cabin\": \"First\",\n          \"PreferLevel\": \"Preferred\"\n        }\n      ],\n      \"MaxStopsQuantity\": 1,\n      \"TPA_Extensions\": {\n        \"LookAheadDays\": {\n          \"Value\": 3\n        },\n        \"TicketingRestriction\": {\n          \"Value\": \"ALL_TICKETS\"\n        }\n      }\n    },\n    \"TravelerInfoSummary\": {\n      \"AirTravelerAvail\": [\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 859\n            },\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 15\n            }\n          ]\n        },\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 9273\n            },\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 2571\n            }\n          ]\n        }\n      ],\n      \"PriceRequestInformation\": {\n        \"CurrencyCode\": \"USD\"\n      }\n    },\n    \"Version\": \"4.0.0\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"OTA_AirLowFareSearchRS\": {\n    \"PricedItineraries\": {\n      \"PricedItinerary\": [\n        {\n          \"SequenceNumber\": 3373,\n          \"AirItinerary\": {\n            \"DirectionInd\": \"Return\",\n            \"OriginDestinationOptions\": {\n              \"OriginDestinationOption\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          \"AirItineraryPricingInfo\": {\n            \"ItinTotalFare\": {\n              \"BaseFare\": {\n                \"Amount\": 6406.784605647597,\n                \"CurrencyCode\": \"string\"\n              },\n              \"Taxes\": {\n                \"Tax\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              \"TotalFare\": {\n                \"Amount\": 6960.863044448735,\n                \"CurrencyCode\": \"string\"\n              }\n            }\n          }\n        },\n        {\n          \"SequenceNumber\": 3483,\n          \"AirItinerary\": {\n            \"DirectionInd\": \"Return\",\n            \"OriginDestinationOptions\": {\n              \"OriginDestinationOption\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          \"AirItineraryPricingInfo\": {\n            \"ItinTotalFare\": {\n              \"BaseFare\": {\n                \"Amount\": 6893.689901066632,\n                \"CurrencyCode\": \"string\"\n              },\n              \"Taxes\": {\n                \"Tax\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              \"TotalFare\": {\n                \"Amount\": 4914.401018462366,\n                \"CurrencyCode\": \"string\"\n              }\n            }\n          }\n        }\n      ]\n    },\n    \"Success\": {},\n    \"Errors\": {\n      \"Error\": [\n        {\n          \"Code\": 8350,\n          \"NodeList\": \"string\",\n          \"ShortText\": \"string\",\n          \"Type\": \"string\"\n        },\n        {\n          \"Code\": 229,\n          \"NodeList\": \"string\",\n          \"ShortText\": \"string\",\n          \"Type\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69727a78-0c9c-4f91-8eb5-f3e514c6eac8",
+              "name": "Bad request — invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"OriginDestinationInformation\": [\n      {\n        \"DepartureDateTime\": \"2026-06-15T00:00:00\",\n        \"OriginLocation\": {\n          \"LocationCode\": \"DFW\"\n        },\n        \"DestinationLocation\": {\n          \"LocationCode\": \"LHR\"\n        },\n        \"RPH\": \"1\"\n      }\n    ],\n    \"TravelPreferences\": {\n      \"CabinPref\": [\n        {\n          \"Cabin\": \"PremiumEconomy\",\n          \"PreferLevel\": \"Only\"\n        },\n        {\n          \"Cabin\": \"First\",\n          \"PreferLevel\": \"Preferred\"\n        }\n      ],\n      \"MaxStopsQuantity\": 1,\n      \"TPA_Extensions\": {\n        \"LookAheadDays\": {\n          \"Value\": 3\n        },\n        \"TicketingRestriction\": {\n          \"Value\": \"ALL_TICKETS\"\n        }\n      }\n    },\n    \"TravelerInfoSummary\": {\n      \"AirTravelerAvail\": [\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 859\n            },\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 15\n            }\n          ]\n        },\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 9273\n            },\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 2571\n            }\n          ]\n        }\n      ],\n      \"PriceRequestInformation\": {\n        \"CurrencyCode\": \"USD\"\n      }\n    },\n    \"Version\": \"4.0.0\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f1a07d8-cb48-4e71-a413-f633896d23cf",
+              "name": "Unauthorized — invalid or expired token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"OriginDestinationInformation\": [\n      {\n        \"DepartureDateTime\": \"2026-06-15T00:00:00\",\n        \"OriginLocation\": {\n          \"LocationCode\": \"DFW\"\n        },\n        \"DestinationLocation\": {\n          \"LocationCode\": \"LHR\"\n        },\n        \"RPH\": \"1\"\n      }\n    ],\n    \"TravelPreferences\": {\n      \"CabinPref\": [\n        {\n          \"Cabin\": \"PremiumEconomy\",\n          \"PreferLevel\": \"Only\"\n        },\n        {\n          \"Cabin\": \"First\",\n          \"PreferLevel\": \"Preferred\"\n        }\n      ],\n      \"MaxStopsQuantity\": 1,\n      \"TPA_Extensions\": {\n        \"LookAheadDays\": {\n          \"Value\": 3\n        },\n        \"TicketingRestriction\": {\n          \"Value\": \"ALL_TICKETS\"\n        }\n      }\n    },\n    \"TravelerInfoSummary\": {\n      \"AirTravelerAvail\": [\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 859\n            },\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 15\n            }\n          ]\n        },\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 9273\n            },\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 2571\n            }\n          ]\n        }\n      ],\n      \"PriceRequestInformation\": {\n        \"CurrencyCode\": \"USD\"\n      }\n    },\n    \"Version\": \"4.0.0\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7f24817-23b6-4907-a606-eb855f972544",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"OriginDestinationInformation\": [\n      {\n        \"DepartureDateTime\": \"2026-06-15T00:00:00\",\n        \"OriginLocation\": {\n          \"LocationCode\": \"DFW\"\n        },\n        \"DestinationLocation\": {\n          \"LocationCode\": \"LHR\"\n        },\n        \"RPH\": \"1\"\n      }\n    ],\n    \"TravelPreferences\": {\n      \"CabinPref\": [\n        {\n          \"Cabin\": \"PremiumEconomy\",\n          \"PreferLevel\": \"Only\"\n        },\n        {\n          \"Cabin\": \"First\",\n          \"PreferLevel\": \"Preferred\"\n        }\n      ],\n      \"MaxStopsQuantity\": 1,\n      \"TPA_Extensions\": {\n        \"LookAheadDays\": {\n          \"Value\": 3\n        },\n        \"TicketingRestriction\": {\n          \"Value\": \"ALL_TICKETS\"\n        }\n      }\n    },\n    \"TravelerInfoSummary\": {\n      \"AirTravelerAvail\": [\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 859\n            },\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 15\n            }\n          ]\n        },\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 9273\n            },\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 2571\n            }\n          ]\n        }\n      ],\n      \"PriceRequestInformation\": {\n        \"CurrencyCode\": \"USD\"\n      }\n    },\n    \"Version\": \"4.0.0\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "237bafa6-1069-488c-8114-a33d79ad881a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"OriginDestinationInformation\": [\n      {\n        \"DepartureDateTime\": \"2026-06-15T00:00:00\",\n        \"OriginLocation\": {\n          \"LocationCode\": \"DFW\"\n        },\n        \"DestinationLocation\": {\n          \"LocationCode\": \"LHR\"\n        },\n        \"RPH\": \"1\"\n      }\n    ],\n    \"TravelPreferences\": {\n      \"CabinPref\": [\n        {\n          \"Cabin\": \"PremiumEconomy\",\n          \"PreferLevel\": \"Only\"\n        },\n        {\n          \"Cabin\": \"First\",\n          \"PreferLevel\": \"Preferred\"\n        }\n      ],\n      \"MaxStopsQuantity\": 1,\n      \"TPA_Extensions\": {\n        \"LookAheadDays\": {\n          \"Value\": 3\n        },\n        \"TicketingRestriction\": {\n          \"Value\": \"ALL_TICKETS\"\n        }\n      }\n    },\n    \"TravelerInfoSummary\": {\n      \"AirTravelerAvail\": [\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 859\n            },\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 15\n            }\n          ]\n        },\n        {\n          \"PassengerTypeQuantity\": [\n            {\n              \"Code\": \"ADT\",\n              \"Quantity\": 9273\n            },\n            {\n              \"Code\": \"INS\",\n              \"Quantity\": 2571\n            }\n          ]\n        }\n      ],\n      \"PriceRequestInformation\": {\n        \"CurrencyCode\": \"USD\"\n      }\n    },\n    \"Version\": \"4.0.0\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f040540-63e9-490a-b41b-604f79ef2c98",
+          "name": "Re-shop a specific itinerary for updated pricing",
+          "request": {
+            "name": "Re-shop a specific itinerary for updated pricing",
+            "description": {
+              "content": "Re-shops a previously selected itinerary to retrieve current pricing and availability before booking. Used to confirm fares prior to PNR creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4.0.0",
+                "offers",
+                "air-fares",
+                "bargain-finder-max",
+                "re-shop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"TPA_Extensions\": {\n      \"IntelliSellTransaction\": {\n        \"RequestType\": {\n          \"Name\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "103ab06b-cdb5-4b7a-9695-0442ffb6f018",
+              "name": "Re-shop results with updated pricing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max",
+                    "re-shop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"TPA_Extensions\": {\n      \"IntelliSellTransaction\": {\n        \"RequestType\": {\n          \"Name\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"OTA_AirLowFareSearchRS\": {\n    \"PricedItineraries\": {\n      \"PricedItinerary\": [\n        {\n          \"SequenceNumber\": 3373,\n          \"AirItinerary\": {\n            \"DirectionInd\": \"Return\",\n            \"OriginDestinationOptions\": {\n              \"OriginDestinationOption\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          \"AirItineraryPricingInfo\": {\n            \"ItinTotalFare\": {\n              \"BaseFare\": {\n                \"Amount\": 6406.784605647597,\n                \"CurrencyCode\": \"string\"\n              },\n              \"Taxes\": {\n                \"Tax\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              \"TotalFare\": {\n                \"Amount\": 6960.863044448735,\n                \"CurrencyCode\": \"string\"\n              }\n            }\n          }\n        },\n        {\n          \"SequenceNumber\": 3483,\n          \"AirItinerary\": {\n            \"DirectionInd\": \"Return\",\n            \"OriginDestinationOptions\": {\n              \"OriginDestinationOption\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          },\n          \"AirItineraryPricingInfo\": {\n            \"ItinTotalFare\": {\n              \"BaseFare\": {\n                \"Amount\": 6893.689901066632,\n                \"CurrencyCode\": \"string\"\n              },\n              \"Taxes\": {\n                \"Tax\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              \"TotalFare\": {\n                \"Amount\": 4914.401018462366,\n                \"CurrencyCode\": \"string\"\n              }\n            }\n          }\n        }\n      ]\n    },\n    \"Success\": {},\n    \"Errors\": {\n      \"Error\": [\n        {\n          \"Code\": 8350,\n          \"NodeList\": \"string\",\n          \"ShortText\": \"string\",\n          \"Type\": \"string\"\n        },\n        {\n          \"Code\": 229,\n          \"NodeList\": \"string\",\n          \"ShortText\": \"string\",\n          \"Type\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cf8a208-9a4c-4bf4-a78e-21295b8d39d0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max",
+                    "re-shop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"TPA_Extensions\": {\n      \"IntelliSellTransaction\": {\n        \"RequestType\": {\n          \"Name\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a2ca5f4-a73a-4928-b785-20f5a1153d55",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4.0.0",
+                    "offers",
+                    "air-fares",
+                    "bargain-finder-max",
+                    "re-shop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"OTA_AirLowFareSearchRQ\": {\n    \"TPA_Extensions\": {\n      \"IntelliSellTransaction\": {\n        \"RequestType\": {\n          \"Name\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1bbfe973-056b-4b73-bb24-205779d109f4",
+      "name": "Authentication",
+      "description": {
+        "content": "Token-based authentication",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5e6b82e6-dae1-4e73-9275-8096968819d6",
+          "name": "Get OAuth2 access token",
+          "request": {
+            "name": "Get OAuth2 access token",
+            "description": {
+              "content": "Authenticates the application using client credentials and returns a Bearer token for API requests. Tokens expire after a configurable period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "auth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) Sabre application client ID (V1 encoded)"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>",
+                  "description": "(Required) Sabre application client secret (V1 encoded)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3072aaa-0fa5-4526-825a-01c46fe2b282",
+              "name": "Access token issued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Sabre application client ID (V1 encoded)",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Sabre application client secret (V1 encoded)",
+                        "type": "text/plain"
+                      },
+                      "key": "client_secret",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 604800\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f3b9183-8536-4a6c-bd0d-f90633d332c5",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Sabre application client ID (V1 encoded)",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Sabre application client secret (V1 encoded)",
+                        "type": "text/plain"
+                      },
+                      "key": "client_secret",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2527,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2024-11-03T02:11:42.790Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sabre.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2cccab6b-9761-4ddb-8e07-dbe52ba27c11",
+    "name": "Sabre Bargain Finder Max API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.\n\nContact Support:\n Name: Sabre Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
