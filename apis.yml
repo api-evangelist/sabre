@@ -6,7 +6,7 @@ description: Sabre Corporation is a leading technology provider for the global t
   reservations, car rentals, rail ticketing, and travel agency workflow automation
   to airlines, hotels, travel agencies, and online travel agencies (OTAs).
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Travel
 - GDS
