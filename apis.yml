@@ -138,6 +138,10 @@ apis:
   - type: Documentation
     url: https://developer.sabre.com/
 common:
+- type: DomainSecurity
+  url: security/sabre-domain-security.yml
+- type: Authentication
+  url: authentication/sabre-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/sabre-corporation
 - type: Portal
