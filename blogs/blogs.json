@@ -2,13 +2,14 @@
   "repo": "sabre",
   "feeds": [
     {
-      "source": "https://developer.sabre.com/blog",
-      "feed_url": "",
+      "source": "https://developer.sabre.com/support",
+      "feed_url": "https://developer.sabre.com/support",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
     }
   ],
   "post_count": 5,
-  "fetched": "2026-06-27T13:07:27Z",
-  "agent_pulled": "2026-06-27"
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
