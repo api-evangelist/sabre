@@ -138,6 +138,8 @@ apis:
   - type: Documentation
     url: https://developer.sabre.com/
 common:
+- type: AgenticAccess
+  url: agentic-access/sabre-agentic-access.yml
 - type: DomainSecurity
   url: security/sabre-domain-security.yml
 - type: Authentication
