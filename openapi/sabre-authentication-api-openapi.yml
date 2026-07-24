@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: Sabre Bargain Finder Max Air Shopping Authentication API
+  description: Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.
+  version: 4.0.0
+  contact:
+    name: Sabre Developer Support
+    url: https://developer.sabre.com/support
+  license:
+    name: Sabre Developer Agreement
+    url: https://developer.sabre.com/
+servers:
+- url: https://api.sabre.com
+  description: Sabre Production API
+security:
+- BearerAuth: []
+tags:
+- name: Authentication
+  description: Token-based authentication
+paths:
+  /v2/auth/token:
+    post:
+      operationId: getAuthToken
+      summary: Get OAuth2 access token
+      description: Authenticates the application using client credentials and returns a Bearer token for API requests. Tokens expire after a configurable period.
+      tags:
+      - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - grant_type
+              - client_id
+              - client_secret
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                  - client_credentials
+                client_id:
+                  type: string
+                  description: Sabre application client ID (V1 encoded)
+                client_secret:
+                  type: string
+                  description: Sabre application client secret (V1 encoded)
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds
+          example: 604800
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token obtained from /v2/auth/token
