@@ -1,0 +1,516 @@
+openapi: 3.1.0
+info:
+  title: Sabre Hotels API
+  description: >-
+    Sabre Hotels API provides hotel search, availability, rate shopping, content
+    retrieval, and booking APIs for travel agencies and OTAs. Accesses Sabre's
+    global lodging content and SynXis hotel distribution network.
+  version: 2.0.0
+  contact:
+    name: Sabre Developer Support
+    url: https://developer.sabre.com/support
+servers:
+  - url: https://api.sabre.com
+    description: Sabre Production API
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Hotel Booking
+    description: Reservation management
+
+  - name: Hotel Search
+    description: Search and availability operations
+paths:
+  /v2.0.0/offers/hotels:
+    post:
+      operationId: searchHotelAvailability
+      summary: Search hotel availability and rates
+      description: >-
+        Searches for available hotels in a destination with real-time rate and
+        availability data from Sabre GDS and SynXis distribution. Supports radius
+        search, amenity filters, chain preferences, and rate type filters.
+      tags:
+        - Hotel Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelSearchRequest'
+      responses:
+        '200':
+          description: Hotel availability results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelSearchResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2.0.0/offers/hotels/{hotelCode}/rates:
+    get:
+      operationId: getHotelRates
+      summary: Get room rates for a specific hotel
+      description: >-
+        Retrieves detailed room types, rate plans, and pricing for a specific
+        hotel property. Returns cancellation policies, deposit requirements,
+        and available room inventory.
+      tags:
+        - Hotel Search
+      parameters:
+        - name: hotelCode
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Sabre hotel property code (GDS property identifier)
+          example: "HTL123456"
+        - name: checkIn
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: "2026-06-15"
+        - name: checkOut
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: "2026-06-18"
+        - name: adults
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          example: 2
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "USD"
+      responses:
+        '200':
+          description: Hotel room rates and availability
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelRatesResponse'
+        '404':
+          description: Hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2.0.0/hotels/reservations:
+    post:
+      operationId: createHotelReservation
+      summary: Create a hotel reservation
+      description: >-
+        Books a hotel room and creates a reservation record in Sabre GDS.
+        Returns a confirmation number and hotel-specific PNR locator.
+      tags:
+        - Hotel Booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelReservationRequest'
+      responses:
+        '201':
+          description: Reservation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelReservationResponse'
+        '400':
+          description: Bad request or invalid room/rate combination
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2.0.0/hotels/reservations/{confirmationId}:
+    get:
+      operationId: getHotelReservation
+      summary: Retrieve hotel reservation details
+      description: Returns full details for an existing hotel reservation.
+      tags:
+        - Hotel Booking
+      parameters:
+        - name: confirmationId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Hotel reservation confirmation number
+      responses:
+        '200':
+          description: Hotel reservation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelReservationResponse'
+        '404':
+          description: Reservation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: cancelHotelReservation
+      summary: Cancel a hotel reservation
+      description: Cancels an existing hotel reservation subject to property cancellation policy.
+      tags:
+        - Hotel Booking
+      parameters:
+        - name: confirmationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reservation cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancellationResponse'
+        '404':
+          description: Reservation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    HotelSearchRequest:
+      type: object
+      required:
+        - CheckIn
+        - CheckOut
+        - GeoSearch
+      properties:
+        CheckIn:
+          type: string
+          format: date
+          example: "2026-06-15"
+        CheckOut:
+          type: string
+          format: date
+          example: "2026-06-18"
+        GeoSearch:
+          oneOf:
+            - $ref: '#/components/schemas/AirportSearch'
+            - $ref: '#/components/schemas/CitySearch'
+            - $ref: '#/components/schemas/GeoCodeSearch'
+        Guests:
+          type: array
+          items:
+            type: object
+            properties:
+              Adults:
+                type: integer
+                minimum: 1
+                default: 1
+        MaxResults:
+          type: integer
+          default: 20
+          maximum: 100
+        SortBy:
+          type: string
+          enum: [PRICE_LOWEST, PRICE_HIGHEST, STAR_RATING, DISTANCE]
+
+    AirportSearch:
+      type: object
+      required:
+        - AirportCode
+      properties:
+        AirportCode:
+          type: string
+          example: "DFW"
+        RadiusMiles:
+          type: integer
+          default: 5
+
+    CitySearch:
+      type: object
+      required:
+        - CityCode
+      properties:
+        CityCode:
+          type: string
+          example: "NYC"
+        RadiusMiles:
+          type: integer
+          default: 5
+
+    GeoCodeSearch:
+      type: object
+      required:
+        - Latitude
+        - Longitude
+      properties:
+        Latitude:
+          type: number
+          format: double
+          example: 32.8998
+        Longitude:
+          type: number
+          format: double
+          example: -97.0403
+        RadiusMiles:
+          type: integer
+          default: 5
+
+    HotelSearchResponse:
+      type: object
+      properties:
+        Hotels:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotelSummary'
+        TotalResults:
+          type: integer
+        SearchId:
+          type: string
+          description: Session search identifier for subsequent requests
+
+    HotelSummary:
+      type: object
+      properties:
+        HotelCode:
+          type: string
+        Name:
+          type: string
+        ChainCode:
+          type: string
+        StarRating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        Address:
+          $ref: '#/components/schemas/Address'
+        LowestRate:
+          $ref: '#/components/schemas/Rate'
+        Amenities:
+          type: array
+          items:
+            type: string
+        Images:
+          type: array
+          items:
+            type: object
+            properties:
+              Url:
+                type: string
+              Category:
+                type: string
+
+    HotelRatesResponse:
+      type: object
+      properties:
+        HotelCode:
+          type: string
+        Name:
+          type: string
+        Rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomType'
+
+    RoomType:
+      type: object
+      properties:
+        RoomTypeCode:
+          type: string
+        Name:
+          type: string
+        Description:
+          type: string
+        MaxOccupancy:
+          type: integer
+        BedConfiguration:
+          type: string
+        Rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatePlan'
+
+    RatePlan:
+      type: object
+      properties:
+        RatePlanCode:
+          type: string
+        RatePlanName:
+          type: string
+        DailyRate:
+          $ref: '#/components/schemas/Rate'
+        TotalRate:
+          $ref: '#/components/schemas/Rate'
+        Refundable:
+          type: boolean
+        CancellationPolicy:
+          type: string
+        MealsIncluded:
+          type: array
+          items:
+            type: string
+
+    HotelReservationRequest:
+      type: object
+      required:
+        - HotelCode
+        - RoomTypeCode
+        - RatePlanCode
+        - CheckIn
+        - CheckOut
+        - GuestInfo
+      properties:
+        HotelCode:
+          type: string
+        RoomTypeCode:
+          type: string
+        RatePlanCode:
+          type: string
+        CheckIn:
+          type: string
+          format: date
+        CheckOut:
+          type: string
+          format: date
+        GuestInfo:
+          $ref: '#/components/schemas/GuestInfo'
+        PaymentInfo:
+          $ref: '#/components/schemas/PaymentInfo'
+        SpecialRequests:
+          type: string
+
+    HotelReservationResponse:
+      type: object
+      properties:
+        ConfirmationNumber:
+          type: string
+        HotelConfirmationNumber:
+          type: string
+        Status:
+          type: string
+          enum: [CONFIRMED, PENDING, CANCELLED]
+        HotelCode:
+          type: string
+        CheckIn:
+          type: string
+          format: date
+        CheckOut:
+          type: string
+          format: date
+        TotalCost:
+          $ref: '#/components/schemas/Rate'
+        GuestInfo:
+          $ref: '#/components/schemas/GuestInfo'
+
+    CancellationResponse:
+      type: object
+      properties:
+        CancellationNumber:
+          type: string
+        Status:
+          type: string
+          enum: [CANCELLED]
+        CancellationFee:
+          $ref: '#/components/schemas/Rate'
+
+    Address:
+      type: object
+      properties:
+        Street:
+          type: string
+        City:
+          type: string
+        StateProvince:
+          type: string
+        PostalCode:
+          type: string
+        CountryCode:
+          type: string
+
+    Rate:
+      type: object
+      properties:
+        Amount:
+          type: number
+          format: double
+        CurrencyCode:
+          type: string
+          example: "USD"
+
+    GuestInfo:
+      type: object
+      required:
+        - FirstName
+        - LastName
+        - Email
+      properties:
+        Title:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        Email:
+          type: string
+          format: email
+        Phone:
+          type: string
+        LoyaltyProgramNumber:
+          type: string
+
+    PaymentInfo:
+      type: object
+      properties:
+        CardType:
+          type: string
+          enum: [VI, MC, AX, DS]
+        CardNumber:
+          type: string
+        ExpiryDate:
+          type: string
+        CardholderName:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time

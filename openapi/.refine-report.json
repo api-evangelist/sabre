@@ -1,0 +1,20 @@
+{
+  "provider": "sabre",
+  "sources": [
+    "sabre-air-shopping-api-openapi.yml",
+    "sabre-authentication-api-openapi.yml",
+    "sabre-hotel-booking-api-openapi.yml",
+    "sabre-hotel-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "sabre-air-shopping-api-openapi.yml",
+    "sabre-authentication-api-openapi.yml",
+    "sabre-hotel-booking-api-openapi.yml",
+    "sabre-hotel-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

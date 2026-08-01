@@ -1,0 +1,480 @@
+openapi: 3.1.0
+info:
+  title: Sabre Bargain Finder Max API
+  description: >-
+    Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air
+    shopping, returning optimal flight itineraries with pricing across Sabre's global
+    airline content inventory. Supports one-way, round-trip, and multi-city searches
+    with ATPCO, LCC, and NDC content.
+  version: 4.0.0
+  contact:
+    name: Sabre Developer Support
+    url: https://developer.sabre.com/support
+  license:
+    name: Sabre Developer Agreement
+    url: https://developer.sabre.com/
+servers:
+  - url: https://api.sabre.com
+    description: Sabre Production API
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Air Shopping
+    description: Low-fare search and offer retrieval
+  - name: Authentication
+    description: Token-based authentication
+
+paths:
+  /v4.0.0/offers/air-fares/bargain-finder-max:
+    post:
+      operationId: bargainFinderMaxSearch
+      summary: Search for lowest air fares
+      description: >-
+        Performs a low-fare air shopping search returning ranked itinerary options
+        across scheduled, charter, and low-cost carriers. Supports one-way,
+        round-trip, open-jaw, and multi-destination itineraries with flexible date
+        ranges, cabin preferences, and fare basis filters.
+      tags:
+        - Air Shopping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BFMRequest'
+      responses:
+        '200':
+          description: Successful low-fare search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BFMResponse'
+        '400':
+          description: Bad request — invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized — invalid or expired token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v4.0.0/offers/air-fares/bargain-finder-max/re-shop:
+    post:
+      operationId: bargainFinderMaxReShop
+      summary: Re-shop a specific itinerary for updated pricing
+      description: >-
+        Re-shops a previously selected itinerary to retrieve current pricing and
+        availability before booking. Used to confirm fares prior to PNR creation.
+      tags:
+        - Air Shopping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReShopRequest'
+      responses:
+        '200':
+          description: Re-shop results with updated pricing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BFMResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2/auth/token:
+    post:
+      operationId: getAuthToken
+      summary: Get OAuth2 access token
+      description: >-
+        Authenticates the application using client credentials and returns a
+        Bearer token for API requests. Tokens expire after a configurable period.
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+              properties:
+                grant_type:
+                  type: string
+                  enum: [client_credentials]
+                client_id:
+                  type: string
+                  description: Sabre application client ID (V1 encoded)
+                client_secret:
+                  type: string
+                  description: Sabre application client secret (V1 encoded)
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token obtained from /v2/auth/token
+
+  schemas:
+    BFMRequest:
+      type: object
+      required:
+        - OTA_AirLowFareSearchRQ
+      properties:
+        OTA_AirLowFareSearchRQ:
+          type: object
+          required:
+            - OriginDestinationInformation
+            - TravelPreferences
+            - TravelerInfoSummary
+          properties:
+            OriginDestinationInformation:
+              type: array
+              minItems: 1
+              maxItems: 6
+              items:
+                $ref: '#/components/schemas/OriginDestinationInformation'
+            TravelPreferences:
+              $ref: '#/components/schemas/TravelPreferences'
+            TravelerInfoSummary:
+              $ref: '#/components/schemas/TravelerInfoSummary'
+            Version:
+              type: string
+              example: "4.0.0"
+
+    OriginDestinationInformation:
+      type: object
+      required:
+        - DepartureDateTime
+        - OriginLocation
+        - DestinationLocation
+      properties:
+        DepartureDateTime:
+          type: string
+          format: date-time
+          example: "2026-06-15T00:00:00"
+        OriginLocation:
+          type: object
+          required:
+            - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: "DFW"
+        DestinationLocation:
+          type: object
+          required:
+            - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: "LHR"
+        RPH:
+          type: string
+          description: Reference placeholder for itinerary leg
+          example: "1"
+
+    TravelPreferences:
+      type: object
+      properties:
+        CabinPref:
+          type: array
+          items:
+            type: object
+            properties:
+              Cabin:
+                type: string
+                enum: [Economy, PremiumEconomy, Business, First]
+              PreferLevel:
+                type: string
+                enum: [Preferred, Only]
+        MaxStopsQuantity:
+          type: integer
+          minimum: 0
+          maximum: 3
+          example: 1
+        TPA_Extensions:
+          type: object
+          properties:
+            LookAheadDays:
+              type: object
+              properties:
+                Value:
+                  type: integer
+                  description: Number of days to search around departure date
+                  example: 3
+            TicketingRestriction:
+              type: object
+              properties:
+                Value:
+                  type: string
+                  enum: [ALL_TICKETS, NONREF_ONLY, REF_ONLY]
+
+    TravelerInfoSummary:
+      type: object
+      required:
+        - AirTravelerAvail
+      properties:
+        AirTravelerAvail:
+          type: array
+          items:
+            type: object
+            properties:
+              PassengerTypeQuantity:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Code:
+                      type: string
+                      enum: [ADT, CHD, INF, INS]
+                      description: Passenger type code
+                    Quantity:
+                      type: integer
+                      minimum: 1
+        PriceRequestInformation:
+          type: object
+          properties:
+            CurrencyCode:
+              type: string
+              example: "USD"
+
+    BFMResponse:
+      type: object
+      properties:
+        OTA_AirLowFareSearchRS:
+          type: object
+          properties:
+            PricedItineraries:
+              type: object
+              properties:
+                PricedItinerary:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PricedItinerary'
+            Success:
+              type: object
+            Errors:
+              type: object
+              properties:
+                Error:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/APIError'
+
+    PricedItinerary:
+      type: object
+      properties:
+        SequenceNumber:
+          type: integer
+        AirItinerary:
+          type: object
+          properties:
+            DirectionInd:
+              type: string
+              enum: [OneWay, Return, OpenJaw, Circle]
+            OriginDestinationOptions:
+              type: object
+              properties:
+                OriginDestinationOption:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/OriginDestinationOption'
+        AirItineraryPricingInfo:
+          type: object
+          properties:
+            ItinTotalFare:
+              type: object
+              properties:
+                BaseFare:
+                  type: object
+                  properties:
+                    Amount:
+                      type: number
+                    CurrencyCode:
+                      type: string
+                Taxes:
+                  type: object
+                  properties:
+                    Tax:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          TaxCode:
+                            type: string
+                          Amount:
+                            type: number
+                TotalFare:
+                  type: object
+                  properties:
+                    Amount:
+                      type: number
+                    CurrencyCode:
+                      type: string
+
+    OriginDestinationOption:
+      type: object
+      properties:
+        FlightSegment:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSegment'
+
+    FlightSegment:
+      type: object
+      properties:
+        DepartureAirport:
+          type: object
+          properties:
+            LocationCode:
+              type: string
+        ArrivalAirport:
+          type: object
+          properties:
+            LocationCode:
+              type: string
+        OperatingAirline:
+          type: object
+          properties:
+            Code:
+              type: string
+            FlightNumber:
+              type: string
+        Equipment:
+          type: array
+          items:
+            type: object
+            properties:
+              AirEquipType:
+                type: string
+        MarketingAirline:
+          type: object
+          properties:
+            Code:
+              type: string
+        DepartureDateTime:
+          type: string
+          format: date-time
+        ArrivalDateTime:
+          type: string
+          format: date-time
+        StopQuantity:
+          type: integer
+        ElapsedTime:
+          type: integer
+          description: Flight duration in minutes
+        ResBookDesigCode:
+          type: string
+          description: Booking class (RBD)
+        CabinClassCode:
+          type: string
+
+    ReShopRequest:
+      type: object
+      required:
+        - OTA_AirLowFareSearchRQ
+      properties:
+        OTA_AirLowFareSearchRQ:
+          type: object
+          properties:
+            TPA_Extensions:
+              type: object
+              properties:
+                IntelliSellTransaction:
+                  type: object
+                  properties:
+                    RequestType:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                          enum: [50ITINS]
+
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds
+          example: 604800
+
+    APIError:
+      type: object
+      properties:
+        Code:
+          type: integer
+        NodeList:
+          type: string
+        ShortText:
+          type: string
+        Type:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
