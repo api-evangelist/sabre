@@ -211,8 +211,6 @@ common:
   url: json-ld/sabre-context.jsonld
 - type: Vocabulary
   url: vocabulary/sabre-vocabulary.yml
-- type: Capabilities
-  url: capabilities/travel-booking.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
