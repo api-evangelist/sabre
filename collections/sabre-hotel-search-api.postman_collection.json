@@ -1,0 +1,464 @@
+{
+  "item": [
+    {
+      "id": "c2c3db62-ff17-45ed-9def-c926b7e05687",
+      "name": "Hotel Search",
+      "description": {
+        "content": "Search and availability operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aad8886b-4bad-4e33-b484-41f1d51cc663",
+          "name": "Search hotel availability and rates",
+          "request": {
+            "name": "Search hotel availability and rates",
+            "description": {
+              "content": "Searches for available hotels in a destination with real-time rate and availability data from Sabre GDS and SynXis distribution. Supports radius search, amenity filters, chain preferences, and rate type filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2.0.0",
+                "offers",
+                "hotels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GeoSearch\": {\n    \"AirportCode\": \"<string>\",\n    \"RadiusMiles\": 5\n  },\n  \"Guests\": [\n    {\n      \"Adults\": 1\n    },\n    {\n      \"Adults\": 1\n    }\n  ],\n  \"MaxResults\": 20,\n  \"SortBy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81c4275a-b8e2-4191-bd8d-38302bd450bd",
+              "name": "Hotel availability results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2.0.0",
+                    "offers",
+                    "hotels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CheckIn\": \"2026-06-15\",\n  \"CheckOut\": \"2026-06-18\",\n  \"GeoSearch\": {\n    \"AirportCode\": \"DFW\",\n    \"RadiusMiles\": 5\n  },\n  \"Guests\": [\n    {\n      \"Adults\": 1\n    },\n    {\n      \"Adults\": 1\n    }\n  ],\n  \"MaxResults\": 20,\n  \"SortBy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Hotels\": [\n    {\n      \"HotelCode\": \"string\",\n      \"Name\": \"string\",\n      \"ChainCode\": \"string\",\n      \"StarRating\": 2,\n      \"Address\": {\n        \"Street\": \"string\",\n        \"City\": \"string\",\n        \"StateProvince\": \"string\",\n        \"PostalCode\": \"string\",\n        \"CountryCode\": \"string\"\n      },\n      \"LowestRate\": {\n        \"Amount\": 4698.099008182425,\n        \"CurrencyCode\": \"USD\"\n      },\n      \"Amenities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"Images\": [\n        {\n          \"Url\": \"string\",\n          \"Category\": \"string\"\n        },\n        {\n          \"Url\": \"string\",\n          \"Category\": \"string\"\n        }\n      ]\n    },\n    {\n      \"HotelCode\": \"string\",\n      \"Name\": \"string\",\n      \"ChainCode\": \"string\",\n      \"StarRating\": 4,\n      \"Address\": {\n        \"Street\": \"string\",\n        \"City\": \"string\",\n        \"StateProvince\": \"string\",\n        \"PostalCode\": \"string\",\n        \"CountryCode\": \"string\"\n      },\n      \"LowestRate\": {\n        \"Amount\": 5301.768280769803,\n        \"CurrencyCode\": \"USD\"\n      },\n      \"Amenities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"Images\": [\n        {\n          \"Url\": \"string\",\n          \"Category\": \"string\"\n        },\n        {\n          \"Url\": \"string\",\n          \"Category\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"TotalResults\": 7718,\n  \"SearchId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3ef0a8a-562e-47de-9e6b-33851cd71379",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2.0.0",
+                    "offers",
+                    "hotels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CheckIn\": \"2026-06-15\",\n  \"CheckOut\": \"2026-06-18\",\n  \"GeoSearch\": {\n    \"AirportCode\": \"DFW\",\n    \"RadiusMiles\": 5\n  },\n  \"Guests\": [\n    {\n      \"Adults\": 1\n    },\n    {\n      \"Adults\": 1\n    }\n  ],\n  \"MaxResults\": 20,\n  \"SortBy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2050,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2015-08-07T18:25:28.136Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a212adf4-0cb5-4078-829a-860ffb4ad455",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2.0.0",
+                    "offers",
+                    "hotels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CheckIn\": \"2026-06-15\",\n  \"CheckOut\": \"2026-06-18\",\n  \"GeoSearch\": {\n    \"AirportCode\": \"DFW\",\n    \"RadiusMiles\": 5\n  },\n  \"Guests\": [\n    {\n      \"Adults\": 1\n    },\n    {\n      \"Adults\": 1\n    }\n  ],\n  \"MaxResults\": 20,\n  \"SortBy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2050,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2015-08-07T18:25:28.136Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52ee5c1b-8789-49df-b4ff-fe228d94c1aa",
+          "name": "Get room rates for a specific hotel",
+          "request": {
+            "name": "Get room rates for a specific hotel",
+            "description": {
+              "content": "Retrieves detailed room types, rate plans, and pricing for a specific hotel property. Returns cancellation policies, deposit requirements, and available room inventory.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2.0.0",
+                "offers",
+                "hotels",
+                ":hotelCode",
+                "rates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "checkIn",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "checkOut",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "adults",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "USD"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hotelCode",
+                  "description": "(Required) Sabre hotel property code (GDS property identifier)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de30422f-0919-4c41-a776-206287f8a0dc",
+              "name": "Hotel room rates and availability",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2.0.0",
+                    "offers",
+                    "hotels",
+                    ":hotelCode",
+                    "rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "checkIn",
+                      "value": "2026-06-15"
+                    },
+                    {
+                      "key": "checkOut",
+                      "value": "2026-06-18"
+                    },
+                    {
+                      "key": "adults",
+                      "value": "2"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hotelCode",
+                      "description": "(Required) Sabre hotel property code (GDS property identifier)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"HotelCode\": \"string\",\n  \"Name\": \"string\",\n  \"Rooms\": [\n    {\n      \"RoomTypeCode\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"MaxOccupancy\": 7593,\n      \"BedConfiguration\": \"string\",\n      \"Rates\": [\n        {\n          \"RatePlanCode\": \"string\",\n          \"RatePlanName\": \"string\",\n          \"DailyRate\": {\n            \"Amount\": 3909.5574901710097,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"TotalRate\": {\n            \"Amount\": 335.5599332273518,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"Refundable\": true,\n          \"CancellationPolicy\": \"string\",\n          \"MealsIncluded\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"RatePlanCode\": \"string\",\n          \"RatePlanName\": \"string\",\n          \"DailyRate\": {\n            \"Amount\": 3802.421781754559,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"TotalRate\": {\n            \"Amount\": 9262.124065960288,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"Refundable\": true,\n          \"CancellationPolicy\": \"string\",\n          \"MealsIncluded\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    {\n      \"RoomTypeCode\": \"string\",\n      \"Name\": \"string\",\n      \"Description\": \"string\",\n      \"MaxOccupancy\": 1051,\n      \"BedConfiguration\": \"string\",\n      \"Rates\": [\n        {\n          \"RatePlanCode\": \"string\",\n          \"RatePlanName\": \"string\",\n          \"DailyRate\": {\n            \"Amount\": 8203.63814898108,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"TotalRate\": {\n            \"Amount\": 7554.283820667617,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"Refundable\": false,\n          \"CancellationPolicy\": \"string\",\n          \"MealsIncluded\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"RatePlanCode\": \"string\",\n          \"RatePlanName\": \"string\",\n          \"DailyRate\": {\n            \"Amount\": 1229.6297758953745,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"TotalRate\": {\n            \"Amount\": 2489.8704979808017,\n            \"CurrencyCode\": \"USD\"\n          },\n          \"Refundable\": false,\n          \"CancellationPolicy\": \"string\",\n          \"MealsIncluded\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb58739c-2b30-47c7-8fc3-8a3ea234a11e",
+              "name": "Hotel not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2.0.0",
+                    "offers",
+                    "hotels",
+                    ":hotelCode",
+                    "rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "checkIn",
+                      "value": "2026-06-15"
+                    },
+                    {
+                      "key": "checkOut",
+                      "value": "2026-06-18"
+                    },
+                    {
+                      "key": "adults",
+                      "value": "2"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hotelCode",
+                      "description": "(Required) Sabre hotel property code (GDS property identifier)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2050,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"2015-08-07T18:25:28.136Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sabre.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "73a283c6-2814-42e8-af14-c58c9300623a",
+    "name": "Sabre Bargain Finder Max Air Shopping Hotel Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.\n\nContact Support:\n Name: Sabre Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

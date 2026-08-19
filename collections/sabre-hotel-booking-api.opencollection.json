@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sabre Bargain Finder Max Air Shopping Hotel Booking API",
+    "version": "4.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hotel Booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a hotel reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sabre.com/v2.0.0/hotels/reservations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Books a hotel room and creates a reservation record in Sabre GDS. Returns a confirmation number and hotel-specific PNR locator."
+        },
+        {
+          "info": {
+            "name": "Retrieve hotel reservation details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sabre.com/v2.0.0/hotels/reservations/:confirmationId",
+            "params": [
+              {
+                "name": "confirmationId",
+                "value": "",
+                "type": "path",
+                "description": "Hotel reservation confirmation number"
+              }
+            ]
+          },
+          "docs": "Returns full details for an existing hotel reservation."
+        },
+        {
+          "info": {
+            "name": "Cancel a hotel reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sabre.com/v2.0.0/hotels/reservations/:confirmationId",
+            "params": [
+              {
+                "name": "confirmationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels an existing hotel reservation subject to property cancellation policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

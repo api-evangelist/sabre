@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sabre Bargain Finder Max Air Shopping API",
+    "version": "4.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Air Shopping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for lowest air fares",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sabre.com/v4.0.0/offers/air-fares/bargain-finder-max",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a low-fare air shopping search returning ranked itinerary options across scheduled, charter, and low-cost carriers. Supports one-way, round-trip, open-jaw, and multi-destination itineraries with flexible date ranges, cabin preferences, and fare basis filters."
+        },
+        {
+          "info": {
+            "name": "Re-shop a specific itinerary for updated pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sabre.com/v4.0.0/offers/air-fares/bargain-finder-max/re-shop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Re-shops a previously selected itinerary to retrieve current pricing and availability before booking. Used to confirm fares prior to PNR creation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
