@@ -1,0 +1,26 @@
+slug: sabre
+provider: Sabre
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Travel & Hospitality
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Hotel Booking
+  spec_file: sabre-hotel-booking-api-openapi.yml
+  capability_id: BC-4020.10
+  capability_id_l1: BC-4020
+  capability_name: Reservation Capture
+  confidence: 0.75
+  evidence: POST /v2.0.0/hotels/reservations "Create a hotel reservation"; DELETE .../{confirmationId}
+    "Cancel a hotel reservation"; schemas HotelReservationRequest, GuestInfo, PaymentInfo
+  reason: Operations create, retrieve and cancel hotel reservations — clearly reservation lifecycle management.
+    L2 assigned to Reservation Capture since creation is the primary act, though cancellation also touches
+    BC-4020.20, hence not higher confidence on the sub-capability.

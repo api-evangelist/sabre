@@ -182,6 +182,9 @@ apis:
   - type: SDKs
     url: https://github.com/SabreDevStudio/get-hotel-avail-v2-sample-nodejs
 common:
+- type: CapabilityMap
+  url: capabilities/sabre-capability-edges.yml
+  name: Sabre Business Capability Map
 - type: AgenticAccess
   url: agentic-access/sabre-agentic-access.yml
 - type: DomainSecurity
