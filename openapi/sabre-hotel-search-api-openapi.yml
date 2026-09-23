@@ -1,14 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Sabre Bargain Finder Max Air Shopping Hotel Search API
-  description: Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.
-  version: 4.0.0
+  title: Sabre Hotels Hotel Search API
+  description: Sabre Hotels API provides hotel search, availability, rate shopping, content retrieval, and booking APIs for travel agencies and OTAs. Accesses Sabre's global lodging content and SynXis hotel distribution network.
+  version: 2.0.0
   contact:
     name: Sabre Developer Support
     url: https://developer.sabre.com/support
-  license:
-    name: Sabre Developer Agreement
-    url: https://developer.sabre.com/
 servers:
 - url: https://api.sabre.com
   description: Sabre Production API
@@ -107,30 +104,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Address:
+    ErrorResponse:
       type: object
       properties:
-        Street:
-          type: string
-        City:
-          type: string
-        StateProvince:
-          type: string
-        PostalCode:
-          type: string
-        CountryCode:
-          type: string
-    CitySearch:
-      type: object
-      required:
-      - CityCode
-      properties:
-        CityCode:
-          type: string
-          example: NYC
-        RadiusMiles:
+        status:
           type: integer
-          default: 5
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
     HotelSearchResponse:
       type: object
       properties:
@@ -143,15 +128,6 @@ components:
         SearchId:
           type: string
           description: Session search identifier for subsequent requests
-    Rate:
-      type: object
-      properties:
-        Amount:
-          type: number
-          format: double
-        CurrencyCode:
-          type: string
-          example: USD
     RoomType:
       type: object
       properties:
@@ -169,47 +145,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RatePlan'
-    AirportSearch:
-      type: object
-      required:
-      - AirportCode
-      properties:
-        AirportCode:
-          type: string
-          example: DFW
-        RadiusMiles:
-          type: integer
-          default: 5
-    HotelSummary:
+    Rate:
       type: object
       properties:
-        HotelCode:
+        Amount:
+          type: number
+          format: double
+        CurrencyCode:
           type: string
-        Name:
-          type: string
-        ChainCode:
-          type: string
-        StarRating:
-          type: integer
-          minimum: 1
-          maximum: 5
-        Address:
-          $ref: '#/components/schemas/Address'
-        LowestRate:
-          $ref: '#/components/schemas/Rate'
-        Amenities:
-          type: array
-          items:
-            type: string
-        Images:
-          type: array
-          items:
-            type: object
-            properties:
-              Url:
-                type: string
-              Category:
-                type: string
+          example: USD
     HotelSearchRequest:
       type: object
       required:
@@ -250,35 +194,41 @@ components:
           - PRICE_HIGHEST
           - STAR_RATING
           - DISTANCE
-    GeoCodeSearch:
+    Address:
+      type: object
+      properties:
+        Street:
+          type: string
+        City:
+          type: string
+        StateProvince:
+          type: string
+        PostalCode:
+          type: string
+        CountryCode:
+          type: string
+    AirportSearch:
       type: object
       required:
-      - Latitude
-      - Longitude
+      - AirportCode
       properties:
-        Latitude:
-          type: number
-          format: double
-          example: 32.8998
-        Longitude:
-          type: number
-          format: double
-          example: -97.0403
+        AirportCode:
+          type: string
+          example: DFW
         RadiusMiles:
           type: integer
           default: 5
-    ErrorResponse:
+    HotelRatesResponse:
       type: object
       properties:
-        status:
-          type: integer
-        errorCode:
+        HotelCode:
           type: string
-        message:
+        Name:
           type: string
-        timeStamp:
-          type: string
-          format: date-time
+        Rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomType'
     RatePlan:
       type: object
       properties:
@@ -298,20 +248,66 @@ components:
           type: array
           items:
             type: string
-    HotelRatesResponse:
+    HotelSummary:
       type: object
       properties:
         HotelCode:
           type: string
         Name:
           type: string
-        Rooms:
+        ChainCode:
+          type: string
+        StarRating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        Address:
+          $ref: '#/components/schemas/Address'
+        LowestRate:
+          $ref: '#/components/schemas/Rate'
+        Amenities:
           type: array
           items:
-            $ref: '#/components/schemas/RoomType'
+            type: string
+        Images:
+          type: array
+          items:
+            type: object
+            properties:
+              Url:
+                type: string
+              Category:
+                type: string
+    CitySearch:
+      type: object
+      required:
+      - CityCode
+      properties:
+        CityCode:
+          type: string
+          example: NYC
+        RadiusMiles:
+          type: integer
+          default: 5
+    GeoCodeSearch:
+      type: object
+      required:
+      - Latitude
+      - Longitude
+      properties:
+        Latitude:
+          type: number
+          format: double
+          example: 32.8998
+        Longitude:
+          type: number
+          format: double
+          example: -97.0403
+        RadiusMiles:
+          type: integer
+          default: 5
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: Bearer token obtained from /v2/auth/token

@@ -1,10 +1,8 @@
 {
   "provider": "sabre",
   "sources": [
-    "sabre-air-shopping-api-openapi.yml",
-    "sabre-authentication-api-openapi.yml",
-    "sabre-hotel-booking-api-openapi.yml",
-    "sabre-hotel-search-api-openapi.yml"
+    "_original/sabre-bargain-finder-max-openapi.yml",
+    "_original/sabre-hotels-openapi.yml"
   ],
   "outputs": [
     "sabre-air-shopping-api-openapi.yml",
@@ -15,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sabre-bargain-finder-max-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sabre-hotels-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "sabre-air-shopping-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sabre-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sabre-hotel-booking-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sabre-hotel-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

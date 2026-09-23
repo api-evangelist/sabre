@@ -1,7 +1,9 @@
 ---
 title: Sabre Forges 10-Year Partnership with Google to Build ...
 url: https://www.googlecloudpresscorner.com/2020-01-21-Sabre-Forges-10-Year-Partnership-with-Google-to-Build-the-Future-of-Travel
-date: '2026-05-25'
+published: '2020-01-21'
+date_basis: url-derived
+harvested: '2026-05-25'
 query: '"Sabre" press release artificial intelligence'
 position: 4
 source: serpapi-google

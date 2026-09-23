@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Sabre Bargain Finder Max Air Shopping API
   description: Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.
@@ -96,100 +96,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    BFMResponse:
-      type: object
-      properties:
-        OTA_AirLowFareSearchRS:
-          type: object
-          properties:
-            PricedItineraries:
-              type: object
-              properties:
-                PricedItinerary:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/PricedItinerary'
-            Success:
-              type: object
-            Errors:
-              type: object
-              properties:
-                Error:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/APIError'
-    OriginDestinationOption:
-      type: object
-      properties:
-        FlightSegment:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightSegment'
-    OriginDestinationInformation:
-      type: object
-      required:
-      - DepartureDateTime
-      - OriginLocation
-      - DestinationLocation
-      properties:
-        DepartureDateTime:
-          type: string
-          format: date-time
-          example: '2026-06-15T00:00:00'
-        OriginLocation:
-          type: object
-          required:
-          - LocationCode
-          properties:
-            LocationCode:
-              type: string
-              description: IATA airport or city code
-              example: DFW
-        DestinationLocation:
-          type: object
-          required:
-          - LocationCode
-          properties:
-            LocationCode:
-              type: string
-              description: IATA airport or city code
-              example: LHR
-        RPH:
-          type: string
-          description: Reference placeholder for itinerary leg
-          example: '1'
-    ReShopRequest:
-      type: object
-      required:
-      - OTA_AirLowFareSearchRQ
-      properties:
-        OTA_AirLowFareSearchRQ:
-          type: object
-          properties:
-            TPA_Extensions:
-              type: object
-              properties:
-                IntelliSellTransaction:
-                  type: object
-                  properties:
-                    RequestType:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                          enum:
-                          - 50ITINS
-    APIError:
-      type: object
-      properties:
-        Code:
-          type: integer
-        NodeList:
-          type: string
-        ShortText:
-          type: string
-        Type:
-          type: string
     BFMRequest:
       type: object
       required:
@@ -215,6 +121,131 @@ components:
             Version:
               type: string
               example: 4.0.0
+    FlightSegment:
+      type: object
+      properties:
+        DepartureAirport:
+          type: object
+          properties:
+            LocationCode:
+              type: string
+        ArrivalAirport:
+          type: object
+          properties:
+            LocationCode:
+              type: string
+        OperatingAirline:
+          type: object
+          properties:
+            Code:
+              type: string
+            FlightNumber:
+              type: string
+        Equipment:
+          type: array
+          items:
+            type: object
+            properties:
+              AirEquipType:
+                type: string
+        MarketingAirline:
+          type: object
+          properties:
+            Code:
+              type: string
+        DepartureDateTime:
+          type: string
+          format: date-time
+        ArrivalDateTime:
+          type: string
+          format: date-time
+        StopQuantity:
+          type: integer
+        ElapsedTime:
+          type: integer
+          description: Flight duration in minutes
+        ResBookDesigCode:
+          type: string
+          description: Booking class (RBD)
+        CabinClassCode:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
+    TravelPreferences:
+      type: object
+      properties:
+        CabinPref:
+          type: array
+          items:
+            type: object
+            properties:
+              Cabin:
+                type: string
+                enum:
+                - Economy
+                - PremiumEconomy
+                - Business
+                - First
+              PreferLevel:
+                type: string
+                enum:
+                - Preferred
+                - Only
+        MaxStopsQuantity:
+          type: integer
+          minimum: 0
+          maximum: 3
+          example: 1
+        TPA_Extensions:
+          type: object
+          properties:
+            LookAheadDays:
+              type: object
+              properties:
+                Value:
+                  type: integer
+                  description: Number of days to search around departure date
+                  example: 3
+            TicketingRestriction:
+              type: object
+              properties:
+                Value:
+                  type: string
+                  enum:
+                  - ALL_TICKETS
+                  - NONREF_ONLY
+                  - REF_ONLY
+    ReShopRequest:
+      type: object
+      required:
+      - OTA_AirLowFareSearchRQ
+      properties:
+        OTA_AirLowFareSearchRQ:
+          type: object
+          properties:
+            TPA_Extensions:
+              type: object
+              properties:
+                IntelliSellTransaction:
+                  type: object
+                  properties:
+                    RequestType:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                          enum:
+                          - 50ITINS
     PricedItinerary:
       type: object
       properties:
@@ -269,110 +300,39 @@ components:
                       type: number
                     CurrencyCode:
                       type: string
-    FlightSegment:
+    OriginDestinationInformation:
       type: object
+      required:
+      - DepartureDateTime
+      - OriginLocation
+      - DestinationLocation
       properties:
-        DepartureAirport:
-          type: object
-          properties:
-            LocationCode:
-              type: string
-        ArrivalAirport:
-          type: object
-          properties:
-            LocationCode:
-              type: string
-        OperatingAirline:
-          type: object
-          properties:
-            Code:
-              type: string
-            FlightNumber:
-              type: string
-        Equipment:
-          type: array
-          items:
-            type: object
-            properties:
-              AirEquipType:
-                type: string
-        MarketingAirline:
-          type: object
-          properties:
-            Code:
-              type: string
         DepartureDateTime:
           type: string
           format: date-time
-        ArrivalDateTime:
-          type: string
-          format: date-time
-        StopQuantity:
-          type: integer
-        ElapsedTime:
-          type: integer
-          description: Flight duration in minutes
-        ResBookDesigCode:
-          type: string
-          description: Booking class (RBD)
-        CabinClassCode:
-          type: string
-    TravelPreferences:
-      type: object
-      properties:
-        CabinPref:
-          type: array
-          items:
-            type: object
-            properties:
-              Cabin:
-                type: string
-                enum:
-                - Economy
-                - PremiumEconomy
-                - Business
-                - First
-              PreferLevel:
-                type: string
-                enum:
-                - Preferred
-                - Only
-        MaxStopsQuantity:
-          type: integer
-          minimum: 0
-          maximum: 3
-          example: 1
-        TPA_Extensions:
+          example: '2026-06-15T00:00:00'
+        OriginLocation:
           type: object
+          required:
+          - LocationCode
           properties:
-            LookAheadDays:
-              type: object
-              properties:
-                Value:
-                  type: integer
-                  description: Number of days to search around departure date
-                  example: 3
-            TicketingRestriction:
-              type: object
-              properties:
-                Value:
-                  type: string
-                  enum:
-                  - ALL_TICKETS
-                  - NONREF_ONLY
-                  - REF_ONLY
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        errorCode:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: DFW
+        DestinationLocation:
+          type: object
+          required:
+          - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: LHR
+        RPH:
           type: string
-        message:
-          type: string
-        timeStamp:
-          type: string
-          format: date-time
+          description: Reference placeholder for itinerary leg
+          example: '1'
     TravelerInfoSummary:
       type: object
       required:
@@ -405,6 +365,46 @@ components:
             CurrencyCode:
               type: string
               example: USD
+    APIError:
+      type: object
+      properties:
+        Code:
+          type: integer
+        NodeList:
+          type: string
+        ShortText:
+          type: string
+        Type:
+          type: string
+    BFMResponse:
+      type: object
+      properties:
+        OTA_AirLowFareSearchRS:
+          type: object
+          properties:
+            PricedItineraries:
+              type: object
+              properties:
+                PricedItinerary:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PricedItinerary'
+            Success:
+              type: object
+            Errors:
+              type: object
+              properties:
+                Error:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/APIError'
+    OriginDestinationOption:
+      type: object
+      properties:
+        FlightSegment:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSegment'
   securitySchemes:
     BearerAuth:
       type: http

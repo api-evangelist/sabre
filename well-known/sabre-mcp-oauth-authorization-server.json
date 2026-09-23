@@ -1,0 +1,1 @@
+{"issuer":"https://mcp.sabre.com/mcp","token_endpoint":"https://mcp.sabre.com/mcp/v2/auth/token","token_endpoint_auth_methods_supported":["client_secret_basic","none"],"grant_types_supported":["client_credentials"]}

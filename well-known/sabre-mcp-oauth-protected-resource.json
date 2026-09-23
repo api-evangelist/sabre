@@ -1,0 +1,1 @@
+{"resource":"https://mcp.sabre.com/mcp","bearer_methods_supported":["header"],"tls_client_certificate_bound_access_tokens":true,"authorization_servers":["https://mcp.sabre.com"],"resource_name":"Sabre MCP Resource Server"}

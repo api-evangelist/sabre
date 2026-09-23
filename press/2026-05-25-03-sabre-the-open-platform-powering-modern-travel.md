@@ -1,7 +1,9 @@
 ---
 title: 'Sabre: the open platform powering modern travel'
 url: https://www.sabre.com/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Sabre" press release artificial intelligence'
 position: 3
 source: serpapi-google
