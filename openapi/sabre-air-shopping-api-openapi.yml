@@ -96,6 +96,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
     BFMRequest:
       type: object
       required:
@@ -121,6 +133,60 @@ components:
             Version:
               type: string
               example: 4.0.0
+    BFMResponse:
+      type: object
+      properties:
+        OTA_AirLowFareSearchRS:
+          type: object
+          properties:
+            PricedItineraries:
+              type: object
+              properties:
+                PricedItinerary:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PricedItinerary'
+            Success:
+              type: object
+            Errors:
+              type: object
+              properties:
+                Error:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/APIError'
+    TravelerInfoSummary:
+      type: object
+      required:
+      - AirTravelerAvail
+      properties:
+        AirTravelerAvail:
+          type: array
+          items:
+            type: object
+            properties:
+              PassengerTypeQuantity:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Code:
+                      type: string
+                      enum:
+                      - ADT
+                      - CHD
+                      - INF
+                      - INS
+                      description: Passenger type code
+                    Quantity:
+                      type: integer
+                      minimum: 1
+        PriceRequestInformation:
+          type: object
+          properties:
+            CurrencyCode:
+              type: string
+              example: USD
     FlightSegment:
       type: object
       properties:
@@ -169,18 +235,100 @@ components:
           description: Booking class (RBD)
         CabinClassCode:
           type: string
-    ErrorResponse:
+    OriginDestinationInformation:
       type: object
+      required:
+      - DepartureDateTime
+      - OriginLocation
+      - DestinationLocation
       properties:
-        status:
-          type: integer
-        errorCode:
-          type: string
-        message:
-          type: string
-        timeStamp:
+        DepartureDateTime:
           type: string
           format: date-time
+          example: '2026-06-15T00:00:00'
+        OriginLocation:
+          type: object
+          required:
+          - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: DFW
+        DestinationLocation:
+          type: object
+          required:
+          - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: LHR
+        RPH:
+          type: string
+          description: Reference placeholder for itinerary leg
+          example: '1'
+    PricedItinerary:
+      type: object
+      properties:
+        SequenceNumber:
+          type: integer
+        AirItinerary:
+          type: object
+          properties:
+            DirectionInd:
+              type: string
+              enum:
+              - OneWay
+              - Return
+              - OpenJaw
+              - Circle
+            OriginDestinationOptions:
+              type: object
+              properties:
+                OriginDestinationOption:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/OriginDestinationOption'
+        AirItineraryPricingInfo:
+          type: object
+          properties:
+            ItinTotalFare:
+              type: object
+              properties:
+                BaseFare:
+                  type: object
+                  properties:
+                    Amount:
+                      type: number
+                    CurrencyCode:
+                      type: string
+                Taxes:
+                  type: object
+                  properties:
+                    Tax:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          TaxCode:
+                            type: string
+                          Amount:
+                            type: number
+                TotalFare:
+                  type: object
+                  properties:
+                    Amount:
+                      type: number
+                    CurrencyCode:
+                      type: string
+    OriginDestinationOption:
+      type: object
+      properties:
+        FlightSegment:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSegment'
     TravelPreferences:
       type: object
       properties:
@@ -246,125 +394,6 @@ components:
                           type: string
                           enum:
                           - 50ITINS
-    PricedItinerary:
-      type: object
-      properties:
-        SequenceNumber:
-          type: integer
-        AirItinerary:
-          type: object
-          properties:
-            DirectionInd:
-              type: string
-              enum:
-              - OneWay
-              - Return
-              - OpenJaw
-              - Circle
-            OriginDestinationOptions:
-              type: object
-              properties:
-                OriginDestinationOption:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/OriginDestinationOption'
-        AirItineraryPricingInfo:
-          type: object
-          properties:
-            ItinTotalFare:
-              type: object
-              properties:
-                BaseFare:
-                  type: object
-                  properties:
-                    Amount:
-                      type: number
-                    CurrencyCode:
-                      type: string
-                Taxes:
-                  type: object
-                  properties:
-                    Tax:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          TaxCode:
-                            type: string
-                          Amount:
-                            type: number
-                TotalFare:
-                  type: object
-                  properties:
-                    Amount:
-                      type: number
-                    CurrencyCode:
-                      type: string
-    OriginDestinationInformation:
-      type: object
-      required:
-      - DepartureDateTime
-      - OriginLocation
-      - DestinationLocation
-      properties:
-        DepartureDateTime:
-          type: string
-          format: date-time
-          example: '2026-06-15T00:00:00'
-        OriginLocation:
-          type: object
-          required:
-          - LocationCode
-          properties:
-            LocationCode:
-              type: string
-              description: IATA airport or city code
-              example: DFW
-        DestinationLocation:
-          type: object
-          required:
-          - LocationCode
-          properties:
-            LocationCode:
-              type: string
-              description: IATA airport or city code
-              example: LHR
-        RPH:
-          type: string
-          description: Reference placeholder for itinerary leg
-          example: '1'
-    TravelerInfoSummary:
-      type: object
-      required:
-      - AirTravelerAvail
-      properties:
-        AirTravelerAvail:
-          type: array
-          items:
-            type: object
-            properties:
-              PassengerTypeQuantity:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    Code:
-                      type: string
-                      enum:
-                      - ADT
-                      - CHD
-                      - INF
-                      - INS
-                      description: Passenger type code
-                    Quantity:
-                      type: integer
-                      minimum: 1
-        PriceRequestInformation:
-          type: object
-          properties:
-            CurrencyCode:
-              type: string
-              example: USD
     APIError:
       type: object
       properties:
@@ -376,35 +405,6 @@ components:
           type: string
         Type:
           type: string
-    BFMResponse:
-      type: object
-      properties:
-        OTA_AirLowFareSearchRS:
-          type: object
-          properties:
-            PricedItineraries:
-              type: object
-              properties:
-                PricedItinerary:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/PricedItinerary'
-            Success:
-              type: object
-            Errors:
-              type: object
-              properties:
-                Error:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/APIError'
-    OriginDestinationOption:
-      type: object
-      properties:
-        FlightSegment:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightSegment'
   securitySchemes:
     BearerAuth:
       type: http

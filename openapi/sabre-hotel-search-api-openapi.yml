@@ -104,6 +104,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CitySearch:
+      type: object
+      required:
+      - CityCode
+      properties:
+        CityCode:
+          type: string
+          example: NYC
+        RadiusMiles:
+          type: integer
+          default: 5
     ErrorResponse:
       type: object
       properties:
@@ -116,6 +127,94 @@ components:
         timeStamp:
           type: string
           format: date-time
+    Address:
+      type: object
+      properties:
+        Street:
+          type: string
+        City:
+          type: string
+        StateProvince:
+          type: string
+        PostalCode:
+          type: string
+        CountryCode:
+          type: string
+    GeoCodeSearch:
+      type: object
+      required:
+      - Latitude
+      - Longitude
+      properties:
+        Latitude:
+          type: number
+          format: double
+          example: 32.8998
+        Longitude:
+          type: number
+          format: double
+          example: -97.0403
+        RadiusMiles:
+          type: integer
+          default: 5
+    HotelSummary:
+      type: object
+      properties:
+        HotelCode:
+          type: string
+        Name:
+          type: string
+        ChainCode:
+          type: string
+        StarRating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        Address:
+          $ref: '#/components/schemas/Address'
+        LowestRate:
+          $ref: '#/components/schemas/Rate'
+        Amenities:
+          type: array
+          items:
+            type: string
+        Images:
+          type: array
+          items:
+            type: object
+            properties:
+              Url:
+                type: string
+              Category:
+                type: string
+    RatePlan:
+      type: object
+      properties:
+        RatePlanCode:
+          type: string
+        RatePlanName:
+          type: string
+        DailyRate:
+          $ref: '#/components/schemas/Rate'
+        TotalRate:
+          $ref: '#/components/schemas/Rate'
+        Refundable:
+          type: boolean
+        CancellationPolicy:
+          type: string
+        MealsIncluded:
+          type: array
+          items:
+            type: string
+    Rate:
+      type: object
+      properties:
+        Amount:
+          type: number
+          format: double
+        CurrencyCode:
+          type: string
+          example: USD
     HotelSearchResponse:
       type: object
       properties:
@@ -145,15 +244,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RatePlan'
-    Rate:
+    HotelRatesResponse:
       type: object
       properties:
-        Amount:
-          type: number
-          format: double
-        CurrencyCode:
+        HotelCode:
           type: string
-          example: USD
+        Name:
+          type: string
+        Rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomType'
+    AirportSearch:
+      type: object
+      required:
+      - AirportCode
+      properties:
+        AirportCode:
+          type: string
+          example: DFW
+        RadiusMiles:
+          type: integer
+          default: 5
     HotelSearchRequest:
       type: object
       required:
@@ -194,118 +306,6 @@ components:
           - PRICE_HIGHEST
           - STAR_RATING
           - DISTANCE
-    Address:
-      type: object
-      properties:
-        Street:
-          type: string
-        City:
-          type: string
-        StateProvince:
-          type: string
-        PostalCode:
-          type: string
-        CountryCode:
-          type: string
-    AirportSearch:
-      type: object
-      required:
-      - AirportCode
-      properties:
-        AirportCode:
-          type: string
-          example: DFW
-        RadiusMiles:
-          type: integer
-          default: 5
-    HotelRatesResponse:
-      type: object
-      properties:
-        HotelCode:
-          type: string
-        Name:
-          type: string
-        Rooms:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoomType'
-    RatePlan:
-      type: object
-      properties:
-        RatePlanCode:
-          type: string
-        RatePlanName:
-          type: string
-        DailyRate:
-          $ref: '#/components/schemas/Rate'
-        TotalRate:
-          $ref: '#/components/schemas/Rate'
-        Refundable:
-          type: boolean
-        CancellationPolicy:
-          type: string
-        MealsIncluded:
-          type: array
-          items:
-            type: string
-    HotelSummary:
-      type: object
-      properties:
-        HotelCode:
-          type: string
-        Name:
-          type: string
-        ChainCode:
-          type: string
-        StarRating:
-          type: integer
-          minimum: 1
-          maximum: 5
-        Address:
-          $ref: '#/components/schemas/Address'
-        LowestRate:
-          $ref: '#/components/schemas/Rate'
-        Amenities:
-          type: array
-          items:
-            type: string
-        Images:
-          type: array
-          items:
-            type: object
-            properties:
-              Url:
-                type: string
-              Category:
-                type: string
-    CitySearch:
-      type: object
-      required:
-      - CityCode
-      properties:
-        CityCode:
-          type: string
-          example: NYC
-        RadiusMiles:
-          type: integer
-          default: 5
-    GeoCodeSearch:
-      type: object
-      required:
-      - Latitude
-      - Longitude
-      properties:
-        Latitude:
-          type: number
-          format: double
-          example: 32.8998
-        Longitude:
-          type: number
-          format: double
-          example: -97.0403
-        RadiusMiles:
-          type: integer
-          default: 5
   securitySchemes:
     BearerAuth:
       type: http
