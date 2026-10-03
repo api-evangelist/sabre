@@ -95,6 +95,15 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Rate:
+      type: object
+      properties:
+        Amount:
+          type: number
+          format: double
+        CurrencyCode:
+          type: string
+          example: USD
     PaymentInfo:
       type: object
       properties:
@@ -111,18 +120,6 @@ components:
           type: string
         CardholderName:
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        errorCode:
-          type: string
-        message:
-          type: string
-        timeStamp:
-          type: string
-          format: date-time
     HotelReservationResponse:
       type: object
       properties:
@@ -148,15 +145,18 @@ components:
           $ref: '#/components/schemas/Rate'
         GuestInfo:
           $ref: '#/components/schemas/GuestInfo'
-    Rate:
+    ErrorResponse:
       type: object
       properties:
-        Amount:
-          type: number
-          format: double
-        CurrencyCode:
+        status:
+          type: integer
+        errorCode:
           type: string
-          example: USD
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
     HotelReservationRequest:
       type: object
       required:
@@ -185,6 +185,17 @@ components:
           $ref: '#/components/schemas/PaymentInfo'
         SpecialRequests:
           type: string
+    CancellationResponse:
+      type: object
+      properties:
+        CancellationNumber:
+          type: string
+        Status:
+          type: string
+          enum:
+          - CANCELLED
+        CancellationFee:
+          $ref: '#/components/schemas/Rate'
     GuestInfo:
       type: object
       required:
@@ -205,17 +216,6 @@ components:
           type: string
         LoyaltyProgramNumber:
           type: string
-    CancellationResponse:
-      type: object
-      properties:
-        CancellationNumber:
-          type: string
-        Status:
-          type: string
-          enum:
-          - CANCELLED
-        CancellationFee:
-          $ref: '#/components/schemas/Rate'
   securitySchemes:
     BearerAuth:
       type: http

@@ -62,18 +62,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        errorCode:
-          type: string
-        message:
-          type: string
-        timeStamp:
-          type: string
-          format: date-time
     TokenResponse:
       type: object
       properties:
@@ -86,6 +74,18 @@ components:
           type: integer
           description: Token lifetime in seconds
           example: 604800
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
   securitySchemes:
     BearerAuth:
       type: http
