@@ -96,38 +96,115 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    APIError:
+    TravelPreferences:
       type: object
       properties:
-        Code:
+        CabinPref:
+          type: array
+          items:
+            type: object
+            properties:
+              Cabin:
+                type: string
+                enum:
+                - Economy
+                - PremiumEconomy
+                - Business
+                - First
+              PreferLevel:
+                type: string
+                enum:
+                - Preferred
+                - Only
+        MaxStopsQuantity:
           type: integer
-        NodeList:
-          type: string
-        ShortText:
-          type: string
-        Type:
-          type: string
-    ReShopRequest:
-      type: object
-      required:
-      - OTA_AirLowFareSearchRQ
-      properties:
-        OTA_AirLowFareSearchRQ:
+          minimum: 0
+          maximum: 3
+          example: 1
+        TPA_Extensions:
           type: object
           properties:
-            TPA_Extensions:
+            LookAheadDays:
               type: object
               properties:
-                IntelliSellTransaction:
+                Value:
+                  type: integer
+                  description: Number of days to search around departure date
+                  example: 3
+            TicketingRestriction:
+              type: object
+              properties:
+                Value:
+                  type: string
+                  enum:
+                  - ALL_TICKETS
+                  - NONREF_ONLY
+                  - REF_ONLY
+    TravelerInfoSummary:
+      type: object
+      required:
+      - AirTravelerAvail
+      properties:
+        AirTravelerAvail:
+          type: array
+          items:
+            type: object
+            properties:
+              PassengerTypeQuantity:
+                type: array
+                items:
                   type: object
                   properties:
-                    RequestType:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                          enum:
-                          - 50ITINS
+                    Code:
+                      type: string
+                      enum:
+                      - ADT
+                      - CHD
+                      - INF
+                      - INS
+                      description: Passenger type code
+                    Quantity:
+                      type: integer
+                      minimum: 1
+        PriceRequestInformation:
+          type: object
+          properties:
+            CurrencyCode:
+              type: string
+              example: USD
+    OriginDestinationInformation:
+      type: object
+      required:
+      - DepartureDateTime
+      - OriginLocation
+      - DestinationLocation
+      properties:
+        DepartureDateTime:
+          type: string
+          format: date-time
+          example: '2026-06-15T00:00:00'
+        OriginLocation:
+          type: object
+          required:
+          - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: DFW
+        DestinationLocation:
+          type: object
+          required:
+          - LocationCode
+          properties:
+            LocationCode:
+              type: string
+              description: IATA airport or city code
+              example: LHR
+        RPH:
+          type: string
+          description: Reference placeholder for itinerary leg
+          example: '1'
     FlightSegment:
       type: object
       properties:
@@ -176,109 +253,34 @@ components:
           description: Booking class (RBD)
         CabinClassCode:
           type: string
-    ErrorResponse:
+    OriginDestinationOption:
       type: object
       properties:
-        status:
-          type: integer
-        errorCode:
-          type: string
-        message:
-          type: string
-        timeStamp:
-          type: string
-          format: date-time
-    BFMResponse:
-      type: object
-      properties:
-        OTA_AirLowFareSearchRS:
-          type: object
-          properties:
-            PricedItineraries:
-              type: object
-              properties:
-                PricedItinerary:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/PricedItinerary'
-            Success:
-              type: object
-            Errors:
-              type: object
-              properties:
-                Error:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/APIError'
-    BFMRequest:
+        FlightSegment:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightSegment'
+    ReShopRequest:
       type: object
       required:
       - OTA_AirLowFareSearchRQ
       properties:
         OTA_AirLowFareSearchRQ:
           type: object
-          required:
-          - OriginDestinationInformation
-          - TravelPreferences
-          - TravelerInfoSummary
           properties:
-            OriginDestinationInformation:
-              type: array
-              minItems: 1
-              maxItems: 6
-              items:
-                $ref: '#/components/schemas/OriginDestinationInformation'
-            TravelPreferences:
-              $ref: '#/components/schemas/TravelPreferences'
-            TravelerInfoSummary:
-              $ref: '#/components/schemas/TravelerInfoSummary'
-            Version:
-              type: string
-              example: 4.0.0
-    TravelPreferences:
-      type: object
-      properties:
-        CabinPref:
-          type: array
-          items:
-            type: object
-            properties:
-              Cabin:
-                type: string
-                enum:
-                - Economy
-                - PremiumEconomy
-                - Business
-                - First
-              PreferLevel:
-                type: string
-                enum:
-                - Preferred
-                - Only
-        MaxStopsQuantity:
-          type: integer
-          minimum: 0
-          maximum: 3
-          example: 1
-        TPA_Extensions:
-          type: object
-          properties:
-            LookAheadDays:
+            TPA_Extensions:
               type: object
               properties:
-                Value:
-                  type: integer
-                  description: Number of days to search around departure date
-                  example: 3
-            TicketingRestriction:
-              type: object
-              properties:
-                Value:
-                  type: string
-                  enum:
-                  - ALL_TICKETS
-                  - NONREF_ONLY
-                  - REF_ONLY
+                IntelliSellTransaction:
+                  type: object
+                  properties:
+                    RequestType:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                          enum:
+                          - 50ITINS
     PricedItinerary:
       type: object
       properties:
@@ -333,78 +335,76 @@ components:
                       type: number
                     CurrencyCode:
                       type: string
-    OriginDestinationOption:
+    APIError:
       type: object
       properties:
-        FlightSegment:
-          type: array
-          items:
-            $ref: '#/components/schemas/FlightSegment'
-    OriginDestinationInformation:
+        Code:
+          type: integer
+        NodeList:
+          type: string
+        ShortText:
+          type: string
+        Type:
+          type: string
+    BFMResponse:
       type: object
-      required:
-      - DepartureDateTime
-      - OriginLocation
-      - DestinationLocation
       properties:
-        DepartureDateTime:
+        OTA_AirLowFareSearchRS:
+          type: object
+          properties:
+            PricedItineraries:
+              type: object
+              properties:
+                PricedItinerary:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PricedItinerary'
+            Success:
+              type: object
+            Errors:
+              type: object
+              properties:
+                Error:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/APIError'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
           type: string
           format: date-time
-          example: '2026-06-15T00:00:00'
-        OriginLocation:
-          type: object
-          required:
-          - LocationCode
-          properties:
-            LocationCode:
-              type: string
-              description: IATA airport or city code
-              example: DFW
-        DestinationLocation:
-          type: object
-          required:
-          - LocationCode
-          properties:
-            LocationCode:
-              type: string
-              description: IATA airport or city code
-              example: LHR
-        RPH:
-          type: string
-          description: Reference placeholder for itinerary leg
-          example: '1'
-    TravelerInfoSummary:
+    BFMRequest:
       type: object
       required:
-      - AirTravelerAvail
+      - OTA_AirLowFareSearchRQ
       properties:
-        AirTravelerAvail:
-          type: array
-          items:
-            type: object
-            properties:
-              PassengerTypeQuantity:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    Code:
-                      type: string
-                      enum:
-                      - ADT
-                      - CHD
-                      - INF
-                      - INS
-                      description: Passenger type code
-                    Quantity:
-                      type: integer
-                      minimum: 1
-        PriceRequestInformation:
+        OTA_AirLowFareSearchRQ:
           type: object
+          required:
+          - OriginDestinationInformation
+          - TravelPreferences
+          - TravelerInfoSummary
           properties:
-            CurrencyCode:
+            OriginDestinationInformation:
+              type: array
+              minItems: 1
+              maxItems: 6
+              items:
+                $ref: '#/components/schemas/OriginDestinationInformation'
+            TravelPreferences:
+              $ref: '#/components/schemas/TravelPreferences'
+            TravelerInfoSummary:
+              $ref: '#/components/schemas/TravelerInfoSummary'
+            Version:
               type: string
-              example: USD
+              example: 4.0.0
   securitySchemes:
     BearerAuth:
       type: http

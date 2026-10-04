@@ -95,15 +95,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Rate:
-      type: object
-      properties:
-        Amount:
-          type: number
-          format: double
-        CurrencyCode:
-          type: string
-          example: USD
     PaymentInfo:
       type: object
       properties:
@@ -120,43 +111,6 @@ components:
           type: string
         CardholderName:
           type: string
-    HotelReservationResponse:
-      type: object
-      properties:
-        ConfirmationNumber:
-          type: string
-        HotelConfirmationNumber:
-          type: string
-        Status:
-          type: string
-          enum:
-          - CONFIRMED
-          - PENDING
-          - CANCELLED
-        HotelCode:
-          type: string
-        CheckIn:
-          type: string
-          format: date
-        CheckOut:
-          type: string
-          format: date
-        TotalCost:
-          $ref: '#/components/schemas/Rate'
-        GuestInfo:
-          $ref: '#/components/schemas/GuestInfo'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        errorCode:
-          type: string
-        message:
-          type: string
-        timeStamp:
-          type: string
-          format: date-time
     HotelReservationRequest:
       type: object
       required:
@@ -196,6 +150,52 @@ components:
           - CANCELLED
         CancellationFee:
           $ref: '#/components/schemas/Rate'
+    Rate:
+      type: object
+      properties:
+        Amount:
+          type: number
+          format: double
+        CurrencyCode:
+          type: string
+          example: USD
+    HotelReservationResponse:
+      type: object
+      properties:
+        ConfirmationNumber:
+          type: string
+        HotelConfirmationNumber:
+          type: string
+        Status:
+          type: string
+          enum:
+          - CONFIRMED
+          - PENDING
+          - CANCELLED
+        HotelCode:
+          type: string
+        CheckIn:
+          type: string
+          format: date
+        CheckOut:
+          type: string
+          format: date
+        TotalCost:
+          $ref: '#/components/schemas/Rate'
+        GuestInfo:
+          $ref: '#/components/schemas/GuestInfo'
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
     GuestInfo:
       type: object
       required:
