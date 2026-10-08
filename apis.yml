@@ -175,6 +175,12 @@ apis:
   - type: SDKs
     url: https://github.com/SabreDevStudio/get-hotel-avail-v2-sample-nodejs
 common:
+- type: Plans
+  url: plans/sabre-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/sabre-rate-limits.yml
+- type: FinOps
+  url: finops/sabre-finops.yml
 - type: CapabilityMap
   url: capabilities/sabre-capability-edges.yml
   name: Sabre Business Capability Map
