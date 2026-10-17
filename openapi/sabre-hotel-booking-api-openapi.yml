@@ -95,22 +95,74 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PaymentInfo:
+    HotelReservationResponse:
       type: object
       properties:
-        CardType:
+        ConfirmationNumber:
+          type: string
+        HotelConfirmationNumber:
+          type: string
+        Status:
           type: string
           enum:
-          - VI
-          - MC
-          - AX
-          - DS
-        CardNumber:
+          - CONFIRMED
+          - PENDING
+          - CANCELLED
+        HotelCode:
           type: string
-        ExpiryDate:
+        CheckIn:
           type: string
-        CardholderName:
+          format: date
+        CheckOut:
           type: string
+          format: date
+        TotalCost:
+          $ref: '#/components/schemas/Rate'
+        GuestInfo:
+          $ref: '#/components/schemas/GuestInfo'
+    CancellationResponse:
+      type: object
+      properties:
+        CancellationNumber:
+          type: string
+        Status:
+          type: string
+          enum:
+          - CANCELLED
+        CancellationFee:
+          $ref: '#/components/schemas/Rate'
+    GuestInfo:
+      type: object
+      required:
+      - FirstName
+      - LastName
+      - Email
+      properties:
+        Title:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        Email:
+          type: string
+          format: email
+        Phone:
+          type: string
+        LoyaltyProgramNumber:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        errorCode:
+          type: string
+        message:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time
     HotelReservationRequest:
       type: object
       required:
@@ -139,17 +191,6 @@ components:
           $ref: '#/components/schemas/PaymentInfo'
         SpecialRequests:
           type: string
-    CancellationResponse:
-      type: object
-      properties:
-        CancellationNumber:
-          type: string
-        Status:
-          type: string
-          enum:
-          - CANCELLED
-        CancellationFee:
-          $ref: '#/components/schemas/Rate'
     Rate:
       type: object
       properties:
@@ -159,62 +200,21 @@ components:
         CurrencyCode:
           type: string
           example: USD
-    HotelReservationResponse:
+    PaymentInfo:
       type: object
       properties:
-        ConfirmationNumber:
-          type: string
-        HotelConfirmationNumber:
-          type: string
-        Status:
+        CardType:
           type: string
           enum:
-          - CONFIRMED
-          - PENDING
-          - CANCELLED
-        HotelCode:
+          - VI
+          - MC
+          - AX
+          - DS
+        CardNumber:
           type: string
-        CheckIn:
+        ExpiryDate:
           type: string
-          format: date
-        CheckOut:
-          type: string
-          format: date
-        TotalCost:
-          $ref: '#/components/schemas/Rate'
-        GuestInfo:
-          $ref: '#/components/schemas/GuestInfo'
-    ErrorResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        errorCode:
-          type: string
-        message:
-          type: string
-        timeStamp:
-          type: string
-          format: date-time
-    GuestInfo:
-      type: object
-      required:
-      - FirstName
-      - LastName
-      - Email
-      properties:
-        Title:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-        Email:
-          type: string
-          format: email
-        Phone:
-          type: string
-        LoyaltyProgramNumber:
+        CardholderName:
           type: string
   securitySchemes:
     BearerAuth:
