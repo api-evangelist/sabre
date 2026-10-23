@@ -175,6 +175,8 @@ apis:
   - type: SDKs
     url: https://github.com/SabreDevStudio/get-hotel-avail-v2-sample-nodejs
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/sabre/overview
 - type: Plans
   url: plans/sabre-plans-pricing.yml
 - type: RateLimits
