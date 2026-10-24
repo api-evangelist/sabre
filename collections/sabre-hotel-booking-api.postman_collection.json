@@ -1,487 +1,497 @@
 {
+  "info": {
+    "_postman_id": "c99dacf9-5f0d-4f56-95ad-c1348096f164",
+    "name": "Sabre Hotels Hotel Booking API",
+    "description": "Sabre Hotels API provides hotel search, availability, rate shopping, content retrieval, and booking APIs for travel agencies and OTAs. Accesses Sabre's global lodging content and SynXis hotel distribution network.\n\nContact Support:\n Name: Sabre Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:35:39.000Z",
+    "updatedAt": "2026-10-22T02:35:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c99dacf9-5f0d-4f56-95ad-c1348096f164"
+  },
   "item": [
     {
-      "id": "e031c5eb-1a7c-4a5b-a489-620622461a01",
-      "name": "Hotel Booking",
-      "description": {
-        "content": "Reservation management",
-        "type": "text/plain"
-      },
+      "name": "v2.0.0",
       "item": [
         {
-          "id": "2106ecbc-de8e-463d-a517-188e83feb1ad",
-          "name": "Create a hotel reservation",
-          "request": {
-            "name": "Create a hotel reservation",
-            "description": {
-              "content": "Books a hotel room and creates a reservation record in Sabre GDS. Returns a confirmation number and hotel-specific PNR locator.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2.0.0",
-                "hotels",
-                "reservations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"HotelCode\": \"<string>\",\n  \"RoomTypeCode\": \"<string>\",\n  \"RatePlanCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GuestInfo\": {\n    \"FirstName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Email\": \"<email>\",\n    \"Title\": \"<string>\",\n    \"Phone\": \"<string>\",\n    \"LoyaltyProgramNumber\": \"<string>\"\n  },\n  \"PaymentInfo\": {\n    \"CardType\": \"<string>\",\n    \"CardNumber\": \"<string>\",\n    \"ExpiryDate\": \"<string>\",\n    \"CardholderName\": \"<string>\"\n  },\n  \"SpecialRequests\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "hotels",
+          "item": [
             {
-              "id": "7a02ffdd-f9de-4914-9e4c-10d7c0e71911",
-              "name": "Reservation created successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2.0.0",
-                    "hotels",
-                    "reservations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"HotelCode\": \"<string>\",\n  \"RoomTypeCode\": \"<string>\",\n  \"RatePlanCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GuestInfo\": {\n    \"FirstName\": \"string\",\n    \"LastName\": \"string\",\n    \"Email\": \"B4o89wB-EpeD@QnDVTtYhGpZzFpamjDRhYQQUIeLyFAUU.msh\",\n    \"Title\": \"string\",\n    \"Phone\": \"string\",\n    \"LoyaltyProgramNumber\": \"string\"\n  },\n  \"PaymentInfo\": {\n    \"CardType\": \"VI\",\n    \"CardNumber\": \"string\",\n    \"ExpiryDate\": \"string\",\n    \"CardholderName\": \"string\"\n  },\n  \"SpecialRequests\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
+              "name": "reservations",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{confirmationId}",
+                  "item": [
+                    {
+                      "name": "Retrieve hotel reservation details",
+                      "id": "fe3b1ad4-1543-4bb8-a6a4-e0dade3bd8e2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2.0.0/hotels/reservations/:confirmationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2.0.0",
+                            "hotels",
+                            "reservations",
+                            ":confirmationId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "20769f24-26b5-4f0f-bd74-0c571e9a303b",
+                              "key": "confirmationId",
+                              "value": "<string>",
+                              "description": "(Required) Hotel reservation confirmation number"
+                            }
+                          ]
+                        },
+                        "description": "Returns full details for an existing hotel reservation."
+                      },
+                      "response": [
+                        {
+                          "id": "e0a6d5cb-caf8-43ff-8166-3df42c833e7a",
+                          "name": "Hotel reservation details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2.0.0/hotels/reservations/:confirmationId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2.0.0",
+                                "hotels",
+                                "reservations",
+                                ":confirmationId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "confirmationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"ConfirmationNumber\": \"<string>\",\n  \"HotelConfirmationNumber\": \"<string>\",\n  \"Status\": \"CONFIRMED\",\n  \"HotelCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"TotalCost\": {\n    \"Amount\": \"<double>\",\n    \"CurrencyCode\": \"<string>\"\n  },\n  \"GuestInfo\": {\n    \"FirstName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Email\": \"<email>\",\n    \"Title\": \"<string>\",\n    \"Phone\": \"<string>\",\n    \"LoyaltyProgramNumber\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:35:40.000Z",
+                          "updatedAt": "2026-10-22T02:35:40.000Z",
+                          "uid": "35240-e0a6d5cb-caf8-43ff-8166-3df42c833e7a"
+                        },
+                        {
+                          "id": "f09ed2bc-8032-47d8-92e2-5085a1eecf6d",
+                          "name": "Reservation not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2.0.0/hotels/reservations/:confirmationId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2.0.0",
+                                "hotels",
+                                "reservations",
+                                ":confirmationId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "confirmationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<integer>\",\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"timeStamp\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-10-22T02:35:40.000Z",
+                          "updatedAt": "2026-10-22T02:35:40.000Z",
+                          "uid": "35240-f09ed2bc-8032-47d8-92e2-5085a1eecf6d"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:35:40.000Z",
+                      "updatedAt": "2026-10-22T02:35:40.000Z",
+                      "uid": "35240-fe3b1ad4-1543-4bb8-a6a4-e0dade3bd8e2"
+                    },
+                    {
+                      "name": "Cancel a hotel reservation",
+                      "id": "0a2f167f-f072-4b25-b55b-39a85ecb6318",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2.0.0/hotels/reservations/:confirmationId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2.0.0",
+                            "hotels",
+                            "reservations",
+                            ":confirmationId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "dc46ce58-1b98-492f-a856-58cd40d776c8",
+                              "key": "confirmationId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Cancels an existing hotel reservation subject to property cancellation policy."
+                      },
+                      "response": [
+                        {
+                          "id": "8f7e9953-4cd0-4506-a65b-cb11ac1c90f1",
+                          "name": "Reservation cancelled",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2.0.0/hotels/reservations/:confirmationId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2.0.0",
+                                "hotels",
+                                "reservations",
+                                ":confirmationId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "confirmationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"CancellationNumber\": \"<string>\",\n  \"Status\": \"CANCELLED\",\n  \"CancellationFee\": {\n    \"Amount\": \"<double>\",\n    \"CurrencyCode\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:35:40.000Z",
+                          "updatedAt": "2026-10-22T02:35:40.000Z",
+                          "uid": "35240-8f7e9953-4cd0-4506-a65b-cb11ac1c90f1"
+                        },
+                        {
+                          "id": "f0733e7f-2295-450d-a74e-a465fcef7195",
+                          "name": "Reservation not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2.0.0/hotels/reservations/:confirmationId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2.0.0",
+                                "hotels",
+                                "reservations",
+                                ":confirmationId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "confirmationId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<integer>\",\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"timeStamp\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-10-22T02:35:40.000Z",
+                          "updatedAt": "2026-10-22T02:35:40.000Z",
+                          "uid": "35240-f0733e7f-2295-450d-a74e-a465fcef7195"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:35:40.000Z",
+                      "updatedAt": "2026-10-22T02:35:40.000Z",
+                      "uid": "35240-0a2f167f-f072-4b25-b55b-39a85ecb6318"
+                    }
+                  ],
+                  "id": "62efee69-f53d-407c-8949-4bbeb65f89db",
+                  "createdAt": "2026-10-22T02:35:40.000Z",
+                  "updatedAt": "2026-10-22T02:35:40.000Z",
+                  "uid": "35240-62efee69-f53d-407c-8949-4bbeb65f89db"
+                },
+                {
+                  "name": "Create a hotel reservation",
+                  "id": "86b0d7e3-7bd9-4145-b8e8-c4f30b1349eb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"HotelCode\": \"<string>\",\n  \"RoomTypeCode\": \"<string>\",\n  \"RatePlanCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GuestInfo\": {\n    \"FirstName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Email\": \"<email>\",\n    \"Title\": \"<string>\",\n    \"Phone\": \"<string>\",\n    \"LoyaltyProgramNumber\": \"<string>\"\n  },\n  \"PaymentInfo\": {\n    \"CardType\": \"MC\",\n    \"CardNumber\": \"<string>\",\n    \"ExpiryDate\": \"<string>\",\n    \"CardholderName\": \"<string>\"\n  },\n  \"SpecialRequests\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2.0.0/hotels/reservations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2.0.0",
+                        "hotels",
+                        "reservations"
+                      ]
+                    },
+                    "description": "Books a hotel room and creates a reservation record in Sabre GDS. Returns a confirmation number and hotel-specific PNR locator."
+                  },
+                  "response": [
+                    {
+                      "id": "d0481c9f-45ad-49a2-b3f7-372276e73cb4",
+                      "name": "Reservation created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"HotelCode\": \"<string>\",\n  \"RoomTypeCode\": \"<string>\",\n  \"RatePlanCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GuestInfo\": {\n    \"FirstName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Email\": \"<email>\",\n    \"Title\": \"<string>\",\n    \"Phone\": \"<string>\",\n    \"LoyaltyProgramNumber\": \"<string>\"\n  },\n  \"PaymentInfo\": {\n    \"CardType\": \"MC\",\n    \"CardNumber\": \"<string>\",\n    \"ExpiryDate\": \"<string>\",\n    \"CardholderName\": \"<string>\"\n  },\n  \"SpecialRequests\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2.0.0/hotels/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2.0.0",
+                            "hotels",
+                            "reservations"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ConfirmationNumber\": \"<string>\",\n  \"HotelConfirmationNumber\": \"<string>\",\n  \"Status\": \"CONFIRMED\",\n  \"HotelCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"TotalCost\": {\n    \"Amount\": \"<double>\",\n    \"CurrencyCode\": \"<string>\"\n  },\n  \"GuestInfo\": {\n    \"FirstName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Email\": \"<email>\",\n    \"Title\": \"<string>\",\n    \"Phone\": \"<string>\",\n    \"LoyaltyProgramNumber\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:35:40.000Z",
+                      "updatedAt": "2026-10-22T02:35:40.000Z",
+                      "uid": "35240-d0481c9f-45ad-49a2-b3f7-372276e73cb4"
+                    },
+                    {
+                      "id": "78b2bc7d-1722-4c35-94b7-8d72591df200",
+                      "name": "Bad request or invalid room/rate combination",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"HotelCode\": \"<string>\",\n  \"RoomTypeCode\": \"<string>\",\n  \"RatePlanCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GuestInfo\": {\n    \"FirstName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Email\": \"<email>\",\n    \"Title\": \"<string>\",\n    \"Phone\": \"<string>\",\n    \"LoyaltyProgramNumber\": \"<string>\"\n  },\n  \"PaymentInfo\": {\n    \"CardType\": \"MC\",\n    \"CardNumber\": \"<string>\",\n    \"ExpiryDate\": \"<string>\",\n    \"CardholderName\": \"<string>\"\n  },\n  \"SpecialRequests\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2.0.0/hotels/reservations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2.0.0",
+                            "hotels",
+                            "reservations"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"timeStamp\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-22T02:35:40.000Z",
+                      "updatedAt": "2026-10-22T02:35:40.000Z",
+                      "uid": "35240-78b2bc7d-1722-4c35-94b7-8d72591df200"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:40.000Z",
+                  "updatedAt": "2026-10-22T02:35:40.000Z",
+                  "uid": "35240-86b0d7e3-7bd9-4145-b8e8-c4f30b1349eb"
                 }
               ],
-              "body": "{\n  \"ConfirmationNumber\": \"string\",\n  \"HotelConfirmationNumber\": \"string\",\n  \"Status\": \"CONFIRMED\",\n  \"HotelCode\": \"string\",\n  \"CheckIn\": \"1958-01-07\",\n  \"CheckOut\": \"1959-01-27\",\n  \"TotalCost\": {\n    \"Amount\": 2919.837488986159,\n    \"CurrencyCode\": \"USD\"\n  },\n  \"GuestInfo\": {\n    \"FirstName\": \"string\",\n    \"LastName\": \"string\",\n    \"Email\": \"3ts@gBUxWWjIRODObCVFqXtfaA.cyz\",\n    \"Title\": \"string\",\n    \"Phone\": \"string\",\n    \"LoyaltyProgramNumber\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "997309c9-fb41-434b-8308-34475ce78c9f",
-              "name": "Bad request or invalid room/rate combination",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2.0.0",
-                    "hotels",
-                    "reservations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"HotelCode\": \"<string>\",\n  \"RoomTypeCode\": \"<string>\",\n  \"RatePlanCode\": \"<string>\",\n  \"CheckIn\": \"<date>\",\n  \"CheckOut\": \"<date>\",\n  \"GuestInfo\": {\n    \"FirstName\": \"string\",\n    \"LastName\": \"string\",\n    \"Email\": \"B4o89wB-EpeD@QnDVTtYhGpZzFpamjDRhYQQUIeLyFAUU.msh\",\n    \"Title\": \"string\",\n    \"Phone\": \"string\",\n    \"LoyaltyProgramNumber\": \"string\"\n  },\n  \"PaymentInfo\": {\n    \"CardType\": \"VI\",\n    \"CardNumber\": \"string\",\n    \"ExpiryDate\": \"string\",\n    \"CardholderName\": \"string\"\n  },\n  \"SpecialRequests\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 5201,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"1949-10-02T08:12:22.104Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "beb2c0b2-9acf-4772-94bd-c1030bde95de",
+              "createdAt": "2026-10-22T02:35:40.000Z",
+              "updatedAt": "2026-10-22T02:35:40.000Z",
+              "uid": "35240-beb2c0b2-9acf-4772-94bd-c1030bde95de"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "67b531fe-7334-4b5b-9fd4-a39e95c36037",
-          "name": "Retrieve hotel reservation details",
-          "request": {
-            "name": "Retrieve hotel reservation details",
-            "description": {
-              "content": "Returns full details for an existing hotel reservation.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2.0.0",
-                "hotels",
-                "reservations",
-                ":confirmationId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "confirmationId",
-                  "description": "(Required) Hotel reservation confirmation number"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "d8a5791c-40c6-4ae1-ae9c-dd64724ffb06",
-              "name": "Hotel reservation details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2.0.0",
-                    "hotels",
-                    "reservations",
-                    ":confirmationId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "confirmationId",
-                      "description": "(Required) Hotel reservation confirmation number"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"ConfirmationNumber\": \"string\",\n  \"HotelConfirmationNumber\": \"string\",\n  \"Status\": \"CONFIRMED\",\n  \"HotelCode\": \"string\",\n  \"CheckIn\": \"1958-01-07\",\n  \"CheckOut\": \"1959-01-27\",\n  \"TotalCost\": {\n    \"Amount\": 2919.837488986159,\n    \"CurrencyCode\": \"USD\"\n  },\n  \"GuestInfo\": {\n    \"FirstName\": \"string\",\n    \"LastName\": \"string\",\n    \"Email\": \"3ts@gBUxWWjIRODObCVFqXtfaA.cyz\",\n    \"Title\": \"string\",\n    \"Phone\": \"string\",\n    \"LoyaltyProgramNumber\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "36e409a2-87e2-4348-aa2b-ceeb067d4381",
-              "name": "Reservation not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2.0.0",
-                    "hotels",
-                    "reservations",
-                    ":confirmationId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "confirmationId",
-                      "description": "(Required) Hotel reservation confirmation number"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 5201,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"1949-10-02T08:12:22.104Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "21eccd34-0496-4b21-b1e1-2bb9826eb952",
-          "name": "Cancel a hotel reservation",
-          "request": {
-            "name": "Cancel a hotel reservation",
-            "description": {
-              "content": "Cancels an existing hotel reservation subject to property cancellation policy.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2.0.0",
-                "hotels",
-                "reservations",
-                ":confirmationId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "confirmationId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "2c787214-45f7-44aa-808f-84c2cd591e3d",
-              "name": "Reservation cancelled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2.0.0",
-                    "hotels",
-                    "reservations",
-                    ":confirmationId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "confirmationId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"CancellationNumber\": \"string\",\n  \"Status\": \"CANCELLED\",\n  \"CancellationFee\": {\n    \"Amount\": 6669.581149886098,\n    \"CurrencyCode\": \"USD\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0a42ca62-508c-4e5b-a0f0-4555afbf4173",
-              "name": "Reservation not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2.0.0",
-                    "hotels",
-                    "reservations",
-                    ":confirmationId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "confirmationId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 5201,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"1949-10-02T08:12:22.104Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7263d959-29fe-4b26-9758-58615bd3674b",
+          "createdAt": "2026-10-22T02:35:40.000Z",
+          "updatedAt": "2026-10-22T02:35:40.000Z",
+          "uid": "35240-7263d959-29fe-4b26-9758-58615bd3674b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.sabre.com",
-      "key": "baseUrl"
+      "id": "d079dcab-01cd-43b2-83b6-651169834f01",
+      "createdAt": "2026-10-22T02:35:40.000Z",
+      "updatedAt": "2026-10-22T02:35:40.000Z",
+      "uid": "35240-d079dcab-01cd-43b2-83b6-651169834f01"
     }
   ],
   "auth": {
@@ -489,17 +499,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "9052979d-1325-4435-955e-fa19e8b2ea36",
-    "name": "Sabre Bargain Finder Max Air Shopping Hotel Booking API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.\n\nContact Support:\n Name: Sabre Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sabre.com"
     }
-  }
+  ]
 }

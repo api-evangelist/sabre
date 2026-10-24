@@ -1,239 +1,234 @@
 {
+  "info": {
+    "_postman_id": "3aafe339-263f-490a-9f88-416b796a0cf9",
+    "name": "Sabre Bargain Finder Max Authentication API",
+    "description": "Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.\n\nContact Support:\n Name: Sabre Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:35:34.000Z",
+    "updatedAt": "2026-10-22T02:35:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3aafe339-263f-490a-9f88-416b796a0cf9"
+  },
   "item": [
     {
-      "id": "1ab464fb-8d1f-49a7-94ad-34eb40b2c8db",
-      "name": "Authentication",
-      "description": {
-        "content": "Token-based authentication",
-        "type": "text/plain"
-      },
+      "name": "v2",
       "item": [
         {
-          "id": "e9d2e63a-5668-46f8-b882-10b5372841bf",
-          "name": "Get OAuth2 access token",
-          "request": {
-            "name": "Get OAuth2 access token",
-            "description": {
-              "content": "Authenticates the application using client credentials and returns a Bearer token for API requests. Tokens expire after a configurable period.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "auth",
-                "token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "grant_type",
-                  "value": "<string>",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "key": "client_id",
-                  "value": "<string>",
-                  "description": "(Required) Sabre application client ID (V1 encoded)"
-                },
-                {
-                  "disabled": false,
-                  "key": "client_secret",
-                  "value": "<string>",
-                  "description": "(Required) Sabre application client secret (V1 encoded)"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "auth",
+          "item": [
             {
-              "id": "1a13c036-6acb-46bd-ae7c-bab4944ebc5f",
-              "name": "Access token issued",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "auth",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "grant_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) Sabre application client ID (V1 encoded)",
-                        "type": "text/plain"
-                      },
-                      "key": "client_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) Sabre application client secret (V1 encoded)",
-                        "type": "text/plain"
-                      },
-                      "key": "client_secret",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "token",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Get OAuth2 access token",
+                  "id": "ccd687ca-7286-4a00-946f-9b5f2398e16b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "grant_type",
+                          "value": "client_credentials"
+                        },
+                        {
+                          "description": "(Required) Sabre application client ID (V1 encoded)",
+                          "key": "client_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) Sabre application client secret (V1 encoded)",
+                          "key": "client_secret",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/auth/token",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "auth",
+                        "token"
+                      ]
+                    },
+                    "description": "Authenticates the application using client credentials and returns a Bearer token for API requests. Tokens expire after a configurable period."
+                  },
+                  "response": [
+                    {
+                      "id": "92dec976-e6a7-448c-b47e-3483efd47426",
+                      "name": "Access token issued",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "grant_type",
+                              "value": "client_credentials"
+                            },
+                            {
+                              "description": "(Required) Sabre application client ID (V1 encoded)",
+                              "key": "client_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Sabre application client secret (V1 encoded)",
+                              "key": "client_secret",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/auth/token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "auth",
+                            "token"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"access_token\": \"<string>\",\n  \"token_type\": \"<string>\",\n  \"expires_in\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:35:34.000Z",
+                      "updatedAt": "2026-10-22T02:35:34.000Z",
+                      "uid": "35240-92dec976-e6a7-448c-b47e-3483efd47426"
+                    },
+                    {
+                      "id": "22a39489-1355-49ee-906b-d7c4f6100d2a",
+                      "name": "Invalid credentials",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "grant_type",
+                              "value": "client_credentials"
+                            },
+                            {
+                              "description": "(Required) Sabre application client ID (V1 encoded)",
+                              "key": "client_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) Sabre application client secret (V1 encoded)",
+                              "key": "client_secret",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/auth/token",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "auth",
+                            "token"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"timeStamp\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-22T02:35:34.000Z",
+                      "updatedAt": "2026-10-22T02:35:34.000Z",
+                      "uid": "35240-22a39489-1355-49ee-906b-d7c4f6100d2a"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:34.000Z",
+                  "updatedAt": "2026-10-22T02:35:34.000Z",
+                  "uid": "35240-ccd687ca-7286-4a00-946f-9b5f2398e16b"
                 }
               ],
-              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 604800\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "be4c52c8-c5ca-4c39-8a33-46785b499baf",
-              "name": "Invalid credentials",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "auth",
-                    "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "grant_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) Sabre application client ID (V1 encoded)",
-                        "type": "text/plain"
-                      },
-                      "key": "client_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) Sabre application client secret (V1 encoded)",
-                        "type": "text/plain"
-                      },
-                      "key": "client_secret",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": 6852,\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"timeStamp\": \"1985-11-28T21:47:16.681Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "1880dce5-0d1d-456b-93d8-c97a5953dee5",
+              "createdAt": "2026-10-22T02:35:34.000Z",
+              "updatedAt": "2026-10-22T02:35:34.000Z",
+              "uid": "35240-1880dce5-0d1d-456b-93d8-c97a5953dee5"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "495a5ca7-b358-4cde-956c-9cbc5014c6d5",
+          "createdAt": "2026-10-22T02:35:34.000Z",
+          "updatedAt": "2026-10-22T02:35:34.000Z",
+          "uid": "35240-495a5ca7-b358-4cde-956c-9cbc5014c6d5"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.sabre.com",
-      "key": "baseUrl"
+      "id": "3634f44b-8200-47ee-b35e-5d1466159199",
+      "createdAt": "2026-10-22T02:35:34.000Z",
+      "updatedAt": "2026-10-22T02:35:34.000Z",
+      "uid": "35240-3634f44b-8200-47ee-b35e-5d1466159199"
     }
   ],
   "auth": {
@@ -241,17 +236,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "30ee832e-e436-4fd7-8c6a-ef425ba48bcd",
-    "name": "Sabre Bargain Finder Max Air Shopping Authentication API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory. Supports one-way, round-trip, and multi-city searches with ATPCO, LCC, and NDC content.\n\nContact Support:\n Name: Sabre Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sabre.com"
     }
-  }
+  ]
 }
