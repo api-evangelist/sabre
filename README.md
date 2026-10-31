@@ -1,4 +1,4 @@
-# Sabre (sabre)
+# Sabre
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,202 +66,210 @@
 
 Sabre Corporation is a leading technology provider for the global travel industry, operating one of the world's largest travel marketplaces through its Global Distribution System (GDS). Sabre provides APIs for air shopping, booking, hotel reservations, car rentals, rail ticketing, and travel agency workflow automation to airlines, hotels, travel agencies, and online travel agencies (OTAs).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/sabre/refs/heads/main/apis.yml)
+**Areas:** Travel · GDS · Airlines · Hotels · Car Rental · Booking
 
-## Scope
+## Sabre on APIs.io
 
-- **Type:** Index
+Everything profiled for Sabre is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sabre/](https://apis.io/providers/sabre/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (9)
 
-- Travel
-- GDS
-- Airlines
-- Hotels
-- Car Rental
-- Booking
+- [Sabre Air Booking API](https://apis.io/apis/sabre/air-booking/) — Sabre Air Booking API enables flight booking, passenger name record (PNR) creation and management, seat selection, ticketing, and booking modification for…
+- [Sabre Cars API](https://apis.io/apis/sabre/cars/) — Sabre Cars API provides car rental search, availability, rate shopping, reservation, and management APIs for travel agencies and OTAs, connecting to over 40…
+- [Sabre Destination Content API](https://apis.io/apis/sabre/destination-content/) — Sabre Destination Content API provides destination guides, points of interest, geo data, and travel inspiration content for travel applications and…
+- [Sabre Booking Management API](https://apis.io/apis/sabre/booking-management/) — Sabre Booking Management API provides unified management of multi-segment travel reservations including flights, hotels, and car rentals within a single…
+- [Sabre Rail API](https://apis.io/apis/sabre/rail/) — Sabre Rail API provides rail ticket search, booking, and management capabilities connecting to over 30 rail operators worldwide for travel agencies and…
+- [Sabre Air Shopping API](https://apis.io/apis/sabre/sabre-air-shopping-api/) — Low-fare search and offer retrieval
+- [Sabre Authentication API](https://apis.io/apis/sabre/sabre-authentication-api/) — Token-based authentication
+- [Sabre Hotel Booking API](https://apis.io/apis/sabre/sabre-hotel-booking-api/) — Reservation management
+- [Sabre Hotel Search API](https://apis.io/apis/sabre/sabre-hotel-search-api/) — Search and availability operations
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-18
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Sabre Bargain Finder Max API
+GraphQL schemas.
 
-Sabre Bargain Finder Max (BFM) API provides low-fare search capabilities for air shopping, returning optimal flight itineraries with pricing across Sabre's global airline content inventory including ATPCO, LCC, and NDC content. Supports one-way, round-trip, open-jaw, and multi-city searches with flexible date ranges and cabin preferences.
+- [Moved to /providers/sabre/](https://apis.io/graphqls/sabre/sabre-graphql/)
 
-- **Human URL:** [https://developer.sabre.com/](https://developer.sabre.com/)
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Travel
-- Airlines
-- GDS
-- Air Shopping
-- REST
+- [sabre](https://apis.io/servers/sabre/sabre/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://developer.sabre.com/)
-- [OpenAPI](openapi/sabre-bargain-finder-max-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/sabre-bargain-finder-max.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-bargain-finder-max.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Sabre Air Booking API
+- [Sabre Agentic Access](https://apis.io/agentic-access/sabre/sabre-agentic-access/)
 
-Sabre Air Booking API enables flight booking, passenger name record (PNR) creation and management, seat selection, ticketing, and booking modification for travel agencies and online travel applications. Supports NDC offer booking, ancillary services, and PNR queue management.
+#### JSON Schema (30)
 
-- **Human URL:** [https://developer.sabre.com/](https://developer.sabre.com/)
+The data models the API reads and writes.
 
-#### Tags
+- [Address](https://apis.io/schemas/sabre/sabre-address/)
+- [AirportSearch](https://apis.io/schemas/sabre/sabre-airportsearch/)
+- [APIError](https://apis.io/schemas/sabre/sabre-apierror/)
+- [BFMRequest](https://apis.io/schemas/sabre/sabre-bfmrequest/)
+- [BFMResponse](https://apis.io/schemas/sabre/sabre-bfmresponse/)
+- [CancellationResponse](https://apis.io/schemas/sabre/sabre-cancellationresponse/)
+- [CitySearch](https://apis.io/schemas/sabre/sabre-citysearch/)
+- [ErrorResponse](https://apis.io/schemas/sabre/sabre-errorresponse/)
+- [FlightSegment](https://apis.io/schemas/sabre/sabre-flightsegment/)
+- [GeoCodeSearch](https://apis.io/schemas/sabre/sabre-geocodesearch/)
+- [GuestInfo](https://apis.io/schemas/sabre/sabre-guestinfo/)
+- [Sabre Hotel](https://apis.io/schemas/sabre/sabre-hotel/)
+- [HotelRatesResponse](https://apis.io/schemas/sabre/sabre-hotelratesresponse/)
+- [HotelReservationRequest](https://apis.io/schemas/sabre/sabre-hotelreservationrequest/)
+- [HotelReservationResponse](https://apis.io/schemas/sabre/sabre-hotelreservationresponse/)
+- [HotelSearchRequest](https://apis.io/schemas/sabre/sabre-hotelsearchrequest/)
+- [HotelSearchResponse](https://apis.io/schemas/sabre/sabre-hotelsearchresponse/)
+- [HotelSummary](https://apis.io/schemas/sabre/sabre-hotelsummary/)
+- [Sabre Itinerary](https://apis.io/schemas/sabre/sabre-itinerary/)
+- [OriginDestinationInformation](https://apis.io/schemas/sabre/sabre-origindestinationinformation/)
+- [OriginDestinationOption](https://apis.io/schemas/sabre/sabre-origindestinationoption/)
+- [PaymentInfo](https://apis.io/schemas/sabre/sabre-paymentinfo/)
+- [PricedItinerary](https://apis.io/schemas/sabre/sabre-priceditinerary/)
+- [Rate](https://apis.io/schemas/sabre/sabre-rate/)
+- [RatePlan](https://apis.io/schemas/sabre/sabre-rateplan/)
+- …and 5 more published on APIs.io
 
-- Travel
-- Airlines
-- GDS
-- Booking
-- PNR
-- REST
+#### JSON Structure (3)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Documentation](https://developer.sabre.com/)
-- [S D Ks](https://github.com/SabreDevStudio/postman-collections)
-- [Postman Collection](collections/sabre-bargain-finder-max.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-bargain-finder-max.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/sabre-hotels.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-hotels.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Sabre Air Itinerary Structure](https://apis.io/json-structure/sabre/sabre-air-itinerary-structure/)
+- [Sabre Hotel Structure](https://apis.io/json-structure/sabre/sabre-hotel-structure/)
+- [Sabre Structure](https://apis.io/json-structure/sabre/sabre-structure/)
 
-### Sabre Hotels API
+#### JSON-LD (1)
 
-Sabre Hotels API provides hotel search, availability, rate shopping, content retrieval, and booking APIs for travel agencies and OTAs, accessing Sabre's global lodging content covering over 2 million properties and SynXis hotel distribution network. Supports radius search, amenity filters, chain preferences, and cancellation management.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://developer.sabre.com/](https://developer.sabre.com/)
+- [Sabre Context](https://apis.io/jsonld/sabre/sabre-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Travel
-- Hotels
-- GDS
-- Booking
-- REST
+The provider's domain terms, defined.
 
-#### Properties
+- [Sabre Travel API Vocabulary](https://apis.io/vocabularies/sabre/sabre-vocabulary/)
 
-- [Documentation](https://developer.sabre.com/)
-- [S D Ks](https://github.com/SabreDevStudio/get-hotel-avail-v2-sample-nodejs)
-- [OpenAPI](openapi/sabre-hotels-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/sabre-hotels.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-hotels.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Examples (3)
 
-### Sabre Cars API
+Example requests and responses.
 
-Sabre Cars API provides car rental search, availability, rate shopping, reservation, and management APIs for travel agencies and OTAs, connecting to over 40 global car rental brands across 40,000 locations through Sabre's GDS distribution.
+- [Sabre Bargain Finder Max Search Example](https://apis.io/examples/sabre/sabre-bargain-finder-max-search-example/)
+- [Sabre Get Auth Token Example](https://apis.io/examples/sabre/sabre-get-auth-token-example/)
+- [Sabre Hotel Search Example](https://apis.io/examples/sabre/sabre-hotel-search-example/)
 
-- **Human URL:** [https://developer.sabre.com/](https://developer.sabre.com/)
+#### Collections (6)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Travel
-- Car Rental
-- GDS
-- Booking
-- REST
+- [Sabre Bargain Finder Max Air Shopping API](https://apis.io/collections/sabre/open-sabre-air-shopping-api/)
+- [Sabre Bargain Finder Max Air Shopping Authentication API](https://apis.io/collections/sabre/open-sabre-authentication-api/)
+- [Sabre Bargain Finder Max API](https://apis.io/collections/sabre/open-sabre-bargain-finder-max/)
+- [Sabre Bargain Finder Max Air Shopping Hotel Booking API](https://apis.io/collections/sabre/open-sabre-hotel-booking-api/)
+- [Sabre Bargain Finder Max Air Shopping Hotel Search API](https://apis.io/collections/sabre/open-sabre-hotel-search-api/)
+- [Sabre Hotels API](https://apis.io/collections/sabre/open-sabre-hotels/)
 
-#### Properties
+#### Governance rules (2)
 
-- [Documentation](https://developer.sabre.com/)
-- [Postman Collection](collections/sabre-bargain-finder-max.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-bargain-finder-max.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/sabre-hotels.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-hotels.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-### Sabre Destination Content API
+- [Sabre — jsonschema rules](https://apis.io/rules/sabre/sabre-jsonschema-spectral-rules/)
+- [Sabre API Rules](https://apis.io/rules/sabre/sabre-rules/)
 
-Sabre Destination Content API provides destination guides, points of interest, geo data, and travel inspiration content for travel applications and itinerary planning tools.
+#### Security (2)
 
-- **Human URL:** [https://developer.sabre.com/](https://developer.sabre.com/)
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Sabre Authentication](https://apis.io/security/sabre/sabre-authentication/)
+- [Sabre Domain Security](https://apis.io/security/sabre/sabre-domain-security/)
 
-- Travel
-- Destination
-- Content
-- REST
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://developer.sabre.com/)
-- [Postman Collection](collections/sabre-bargain-finder-max.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-bargain-finder-max.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/sabre-hotels.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-hotels.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Sabre Plans Pricing](https://apis.io/plans/sabre/sabre-plans-pricing/)
 
-### Sabre Booking Management API
+#### Rate limits (1)
 
-Sabre Booking Management API provides unified management of multi-segment travel reservations including flights, hotels, and car rentals within a single booking record. Supports booking creation, retrieval, modification, and cancellation.
+Published request limits.
 
-- **Human URL:** [https://developer.sabre.com/docs/rest_apis/trip/orders/booking_management](https://developer.sabre.com/docs/rest_apis/trip/orders/booking_management)
+- [Sabre Rate Limits](https://apis.io/rate-limits/sabre/sabre-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-- Travel
-- Booking
-- GDS
-- REST
+What the API costs to run, by operation.
 
-#### Properties
+- [Sabre Finops](https://apis.io/finops/sabre/sabre-finops/)
 
-- [Documentation](https://developer.sabre.com/docs/rest_apis/trip/orders/booking_management)
-- [Postman Collection](collections/sabre-bargain-finder-max.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-bargain-finder-max.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/sabre-hotels.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-hotels.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-### Sabre Rail API
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-Sabre Rail API provides rail ticket search, booking, and management capabilities connecting to over 30 rail operators worldwide for travel agencies and multi-modal booking platforms.
-
-- **Human URL:** [https://developer.sabre.com/](https://developer.sabre.com/)
-
-#### Tags
-
-- Travel
-- Rail
-- GDS
-- Booking
-
-#### Properties
-
-- [Documentation](https://developer.sabre.com/)
-- [Postman Collection](collections/sabre-bargain-finder-max.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-bargain-finder-max.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/sabre-hotels.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/sabre-hotels.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/sabre-corporation)
-- [Portal](https://developer.sabre.com/)
-- [Documentation](https://developer.sabre.com/)
-- [Getting Started](https://developer.sabre.com/guides/travel-agency/api-self-service-guide)
-- [Authentication](https://developer.sabre.com/guides/travel-agency/developer-guides/rest-apis-token-credentials)
 - [Website](https://www.sabre.com/)
+- [Documentation](https://developer.sabre.com/)
+- [Getting started](https://developer.sabre.com/guides/travel-agency/api-self-service-guide)
 - [Support](https://developer.sabre.com/support)
 - [Blog](https://developer.sabre.com/blog)
-- [GitHub Organization](https://github.com/SabreDevStudio)
-- [S D Ks](https://github.com/SabreDevStudio)
-- [Spectral Rules](rules/sabre-rules.yml)
-- [JSON Schema](json-schema/sabre-itinerary-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/sabre-hotel-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/sabre-air-itinerary-structure.json)
-- [JSON Structure](json-structure/sabre-hotel-structure.json)
-- [J S O N L D Context](json-ld/sabre-context.jsonld)
-- [Vocabulary](vocabulary/sabre-vocabulary.yml)
-- [Capabilities](capabilities/travel-booking.yaml)
+- [GitHub](https://github.com/SabreDevStudio)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 35.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.0 |
+| Contract quality | 60.6 |
+| Contract governance | 27.3 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 44.0 |
+| Access clarity | 5.3 |
+
+**Agent readiness 45.3** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/sabre/](https://apis.io/providers/sabre/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Sabre: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/sabre/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
