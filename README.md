@@ -1,4 +1,4 @@
-# Sabre
+# Sabre Corporation
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,13 +64,13 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Sabre Corporation is a leading technology provider for the global travel industry, operating one of the world's largest travel marketplaces through its Global Distribution System (GDS). Sabre provides APIs for air shopping, booking, hotel reservations, car rentals, rail ticketing, and travel agency workflow automation to airlines, hotels, travel agencies, and online travel agencies (OTAs).
+Sabre Corporation is a leading technology provider for the global travel industry, operating one of the world’s largest travel marketplaces through its Global Distribution System (GDS). Sabre offers a comprehensive suite of APIs enabling air shopping, flight booking, hotel reservations, car rentals, rail ticketing, and travel agency workflow automation. These APIs empower airlines, hotels, travel agencies, and online travel agencies (OTAs) to build innovative travel solutions, integrate with Sabre’s extensive content, and deliver seamless booking experiences for travelers worldwide. Sabre also provides data analytics, loyalty program integration, and a robust developer ecosystem with extensive documentation, SDKs, and support resources to help partners create customized travel solutions.
 
 **Areas:** Travel · GDS · Airlines · Hotels · Car Rental · Booking
 
-## Sabre on APIs.io
+## Sabre Corporation on APIs.io
 
-Everything profiled for Sabre is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sabre/](https://apis.io/providers/sabre/)** — or go straight to one of the APIs or properties below.
+Everything profiled for Sabre Corporation is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sabre/](https://apis.io/providers/sabre/)** — or go straight to one of the APIs or properties below.
 
 ### APIs (9)
 
@@ -88,12 +88,6 @@ Everything profiled for Sabre is published on APIs.io rather than in this reposi
 
 Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-#### GraphQL (1)
-
-GraphQL schemas.
-
-- [Moved to /providers/sabre/](https://apis.io/graphqls/sabre/sabre-graphql/)
-
 #### MCP servers (1)
 
 Model Context Protocol servers that expose the API to agents.
@@ -104,9 +98,9 @@ Model Context Protocol servers that expose the API to agents.
 
 Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Sabre Agentic Access](https://apis.io/agentic-access/sabre/sabre-agentic-access/)
+- [Sabre Corporation Agentic Access](https://apis.io/agentic-access/sabre/sabre-agentic-access/)
 
-#### JSON Schema (30)
+#### JSON Schema (38)
 
 The data models the API reads and writes.
 
@@ -115,6 +109,7 @@ The data models the API reads and writes.
 - [APIError](https://apis.io/schemas/sabre/sabre-apierror/)
 - [BFMRequest](https://apis.io/schemas/sabre/sabre-bfmrequest/)
 - [BFMResponse](https://apis.io/schemas/sabre/sabre-bfmresponse/)
+- [CancellationResponse](https://apis.io/schemas/sabre/sabre-cancellation-response/)
 - [CancellationResponse](https://apis.io/schemas/sabre/sabre-cancellationresponse/)
 - [CitySearch](https://apis.io/schemas/sabre/sabre-citysearch/)
 - [ErrorResponse](https://apis.io/schemas/sabre/sabre-errorresponse/)
@@ -122,6 +117,11 @@ The data models the API reads and writes.
 - [GeoCodeSearch](https://apis.io/schemas/sabre/sabre-geocodesearch/)
 - [GuestInfo](https://apis.io/schemas/sabre/sabre-guestinfo/)
 - [Sabre Hotel](https://apis.io/schemas/sabre/sabre-hotel/)
+- [HotelRatesResponse](https://apis.io/schemas/sabre/sabre-hotel-rates-response/)
+- [HotelReservationRequest](https://apis.io/schemas/sabre/sabre-hotel-reservation-request/)
+- [HotelReservationResponse](https://apis.io/schemas/sabre/sabre-hotel-reservation-response/)
+- [HotelSearchRequest](https://apis.io/schemas/sabre/sabre-hotel-search-request/)
+- [HotelSearchResponse](https://apis.io/schemas/sabre/sabre-hotel-search-response/)
 - [HotelRatesResponse](https://apis.io/schemas/sabre/sabre-hotelratesresponse/)
 - [HotelReservationRequest](https://apis.io/schemas/sabre/sabre-hotelreservationrequest/)
 - [HotelReservationResponse](https://apis.io/schemas/sabre/sabre-hotelreservationresponse/)
@@ -129,21 +129,15 @@ The data models the API reads and writes.
 - [HotelSearchResponse](https://apis.io/schemas/sabre/sabre-hotelsearchresponse/)
 - [HotelSummary](https://apis.io/schemas/sabre/sabre-hotelsummary/)
 - [Sabre Itinerary](https://apis.io/schemas/sabre/sabre-itinerary/)
-- [OriginDestinationInformation](https://apis.io/schemas/sabre/sabre-origindestinationinformation/)
-- [OriginDestinationOption](https://apis.io/schemas/sabre/sabre-origindestinationoption/)
-- [PaymentInfo](https://apis.io/schemas/sabre/sabre-paymentinfo/)
-- [PricedItinerary](https://apis.io/schemas/sabre/sabre-priceditinerary/)
-- [Rate](https://apis.io/schemas/sabre/sabre-rate/)
-- [RatePlan](https://apis.io/schemas/sabre/sabre-rateplan/)
-- …and 5 more published on APIs.io
+- …and 13 more published on APIs.io
 
 #### JSON Structure (3)
 
 Data models expressed in JSON Structure.
 
-- [Sabre Air Itinerary Structure](https://apis.io/json-structure/sabre/sabre-air-itinerary-structure/)
-- [Sabre Hotel Structure](https://apis.io/json-structure/sabre/sabre-hotel-structure/)
-- [Sabre Structure](https://apis.io/json-structure/sabre/sabre-structure/)
+- [Sabre Corporation Air Itinerary Structure](https://apis.io/json-structure/sabre/sabre-air-itinerary-structure/)
+- [Sabre Corporation Hotel Structure](https://apis.io/json-structure/sabre/sabre-hotel-structure/)
+- [Sabre Corporation Structure](https://apis.io/json-structure/sabre/sabre-structure/)
 
 #### JSON-LD (1)
 
@@ -161,9 +155,9 @@ The provider's domain terms, defined.
 
 Example requests and responses.
 
-- [Sabre Bargain Finder Max Search Example](https://apis.io/examples/sabre/sabre-bargain-finder-max-search-example/)
-- [Sabre Get Auth Token Example](https://apis.io/examples/sabre/sabre-get-auth-token-example/)
-- [Sabre Hotel Search Example](https://apis.io/examples/sabre/sabre-hotel-search-example/)
+- [Sabre Corporation Bargain Finder Max Search Example](https://apis.io/examples/sabre/sabre-bargain-finder-max-search-example/)
+- [Sabre Corporation Get Auth Token Example](https://apis.io/examples/sabre/sabre-get-auth-token-example/)
+- [Sabre Corporation Hotel Search Example](https://apis.io/examples/sabre/sabre-hotel-search-example/)
 
 #### Collections (6)
 
@@ -180,33 +174,33 @@ Postman and Open Collection request collections.
 
 Spectral rulesets for the provider's contracts.
 
-- [Sabre — jsonschema rules](https://apis.io/rules/sabre/sabre-jsonschema-spectral-rules/)
-- [Sabre API Rules](https://apis.io/rules/sabre/sabre-rules/)
+- [Sabre Corporation — jsonschema rules](https://apis.io/rules/sabre/sabre-jsonschema-spectral-rules/)
+- [Sabre Corporation API Rules](https://apis.io/rules/sabre/sabre-rules/)
 
 #### Security (2)
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [Sabre Authentication](https://apis.io/security/sabre/sabre-authentication/)
-- [Sabre Domain Security](https://apis.io/security/sabre/sabre-domain-security/)
+- [Sabre Corporation Authentication](https://apis.io/security/sabre/sabre-authentication/)
+- [Sabre Corporation Domain Security](https://apis.io/security/sabre/sabre-domain-security/)
 
 #### Plans and pricing (1)
 
 Published plans, tiers and prices.
 
-- [Sabre Plans Pricing](https://apis.io/plans/sabre/sabre-plans-pricing/)
+- [Sabre Corporation Plans Pricing](https://apis.io/plans/sabre/sabre-plans-pricing/)
 
 #### Rate limits (1)
 
 Published request limits.
 
-- [Sabre Rate Limits](https://apis.io/rate-limits/sabre/sabre-rate-limits/)
+- [Sabre Corporation Rate Limits](https://apis.io/rate-limits/sabre/sabre-rate-limits/)
 
 #### FinOps (1)
 
 What the API costs to run, by operation.
 
-- [Sabre Finops](https://apis.io/finops/sabre/sabre-finops/)
+- [Sabre Corporation Finops](https://apis.io/finops/sabre/sabre-finops/)
 
 ## Where to find this API
 
@@ -214,9 +208,9 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 - [Website](https://www.sabre.com/)
 - [Documentation](https://developer.sabre.com/)
-- [Getting started](https://developer.sabre.com/guides/travel-agency/api-self-service-guide)
 - [Support](https://developer.sabre.com/support)
 - [Blog](https://developer.sabre.com/blog)
+- [Privacy policy](https://www.sabre.com/about/privacy)
 - [GitHub](https://github.com/SabreDevStudio)
 
 ## API Evangelist rating
@@ -266,7 +260,7 @@ The rubric is published at [github.com/api-evangelist/kin-score](https://github.
 
 API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Sabre: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Sabre Corporation: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
 ## Open an issue
 
